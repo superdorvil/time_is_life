@@ -1,4 +1,4 @@
-import * as Icons from './icons';
-import * as Utils from './utils';
+import * as ICONS from './icons';
+import * as UTILS from './utils';
 
-export {Icons};
+export {ICONS, UTILS};
