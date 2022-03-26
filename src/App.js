@@ -1,8 +1,8 @@
 import React from 'react';
 import {SafeAreaView, View, Text, StyleSheet} from 'react-native';
-import Icon from './components/Icon';
-import {COLORS} from './resources';
-import  {ICONS} from './constants';
+import Icon from '_components/Icon';
+import {COLORS} from '_resources';
+import  {ICONS} from '_constants';
 
 function App() {
   return (
