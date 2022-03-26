@@ -1,3 +1,3 @@
-import * as Colors from './colors';
+import * as COLORS from './colors';
 
-export {Colors};
+export {COLORS};
