@@ -1,3 +1,3 @@
-import TimeIsLife from './TimeIsLife';
+import Router from './Router';
 
-export default TimeIsLife;
+export default Router;
