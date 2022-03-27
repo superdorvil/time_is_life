@@ -13,7 +13,9 @@
           "_schemas": "./src/data/schemas",
           "_resources": "./src/resources",
           "_scenes": "./src/scenes",
-          "_utils": "./src/utils"
+          "_utils": "./src/utils",
+          "_actions": "./src/actions",
+          "_reducers": "./src/reducers",
         }
       }
     ]

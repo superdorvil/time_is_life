@@ -14,6 +14,8 @@ module.exports = {
           _resources: './src/resources',
           _scenes: './src/scenes',
           _utils: './src/utils',
+          _actions: "./src/actions",
+          _reducers: "./src/reducers",
         },
       },
     },
