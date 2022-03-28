@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {View, Text, StyleSheet} from 'react-native';
 import Realm from 'realm';
+import ProjectNavigator from './ProjectNavigator';
+import {ViewVisibleWrapper} from '_components';
 import {
   ProjectSchema,
   SecondsWorkedSchema,
@@ -12,9 +12,9 @@ import {
 import projectDB from '_data';
 
 function TimeIsLife() {
-  const project = useSelector((state) => state.project);
   const [realm, openRealm] = useState(null);
   const [settings, setSettings] = useState(null);
+  // update root component color scheme to trigger global color scheme update
   const [colorScheme, updateColorScheme] = useState();
 
   useEffect(() => {
@@ -55,7 +55,7 @@ function TimeIsLife() {
       }
 
       // Nulls State removing memory leak error state update on unmounted comp
-      // I think this should work
+      // FIXME: double check
       openRealm(null);
       //this.setState = (state, callback) => {
         //return;
@@ -64,16 +64,17 @@ function TimeIsLife() {
   }, [])
 
   return (
-    <View style={styles.container}>
-      <Text>{project.id}</Text>
-    </View>
+    <ViewVisibleWrapper active={realm} style={containerStyle()}>
+      <ProjectNavigator
+        realm={realm}
+        colorScheme={colorScheme}
+      />
+    </ViewVisibleWrapper>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
+const containerStyle = () => {
+  return {flex: 1};
+};
 
 export default TimeIsLife;
