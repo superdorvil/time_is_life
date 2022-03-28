@@ -40,7 +40,7 @@ function TimeIsLife() {
           global.colorScheme = s.colorScheme;
 
           setSettings(s);
-          updateColorScheme(s.colorScheme)
+          updateColorScheme(s.colorScheme);
         });
 
         openRealm(realm);
@@ -48,20 +48,15 @@ function TimeIsLife() {
       });
 
     return function cleanup() {
-      // const {realm} = this.state;
-      // this.state.settings.removeAllListeners();
+      settings.removeAllListeners();
       if (realm !== null && !realm.isClosed) {
         realm.close();
       }
 
       // Nulls State removing memory leak error state update on unmounted comp
-      // FIXME: double check
       openRealm(null);
-      //this.setState = (state, callback) => {
-        //return;
-      //};
     };
-  }, [])
+  }, []);
 
   return (
     <ViewVisibleWrapper active={realm} style={containerStyle()}>
