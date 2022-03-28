@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, TouchableOpacity, Dimensions} from 'react-native';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 
 const Button = ({description, buttonPressed}) => {
   return (
@@ -17,7 +17,7 @@ const containerStyle = () => {
     borderRadius: 30,
     padding: 16,
     width: Dimensions.get('window').width - 32,
-    backgroundColor: Colors.primary[global.colorScheme],
+    backgroundColor: COLORS.primary[global.colorScheme],
   };
 };
 
@@ -25,7 +25,7 @@ const descriptionStyle = () => {
   return {
     fontWeight: 'bold',
     fontSize: 16,
-    color: Colors.secondary[global.colorScheme],
+    color: COLORS.secondary[global.colorScheme],
   };
 };
 

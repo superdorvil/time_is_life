@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import ChartNavButton from './ChartNavButton';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 
 const ChartNavBar = ({
   dailySelected,
@@ -41,7 +41,7 @@ const containerStyle = () => {
     borderWidth: 1,
     paddingEnd: 4,
     paddingStart: 4,
-    borderColor: Colors.primary[global.colorScheme],
+    borderColor: COLORS.primary[global.colorScheme],
   };
 };
 
@@ -58,7 +58,7 @@ const outerContainerStyle = () => {
     borderTopWidth: 1,
     borderStartWidth: 0,
     borderEndWidth: 0,
-    borderColor: Colors.primary[global.colorScheme],
+    borderColor: COLORS.primary[global.colorScheme],
   };
 };
 

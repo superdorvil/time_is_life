@@ -1,6 +1,6 @@
 import React from 'react';
 import {TouchableOpacity, Text} from 'react-native';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 import {Icon} from '_components';
 
 const TabBarIcon = ({description, iconName, onPress}) => {
@@ -21,12 +21,12 @@ const containerStyle = () => {
 };
 
 const iconStyle = () => {
-  return {color: Colors.primary[global.colorScheme]};
+  return {color: COLORS.primary[global.colorScheme]};
 };
 
 const textStyle = () => {
   return {
-    color: Colors.primary[global.colorScheme],
+    color: COLORS.primary[global.colorScheme],
     paddingBottom: 8,
   };
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
-import {Colors} from '_resources';
-import {Icons} from '_constants';
+import {COLORS} from '_resources';
+import {ICONS} from '_constants';
 import {Icon} from '_components';
 
 const ActionButton = ({actionButtonDescription, actionButtonPressed}) => {
@@ -12,7 +12,7 @@ const ActionButton = ({actionButtonDescription, actionButtonPressed}) => {
         <TouchableOpacity
           style={buttonContainerStyle()}
           onPress={actionButtonPressed}>
-          <Icon name={Icons.plus} size={16} style={plusStyle()} />
+          <Icon name={ICONS.plus} size={16} style={plusStyle()} />
         </TouchableOpacity>
       </View>
     </View>
@@ -37,12 +37,12 @@ const buttonContainerStyle = () => {
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.primary[global.colorScheme],
+    backgroundColor: COLORS.primary[global.colorScheme],
   };
 };
 
 const plusStyle = () => {
-  return {color: Colors.tertiary[global.colorScheme]};
+  return {color: COLORS.tertiary[global.colorScheme]};
 };
 
 const actionTextStyle = () => {
@@ -50,7 +50,7 @@ const actionTextStyle = () => {
     fontWeight: 'bold',
     fontSize: 20,
     alignSelf: 'center',
-    color: Colors.tertiary[global.colorScheme],
+    color: COLORS.tertiary[global.colorScheme],
   };
 };
 

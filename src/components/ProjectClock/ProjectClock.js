@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, Dimensions} from 'react-native';
 import Time from './Time';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 import {HoursUtils} from '_utils';
 
 const ProjectClock = ({secondsWorked}) => {
@@ -34,7 +34,7 @@ const containerStyle = () => {
 
 const circleStyle = () => {
   return {
-    borderColor: Colors.primary[global.colorScheme],
+    borderColor: COLORS.primary[global.colorScheme],
     borderWidth: 1,
     width: Dimensions.get('window').width * 0.75,
     height: Dimensions.get('window').width * 0.75,
@@ -48,7 +48,7 @@ const circleStyle = () => {
 const hoursTodayStyle = () => {
   return {
     fontSize: 16,
-    color: Colors.primary[global.colorScheme],
+    color: COLORS.primary[global.colorScheme],
     paddingTop: 8,
   };
 };
@@ -56,7 +56,7 @@ const hoursTodayStyle = () => {
 const colonStyle = () => {
   return {
     fontSize: 32,
-    color: Colors.primary[global.colorScheme],
+    color: COLORS.primary[global.colorScheme],
   };
 };
 

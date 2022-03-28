@@ -1,6 +1,6 @@
 import React from 'react';
 import {TextInput, Text, View} from 'react-native';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 
 const ProjectInput = ({header, value, onChangeText, placeholder}) => {
   return (
@@ -15,7 +15,7 @@ const ProjectInput = ({header, value, onChangeText, placeholder}) => {
           autoCorrect={false}
           onChangeText={onChangeText}
           placeholder={placeholder}
-          placeholderTextColor={Colors.primary[global.colorScheme]}
+          placeholderTextColor={COLORS.primary[global.colorScheme]}
         />
       </View>
     </View>
@@ -30,7 +30,7 @@ const headerStyle = () => {
   return {
     fontSize: 16,
     marginStart: 16,
-    color: Colors.tertiary[global.colorScheme],
+    color: COLORS.tertiary[global.colorScheme],
   };
 };
 
@@ -42,9 +42,9 @@ const textInputStyle = () => {
     marginEnd: 16,
     paddingBottom: 12,
     marginBottom: 16,
-    borderBottomColor: Colors.tertiary[global.colorScheme],
+    borderBottomColor: COLORS.tertiary[global.colorScheme],
     borderBottomWidth: 1,
-    color: Colors.tertiary[global.colorScheme],
+    color: COLORS.tertiary[global.colorScheme],
   };
 };
 
@@ -54,9 +54,9 @@ const textInputStyle = () => {
 const textInputContainerStyle = () => {
   return {
     borderWidth: 1,
-    borderColor: Colors.primary[global.colorScheme],
+    borderColor: COLORS.primary[global.colorScheme],
     borderRadius: 12,
-    backgroundColor: Colors.secondary[global.colorScheme],
+    backgroundColor: COLORS.secondary[global.colorScheme],
     marginTop: 16,
   };
 };

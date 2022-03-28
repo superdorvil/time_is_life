@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text} from 'react-native';
 import {ViewVisibleWrapper} from '_components';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 
 const LoadMoreButton = ({loadMorePressed, previous, active}) => {
   return (
@@ -19,7 +19,7 @@ const LoadMoreButton = ({loadMorePressed, previous, active}) => {
 const containerStyle = () => {
   return {
     flex: 1,
-    backgroundColor: Colors.primary[global.colorScheme],
+    backgroundColor: COLORS.primary[global.colorScheme],
     marginTop: 16,
     marginBottom: 16,
     borderRadius: 16,
@@ -29,7 +29,7 @@ const containerStyle = () => {
 const textStyle = () => {
   return {
     fontSize: 20,
-    color: Colors.secondary[global.colorScheme],
+    color: COLORS.secondary[global.colorScheme],
     margin: 16,
     textAlign: 'center',
     fontWeight: 'bold',

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 import {HoursProgressBar} from '_components';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 
 const ProjectData = ({description, deleted, secondsWorked, goalSeconds}) => {
   return (
@@ -22,14 +22,14 @@ const containerStyle = () => {
 const descriptionStyle = deleted => {
   return deleted
     ? {
-        color: Colors.tertiary[global.colorScheme],
+        color: COLORS.tertiary[global.colorScheme],
         fontWeight: 'bold',
         fontSize: 16,
         paddingBottom: 6,
         textDecorationLine: 'line-through',
       }
     : {
-        color: Colors.tertiary[global.colorScheme],
+        color: COLORS.tertiary[global.colorScheme],
         fontWeight: 'bold',
         fontSize: 16,
         paddingBottom: 6,

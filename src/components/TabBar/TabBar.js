@@ -1,8 +1,8 @@
 import React from 'react';
 import {View} from 'react-native';
 import TabBarIcon from './TabBarIcon';
-import {Icons} from '_constants';
-import {Colors} from '_resources';
+import {ICONS} from '_constants';
+import {COLORS} from '_resources';
 
 const TabBar = ({
   navigationState,
@@ -14,22 +14,22 @@ const TabBar = ({
   return (
     <View style={containerStyle()}>
       <TabBarIcon
-        name={Icons.projects}
+        name={ICONS.projects}
         selectedName={navigationState}
         onPress={projectsPressed}
       />
       <TabBarIcon
-        name={Icons.goals}
+        name={ICONS.goals}
         selectedName={navigationState}
         onPress={goalsPressed}
       />
       <TabBarIcon
-        name={Icons.charts}
+        name={ICONS.charts}
         selectedName={navigationState}
         onPress={chartsPressed}
       />
       <TabBarIcon
-        name={Icons.settings}
+        name={ICONS.settings}
         selectedName={navigationState}
         onPress={settingsPressed}
       />
@@ -40,7 +40,7 @@ const TabBar = ({
 const containerStyle = () => {
   return {
     flexDirection: 'row',
-    backgroundColor: Colors.secondary[global.colorScheme],
+    backgroundColor: COLORS.secondary[global.colorScheme],
   };
 };
 

@@ -5,7 +5,7 @@ import {
   TextInput,
   // TouchableOpacity,
 } from 'react-native';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 
 const TimeInput = ({
   hours,
@@ -93,7 +93,7 @@ const typeInTimeStyle = () => {
     fontSize: 16,
     marginStart: 16,
     marginTop: 16,
-    color: Colors.secondary[global.colorScheme],
+    color: COLORS.secondary[global.colorScheme],
   };
 };
 
@@ -115,7 +115,7 @@ const colonStyle = () => {
     alignSelf: 'center',
     marginStart: 6,
     marginEnd: 6,
-    color: Colors.secondary[global.colorScheme],
+    color: COLORS.secondary[global.colorScheme],
   };
 };
 
@@ -127,13 +127,13 @@ const inputStyle = () => {
     paddingBottom: 0,
     marginBottom: 0,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.secondary[global.colorScheme],
-    color: Colors.secondary[global.colorScheme],
+    borderBottomColor: COLORS.secondary[global.colorScheme],
+    color: COLORS.secondary[global.colorScheme],
   };
 };
 
 const timeStyle = () => {
-  return {color: Colors.secondary[global.colorScheme]};
+  return {color: COLORS.secondary[global.colorScheme]};
 };
 
 /*const ampmContainerStyle = () => {
@@ -153,7 +153,7 @@ const ampmInnerContainerStyle = () => {
 const ampmStyle = () => {
   return {
     fontSize: 12,
-    color: Colors.secondary[global.colorScheme],
+    color: COLORS.secondary[global.colorScheme],
   };
 };
 
@@ -167,7 +167,7 @@ const circleContainerStyle = () => {
     justifyContent: 'center',
     marginStart: 8,
     marginEnd: 8,
-    borderColor: Colors.primary[global.colorScheme],
+    borderColor: COLORS.primary[global.colorScheme],
   };
 };
 
@@ -177,7 +177,7 @@ const activeCircleStyle = () => {
     height: 20,
     width: 20,
     borderRadius: 20,
-    backgroundColor: Colors.primary[global.colorScheme],
+    backgroundColor: COLORS.primary[global.colorScheme],
   };
 };
 

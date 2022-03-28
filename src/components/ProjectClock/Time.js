@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 
 const Time = ({time, unit}) => {
   return (
@@ -21,14 +21,14 @@ const containerStyle = () => {
 const timeStyle = () => {
   return {
     fontSize: 40,
-    color: Colors.primary[global.colorScheme],
+    color: COLORS.primary[global.colorScheme],
   };
 };
 
 const unitStyle = () => {
   return {
     fontSize: 16,
-    color: Colors.primary[global.colorScheme],
+    color: COLORS.primary[global.colorScheme],
     justifyContent: 'flex-end',
   };
 };

@@ -1,14 +1,14 @@
 import React from 'react';
 import {View} from 'react-native';
 import {Icon} from '_components';
-import {Icons} from '_constants';
-import {Colors} from '_resources';
+import {ICONS} from '_constants';
+import {COLORS} from '_resources';
 
 const Completion = ({completed}) => {
   if (completed) {
     return (
       <View style={checkmarkContainerStyle()}>
-        <Icon size={32} style={checkmarkStyle()} name={Icons.checkmark} />
+        <Icon size={32} style={checkmarkStyle()} name={ICONS.checkmark} />
       </View>
     );
   } else {
@@ -23,7 +23,7 @@ const containerStyle = () => {
     width: 32,
     borderRadius: 32,
     marginEnd: 16,
-    borderColor: Colors.primary[global.colorScheme],
+    borderColor: COLORS.primary[global.colorScheme],
   };
 };
 
@@ -32,7 +32,7 @@ const checkmarkContainerStyle = () => {
 };
 
 const checkmarkStyle = () => {
-  return {color: Colors.primary[global.colorScheme]};
+  return {color: COLORS.primary[global.colorScheme]};
 };
 
 export default Completion;

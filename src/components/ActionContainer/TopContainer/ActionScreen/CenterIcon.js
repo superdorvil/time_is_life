@@ -1,11 +1,11 @@
 import React from 'react';
 import {View} from 'react-native';
 import {Icon} from '_components';
-import {Icons} from '_constants';
-import {Colors} from '_resources';
+import {ICONS} from '_constants';
+import {COLORS} from '_resources';
 
 const centerIcon = ({centerIconName}) => {
-  if (centerIconName === Icons.goals) {
+  if (centerIconName === ICONS.goals) {
     return (
       <View style={goalContainerStyle()}>
         <Icon size={60} name={centerIconName} style={goalIconStyle()} />
@@ -35,16 +35,16 @@ const goalContainerStyle = () => {
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
-    backgroundColor: Colors.primary[global.colorScheme],
+    backgroundColor: COLORS.primary[global.colorScheme],
   };
 };
 
 const goalIconStyle = () => {
-  return {color: Colors.secondary[global.colorScheme]};
+  return {color: COLORS.secondary[global.colorScheme]};
 };
 
 const centerIconStyle = () => {
-  return {color: Colors.primary[global.colorScheme]};
+  return {color: COLORS.primary[global.colorScheme]};
 };
 
 export default centerIcon;

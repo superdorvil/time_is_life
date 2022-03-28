@@ -1,7 +1,7 @@
 import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 
 const ColorScheme = ({active, colorPressed, color1, color2, color3}) => {
   return (
@@ -11,7 +11,7 @@ const ColorScheme = ({active, colorPressed, color1, color2, color3}) => {
       <View style={[colorSchemeStyle(), {backgroundColor: color3}]} />
       <CheckBox
         value={active}
-        tintColors={Colors.primary[global.colorScheme]}
+        tintColors={COLORS.primary[global.colorScheme]}
         disabled
       />
     </TouchableOpacity>
@@ -32,7 +32,7 @@ const colorSchemeStyle = () => {
     height: 60,
     borderWidth: 6,
     borderRadius: 10,
-    borderColor: Colors.colorSchemeModal[global.colorScheme],
+    borderColor: COLORS.colorSchemeModal[global.colorScheme],
   };
 };
 

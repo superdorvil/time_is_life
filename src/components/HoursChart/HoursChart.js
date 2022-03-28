@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, ScrollView, Dimensions} from 'react-native';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 import {LineChart} from 'react-native-chart-kit';
 
 const HoursChart = ({labels, hours, dataWidth, yAxisSuffix}) => {
@@ -31,22 +31,22 @@ const HoursChart = ({labels, hours, dataWidth, yAxisSuffix}) => {
           yAxisInterval={1} // optional, defaults to 1
           fromZero={true}
           chartConfig={{
-            backgroundGradientFrom: Colors.primary[global.colorScheme],
-            backgroundGradientTo: Colors.primary[global.colorScheme],
+            backgroundGradientFrom: COLORS.primary[global.colorScheme],
+            backgroundGradientTo: COLORS.primary[global.colorScheme],
             backgroundGradientFromOpacity: 0.5,
             backgroundGradientToOpacity: 0.5,
-            fillShadowGradient: Colors.tertiary[global.colorScheme],
+            fillShadowGradient: COLORS.tertiary[global.colorScheme],
             fillShadowGradientOpacity: 0.5,
             decimalPlaces: 0,
-            //color: (opacity = 1) => Colors.secondary[global.colorScheme], // `rgba(0, 0, 0, ${opacity})`,
-            //labelColor: (opacity = 1) => Colors.tertiary[global.colorScheme], //`rgba(0, 0, 0, ${opacity})`,
-            color: (opacity = 1) => Colors.secondary[global.colorScheme], //`rgba(255, 255, 255, ${opacity})`,
+            //color: (opacity = 1) => COLORS.secondary[global.colorScheme], // `rgba(0, 0, 0, ${opacity})`,
+            //labelColor: (opacity = 1) => COLORS.tertiary[global.colorScheme], //`rgba(0, 0, 0, ${opacity})`,
+            color: (opacity = 1) => COLORS.secondary[global.colorScheme], //`rgba(255, 255, 255, ${opacity})`,
             labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
             strokeWidth: 2,
             propsForDots: {
               r: '6',
               strokeWidth: '2',
-              stroke: Colors.primary[global.colorScheme],
+              stroke: COLORS.primary[global.colorScheme],
             },
           }}
           style={chartStyle()}
@@ -65,15 +65,15 @@ const HoursChart = ({labels, hours, dataWidth, yAxisSuffix}) => {
           withOuterLines={false}
           fromZero={true}
           chartConfig={{
-            backgroundGradientFrom: Colors.primary[global.colorScheme],
-            backgroundGradientTo: Colors.primary[global.colorScheme],
+            backgroundGradientFrom: COLORS.primary[global.colorScheme],
+            backgroundGradientTo: COLORS.primary[global.colorScheme],
             backgroundGradientFromOpacity: 0,
             backgroundGradientToOpacity: 0,
             fillShadowGradient: 'rgba(0, 0, 0, 0)',
             fillShadowGradientOpacity: 0.5,
             decimalPlaces: 0,
             color: (opacity = 0) => `rgba(0, 0, 0, ${opacity})`,
-            labelColor: (opacity = 0) => Colors.tertiary[global.colorScheme], //`rgba(0, 0, 0, ${opacity})`,
+            labelColor: (opacity = 0) => COLORS.tertiary[global.colorScheme], //`rgba(0, 0, 0, ${opacity})`,
             strokeWidth: 1,
             propsForDots: {
               r: '0',

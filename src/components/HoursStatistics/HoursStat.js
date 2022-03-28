@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import {Divider} from '_components';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 
 const HoursStat = ({statistic, hours}) => {
   return (
@@ -29,7 +29,7 @@ const containerStyle = () => {
 const statisticStyle = () => {
   return {
     fontSize: 12,
-    color: Colors.tertiary[global.colorScheme],
+    color: COLORS.tertiary[global.colorScheme],
     fontWeight: 'bold',
   };
 };
@@ -38,7 +38,7 @@ const hoursStyle = () => {
   return {
     fontSize: 20,
     fontWeight: 'bold',
-    color: Colors.primary[global.colorScheme],
+    color: COLORS.primary[global.colorScheme],
   };
 };
 

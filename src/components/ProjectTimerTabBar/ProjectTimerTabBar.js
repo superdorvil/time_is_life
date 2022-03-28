@@ -1,8 +1,8 @@
 import React from 'react';
 import {View} from 'react-native';
 import TabBarIcon from './TabBarIcon';
-import {Icons} from '_constants';
-import {Colors} from '_resources';
+import {ICONS} from '_constants';
+import {COLORS} from '_resources';
 
 const ProjectTimerTabBar = ({
   subTaskPressed,
@@ -13,17 +13,17 @@ const ProjectTimerTabBar = ({
     <View style={containerStyle()}>
       <TabBarIcon
         description="Task"
-        iconName={Icons.checkmark}
+        iconName={ICONS.checkmark}
         onPress={subTaskPressed}
       />
       <TabBarIcon
         description="Hrs Worked"
-        iconName={Icons.clock}
+        iconName={ICONS.clock}
         onPress={hoursWorkedPressed}
       />
       <TabBarIcon
         description="Goals"
-        iconName={Icons.goals}
+        iconName={ICONS.goals}
         onPress={goalsPressed}
       />
     </View>
@@ -33,7 +33,7 @@ const ProjectTimerTabBar = ({
 const containerStyle = () => {
   return {
     flexDirection: 'row',
-    backgroundColor: Colors.secondary[global.colorScheme],
+    backgroundColor: COLORS.secondary[global.colorScheme],
   };
 };
 

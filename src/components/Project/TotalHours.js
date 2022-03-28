@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import {HoursUtils} from '_utils';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 
 const TotalHours = ({totalSecondsWorked}) => {
   let totalHours = HoursUtils.convertSecondsToHrs({
@@ -32,14 +32,14 @@ const containerStyle = () => {
 
 const totalHoursStyle = () => {
   return {
-    color: Colors.primary[global.colorScheme],
+    color: COLORS.primary[global.colorScheme],
     fontWeight: 'bold',
     fontSize: 12,
   };
 };
 
 const totalHoursTextStyle = () => {
-  return {color: Colors.tertiary[global.colorScheme]};
+  return {color: COLORS.tertiary[global.colorScheme]};
 };
 
 const totalHoursContainerStyle = () => {
@@ -47,7 +47,7 @@ const totalHoursContainerStyle = () => {
     width: 50,
     height: 50,
     borderRadius: 50,
-    borderColor: Colors.primary[global.colorScheme],
+    borderColor: COLORS.primary[global.colorScheme],
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',

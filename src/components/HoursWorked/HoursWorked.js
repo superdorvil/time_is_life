@@ -3,8 +3,8 @@ import {View, Text} from 'react-native';
 import {EditHours} from '_components';
 import EditTask from './EditTask';
 import {DateUtils, HoursUtils} from '_utils';
-import {Utils} from '_constants';
-import {Colors} from '_resources';
+import {UTILS} from '_constants';
+import {COLORS} from '_resources';
 
 const HoursWorked = ({
   date,
@@ -30,7 +30,7 @@ const HoursWorked = ({
   } else {
     dateText = DateUtils.convertDateToString({
       date,
-      format: Utils.dateFormat.monthDateYear,
+      format: UTILS.dateFormat.monthDateYear,
     });
   }
   let totalSeconds = 0;
@@ -94,7 +94,7 @@ const dateStyle = () => {
   return {
     fontSize: 16,
     fontWeight: 'bold',
-    color: Colors.tertiary[global.colorScheme],
+    color: COLORS.tertiary[global.colorScheme],
   };
 };
 
@@ -102,7 +102,7 @@ const hoursStyle = () => {
   return {
     fontSize: 20,
     fontWeight: 'bold',
-    color: Colors.primary[global.colorScheme],
+    color: COLORS.primary[global.colorScheme],
     flex: 1,
     textAlign: 'right',
   };

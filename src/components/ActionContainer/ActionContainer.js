@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
 import {Actions} from 'react-native-router-flux';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 import TopContainer from './TopContainer';
 import BottomContainer from './BottomContainer';
 
@@ -66,14 +66,14 @@ class ActionContainer extends Component {
 const containerStyle = () => {
   return {
     flex: 1,
-    backgroundColor: Colors.secondary[global.colorScheme],
+    backgroundColor: COLORS.secondary[global.colorScheme],
   };
 };
 
 const dividerStyle = topBottomContainerDivider => {
   return {
     height: 1,
-    backgroundColor: Colors.primary[global.colorScheme],
+    backgroundColor: COLORS.primary[global.colorScheme],
     marginTop: 16,
   };
 };

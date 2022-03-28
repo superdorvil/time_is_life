@@ -1,15 +1,15 @@
 import React from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
 import {Icon} from '_components';
-import {Icons} from '_constants';
-import {Colors} from '_resources';
+import {ICONS} from '_constants';
+import {COLORS} from '_resources';
 
 const SettingsItem = ({description, settingsPressed}) => {
   return (
     <TouchableOpacity style={containerStyle()} onPress={settingsPressed}>
       <Text style={descriptionStyle()}>{description}</Text>
       <View style={arrowContainerStyle()}>
-        <Icon name={Icons.rightArrow} size={24} style={arrowStyle()} />
+        <Icon name={ICONS.rightArrow} size={24} style={arrowStyle()} />
       </View>
     </TouchableOpacity>
   );
@@ -20,12 +20,12 @@ const containerStyle = () => {
     padding: 20,
     flexDirection: 'row',
     borderBottomWidth: 1,
-    borderColor: Colors.primary[global.colorScheme],
+    borderColor: COLORS.primary[global.colorScheme],
   };
 };
 
 const arrowStyle = () => {
-  return {color: Colors.primary[global.colorScheme]};
+  return {color: COLORS.primary[global.colorScheme]};
 };
 
 const arrowContainerStyle = () => {
@@ -38,7 +38,7 @@ const arrowContainerStyle = () => {
 const descriptionStyle = () => {
   return {
     fontSize: 16,
-    color: Colors.tertiary[global.colorScheme],
+    color: COLORS.tertiary[global.colorScheme],
   };
 };
 

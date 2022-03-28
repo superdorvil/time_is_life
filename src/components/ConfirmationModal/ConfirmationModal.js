@@ -3,7 +3,7 @@ import {Text, View} from 'react-native';
 import Modal from 'react-native-modal';
 import {ConfirmationButtons, ViewVisibleWrapper} from '_components';
 import {Icon} from '_components';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 
 const ConfirmationModal = ({
   visible,
@@ -41,18 +41,18 @@ const containerStyle = () => {
     borderRadius: 6,
     width: '75%',
     alignSelf: 'center',
-    backgroundColor: Colors.tertiary[global.colorScheme],
+    backgroundColor: COLORS.tertiary[global.colorScheme],
     paddingBottom: 70,
   };
 };
 
 const headerStyle = () => {
   return {
-    color: Colors.secondary[global.colorScheme],
+    color: COLORS.secondary[global.colorScheme],
     fontSize: 24,
     fontWeight: 'bold',
     padding: 16,
-    backgroundColor: Colors.primary[global.colorScheme],
+    backgroundColor: COLORS.primary[global.colorScheme],
     borderTopLeftRadius: 6,
     borderTopRightRadius: 6,
   };
@@ -60,7 +60,7 @@ const headerStyle = () => {
 
 const descriptionStyle = () => {
   return {
-    color: Colors.secondary[global.colorScheme],
+    color: COLORS.secondary[global.colorScheme],
     fontSize: 20,
     marginStart: 16,
     marginEnd: 16,
@@ -70,7 +70,7 @@ const descriptionStyle = () => {
 
 const iconStyle = () => {
   return {
-    color: Colors.primary[global.colorScheme],
+    color: COLORS.primary[global.colorScheme],
     position: 'absolute',
     bottom: 24,
     left: 24,

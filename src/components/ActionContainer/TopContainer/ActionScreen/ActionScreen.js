@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text} from 'react-native';
 import {ViewVisibleWrapper, BackArrow, TopRightButton} from '_components';
 import CenterIcon from './CenterIcon';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 
 const ActionScreen = ({
   backArrowActive,
@@ -61,14 +61,14 @@ const actionDescriptionStyle = () => {
     marginTop: 16,
     fontSize: 24,
     textAlign: 'center',
-    color: Colors.primary[global.colorScheme],
+    color: COLORS.primary[global.colorScheme],
   };
 };
 
 const subDescriptionStyle = () => {
   return {
     fontSize: 12,
-    color: Colors.tertiary[global.colorScheme],
+    color: COLORS.tertiary[global.colorScheme],
   };
 };
 
@@ -76,7 +76,7 @@ const subDescription2Style = () => {
   return {
     fontSize: 12,
     fontWeight: 'bold',
-    color: Colors.primary[global.colorScheme],
+    color: COLORS.primary[global.colorScheme],
   };
 };
 

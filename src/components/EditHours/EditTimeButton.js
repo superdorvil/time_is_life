@@ -1,7 +1,7 @@
 import React from 'react';
 import {TouchableOpacity, Text, View} from 'react-native';
 import {Icon} from '_components';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 
 const EditTimeButton = ({editDescription, time, icon, editPressed}) => {
   return (
@@ -25,7 +25,7 @@ const buttonContainerStyle = () => {
   return {
     borderWidth: 1,
     borderRadius: 8,
-    borderColor: Colors.primary[global.colorScheme],
+    borderColor: COLORS.primary[global.colorScheme],
     flexDirection: 'row',
     padding: 12,
   };
@@ -34,7 +34,7 @@ const buttonContainerStyle = () => {
 const timeStyle = () => {
   return {
     fontSize: 12,
-    color: Colors.tertiary[global.colorScheme],
+    color: COLORS.tertiary[global.colorScheme],
     fontWeight: 'bold',
   };
 };
@@ -42,14 +42,14 @@ const timeStyle = () => {
 const editDescriptionStyle = () => {
   return {
     fontSize: 12,
-    color: Colors.tertiary[global.colorScheme],
+    color: COLORS.tertiary[global.colorScheme],
     fontWeight: 'bold',
     marginBottom: 4,
   };
 };
 
 const clockStyle = () => {
-  return {color: Colors.primary[global.colorScheme]};
+  return {color: COLORS.primary[global.colorScheme]};
 };
 
 const clockContainerStyle = () => {

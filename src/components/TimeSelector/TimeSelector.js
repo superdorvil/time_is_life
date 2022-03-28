@@ -3,9 +3,9 @@ import {Text, View} from 'react-native';
 import Modal from 'react-native-modal';
 import {ConfirmationButtons} from '_components';
 import TimeInput from './TimeInput';
-import {Icons} from '_constants';
+import {ICONS} from '_constants';
 import {Icon} from '_components';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 
 const TimeSelector = ({
   visible,
@@ -45,7 +45,7 @@ const TimeSelector = ({
           okayPressed={okayPressed}
           cancelPressed={cancelPressed}
         />
-        <Icon name={Icons.clock} size={24} style={clockStyle()} />
+        <Icon name={ICONS.clock} size={24} style={clockStyle()} />
       </View>
     </Modal>
   );
@@ -57,7 +57,7 @@ const containerStyle = () => {
     width: '75%',
     alignSelf: 'center',
     paddingBottom: 70,
-    backgroundColor: Colors.tertiary[global.colorScheme],
+    backgroundColor: COLORS.tertiary[global.colorScheme],
   };
 };
 
@@ -68,8 +68,8 @@ const setTimeDescriptionStyle = () => {
     padding: 16,
     borderTopLeftRadius: 6,
     borderTopRightRadius: 6,
-    color: Colors.secondary[global.colorScheme],
-    backgroundColor: Colors.primary[global.colorScheme],
+    color: COLORS.secondary[global.colorScheme],
+    backgroundColor: COLORS.primary[global.colorScheme],
   };
 };
 
@@ -78,7 +78,7 @@ const clockStyle = () => {
     position: 'absolute',
     bottom: 24,
     left: 24,
-    color: Colors.primary[global.colorScheme],
+    color: COLORS.primary[global.colorScheme],
   };
 };
 

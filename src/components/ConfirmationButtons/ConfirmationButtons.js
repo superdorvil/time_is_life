@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 
 const ConfirmationButtons = ({okayPressed, cancelPressed}) => {
   return (
@@ -18,7 +18,7 @@ const ConfirmationButtons = ({okayPressed, cancelPressed}) => {
 const containerStyle = () => {
   return {
     flexDirection: 'row',
-    backgroundColor: Colors.tertiary[global.colorScheme],
+    backgroundColor: COLORS.tertiary[global.colorScheme],
     position: 'absolute',
     bottom: 0,
     right: 8,
@@ -36,7 +36,7 @@ const buttonContainerStyle = () => {
 
 const textStyle = () => {
   return {
-    color: Colors.primary[global.colorScheme],
+    color: COLORS.primary[global.colorScheme],
     fontWeight: 'bold',
     fontSize: 16,
   };

@@ -2,8 +2,8 @@ import React from 'react';
 import {View, Text} from 'react-native';
 import Slider from '@react-native-community/slider';
 import {HoursUtils, DateUtils} from '_utils';
-import {Utils} from '_constants';
-import {Colors} from '_resources';
+import {UTILS} from '_constants';
+import {COLORS} from '_resources';
 
 const WeeklyGoal = ({
   thisWeeksSecondsWorked,
@@ -25,11 +25,11 @@ const WeeklyGoal = ({
       : 0;
   const sunday = DateUtils.convertDateToString({
     date: DateUtils.getDateFromWeekIndex({weekIndex: weekIndex, weekday: 0}),
-    format: Utils.dateFormat.monDateYear,
+    format: UTILS.dateFormat.monDateYear,
   });
   const saturday = DateUtils.convertDateToString({
     date: DateUtils.getDateFromWeekIndex({weekIndex, weekday: 6}),
-    format: Utils.dateFormat.monDateYear,
+    format: UTILS.dateFormat.monDateYear,
   });
 
   return (
@@ -55,8 +55,8 @@ const WeeklyGoal = ({
           minimumValue={0}
           maximumValue={100}
           value={thisWeeksHoursGoal}
-          minimumTrackTintColor={Colors.secondary[global.colorScheme]}
-          maximumTrackTintColor={Colors.secondary[global.colorScheme]}
+          minimumTrackTintColor={COLORS.secondary[global.colorScheme]}
+          maximumTrackTintColor={COLORS.secondary[global.colorScheme]}
           onSlidingComplete={updateWeeklyGoal}
           onValueChange={updateWeeklyGoalSlider}
         />
@@ -87,8 +87,8 @@ const sliderContainerStyle = () => {
     flex: 1,
     height: 20,
     marginTop: 8,
-    borderColor: Colors.primary[global.colorScheme],
-    backgroundColor: Colors.tertiary[global.colorScheme],
+    borderColor: COLORS.primary[global.colorScheme],
+    backgroundColor: COLORS.tertiary[global.colorScheme],
   };
 };
 
@@ -96,7 +96,7 @@ const textStyle = () => {
   return {
     fontSize: 16,
     fontWeight: 'bold',
-    color: Colors.tertiary[global.colorScheme],
+    color: COLORS.tertiary[global.colorScheme],
   };
 };
 
@@ -104,7 +104,7 @@ const hoursStyle = () => {
   return {
     fontSize: 20,
     fontWeight: 'bold',
-    color: Colors.primary[global.colorScheme],
+    color: COLORS.primary[global.colorScheme],
   };
 };
 
@@ -116,7 +116,7 @@ const percentContainerStyle = () => {
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: Colors.primary[global.colorScheme],
+    borderColor: COLORS.primary[global.colorScheme],
   };
 };
 
@@ -124,7 +124,7 @@ const percentStyle = () => {
   return {
     fontSize: 20,
     fontWeight: 'bold',
-    color: Colors.primary[global.colorScheme],
+    color: COLORS.primary[global.colorScheme],
   };
 };
 

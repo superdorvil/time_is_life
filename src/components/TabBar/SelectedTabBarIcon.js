@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 import {Icon} from '_components';
 
 const SelectedTabBarIcon = ({name}) => {
@@ -23,14 +23,14 @@ const containerStyle = () => {
 };
 
 const iconStyle = () => {
-  return {color: Colors.primary[global.colorScheme]};
+  return {color: COLORS.primary[global.colorScheme]};
 };
 
 const textStyle = () => {
   return {
     fontSize: 16,
     fontWeight: 'bold',
-    color: Colors.primary[global.colorScheme],
+    color: COLORS.primary[global.colorScheme],
   };
 };
 

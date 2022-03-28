@@ -1,6 +1,6 @@
 import React from 'react';
 import {TouchableOpacity, Text} from 'react-native';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 
 const ChartNavButton = ({description, selected, navButtonPressed}) => {
   return (
@@ -22,7 +22,7 @@ const containerStyle = selected => {
       flex: 1,
       alignItems: 'center',
       borderRadius: 30,
-      backgroundColor: Colors.primary[global.colorScheme],
+      backgroundColor: COLORS.primary[global.colorScheme],
     };
   } else {
     return {
@@ -33,7 +33,7 @@ const containerStyle = selected => {
       flex: 1,
       alignItems: 'center',
       borderRadius: 30,
-      backgroundColor: Colors.secondary[global.colorScheme],
+      backgroundColor: COLORS.secondary[global.colorScheme],
     };
   }
 };
@@ -43,16 +43,16 @@ const descriptionStyle = selected => {
     return {
       fontSize: 12,
       fontWeight: 'bold',
-      backgroundColor: Colors.primary[global.colorScheme],
-      color: Colors.secondary[global.colorScheme],
+      backgroundColor: COLORS.primary[global.colorScheme],
+      color: COLORS.secondary[global.colorScheme],
     };
   } else {
     return {
       fontSize: 12,
       fontWeight: 'bold',
       borderRadius: 20,
-      backgroundColor: Colors.secondary[global.colorScheme],
-      color: Colors.primary[global.colorScheme],
+      backgroundColor: COLORS.secondary[global.colorScheme],
+      color: COLORS.primary[global.colorScheme],
     };
   }
 };

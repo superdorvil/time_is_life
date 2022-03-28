@@ -2,16 +2,16 @@ import React from 'react';
 import {View, Text} from 'react-native';
 import Modal from 'react-native-modal';
 import {Calendar} from 'react-native-calendars';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 import {DateUtils} from '_utils';
-import {Utils} from '_constants';
+import {UTILS} from '_constants';
 
 const DateSelector = ({visible, dateString, date, updateDate, closeModal}) => {
   const year = date.getFullYear();
   const formattedDate =
     DateUtils.convertDayToString({
       date,
-      format: Utils.weekdayFormat.abbreviation,
+      format: UTILS.weekdayFormat.abbreviation,
     }) +
     ', ' +
     DateUtils.convertMonthToString({date, abbreviate: true}) +
@@ -45,24 +45,24 @@ const DateSelector = ({visible, dateString, date, updateDate, closeModal}) => {
             [dateString]: {
               selected: true,
               disableTouchEvent: true,
-              selectedColor: Colors.primary[global.colorScheme],
+              selectedColor: COLORS.primary[global.colorScheme],
             },
           }}
           theme={{
-            backgroundColor: Colors.tertiary[global.colorScheme],
-            calendarBackground: Colors.tertiary[global.colorScheme],
-            textSectionTitleColor: Colors.secondary[global.colorScheme], // Sun-Sat
-            //textSectionTitleDisabledColor: Colors.secondary[global.colorScheme],
+            backgroundColor: COLORS.tertiary[global.colorScheme],
+            calendarBackground: COLORS.tertiary[global.colorScheme],
+            textSectionTitleColor: COLORS.secondary[global.colorScheme], // Sun-Sat
+            //textSectionTitleDisabledColor: COLORS.secondary[global.colorScheme],
             //selectedDayBackgroundColor: 'red',
             //selectedDayTextColor: 'green',
-            todayTextColor: Colors.secondary[global.colorScheme],
-            dayTextColor: Colors.secondary[global.colorScheme],
+            todayTextColor: COLORS.secondary[global.colorScheme],
+            dayTextColor: COLORS.secondary[global.colorScheme],
             //textDisabledColor: '#d9e1e8',
             //dotColor: 'red',
             //selectedDotColor: 'red',
-            arrowColor: Colors.secondary[global.colorScheme],
+            arrowColor: COLORS.secondary[global.colorScheme],
             //disabledArrowColor: '#d9e1e8',
-            monthTextColor: Colors.secondary[global.colorScheme],
+            monthTextColor: COLORS.secondary[global.colorScheme],
             //indicatorColor: 'red',
             //textDayFontFamily: 'monospace',
             //textMonthFontFamily: 'monospace',
@@ -95,7 +95,7 @@ const calendarStyle = () => {
 const yearStyle = () => {
   return {
     fontSize: 20,
-    color: Colors.secondary[global.colorScheme],
+    color: COLORS.secondary[global.colorScheme],
     fontWeight: 'bold',
   };
 };
@@ -104,13 +104,13 @@ const formattedDateStyle = () => {
   return {
     fontSize: 30,
     fontWeight: 'bold',
-    color: Colors.secondary[global.colorScheme],
+    color: COLORS.secondary[global.colorScheme],
   };
 };
 
 const headerStyle = () => {
   return {
-    backgroundColor: Colors.primary[global.colorScheme],
+    backgroundColor: COLORS.primary[global.colorScheme],
     padding: 16,
     borderTopStartRadius: 6,
     borderTopEndRadius: 6,

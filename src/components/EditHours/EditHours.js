@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import EditTimeButton from './EditTimeButton';
 import {DateUtils, HoursUtils} from '_utils';
-import {Icons, Utils} from '_constants';
+import {ICONS, UTILS} from '_constants';
 
 const EditHours = ({
   startTime,
@@ -21,7 +21,7 @@ const EditHours = ({
           <EditTimeButton
             editDescription="Start Time"
             time={HoursUtils.dateToTimeAMPM({date: startTime})}
-            icon={Icons.clock}
+            icon={ICONS.clock}
             editPressed={startTimePressed}
           />
         </View>
@@ -31,9 +31,9 @@ const EditHours = ({
             editDescription="Start Date"
             time={DateUtils.convertDateToString({
               date: startDate,
-              format: Utils.dateFormat.monthDateYear,
+              format: UTILS.dateFormat.monthDateYear,
             })}
-            icon={Icons.calendar}
+            icon={ICONS.calendar}
             editPressed={startDatePressed}
           />
         </View>
@@ -43,7 +43,7 @@ const EditHours = ({
           <EditTimeButton
             editDescription="End Time"
             time={HoursUtils.dateToTimeAMPM({date: endTime})}
-            icon={Icons.clock}
+            icon={ICONS.clock}
             editPressed={endTimePressed}
           />
         </View>
@@ -53,9 +53,9 @@ const EditHours = ({
             editDescription="End Date"
             time={DateUtils.convertDateToString({
               date: endDate,
-              format: Utils.dateFormat.monthDateYear,
+              format: UTILS.dateFormat.monthDateYear,
             })}
-            icon={Icons.calendar}
+            icon={ICONS.calendar}
             editPressed={endDatePressed}
           />
         </View>

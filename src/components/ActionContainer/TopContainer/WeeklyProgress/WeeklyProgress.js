@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text} from 'react-native';
 import {HoursProgressBar} from '_components';
 import DailyHours from './DailyHours';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 
 const WeeklyProgress = ({
   thisWeeksGoalSeconds,
@@ -32,7 +32,7 @@ const timeIsLifeTextStyle = () => {
   return {
     fontSize: 30,
     paddingBottom: 16,
-    color: Colors.tertiary[global.colorScheme],
+    color: COLORS.tertiary[global.colorScheme],
   };
 };
 
@@ -41,7 +41,7 @@ const dailyHoursTextStyle = () => {
     fontSize: 16,
     textAlign: 'center',
     margin: 16,
-    color: Colors.tertiary[global.colorScheme],
+    color: COLORS.tertiary[global.colorScheme],
   };
 };
 

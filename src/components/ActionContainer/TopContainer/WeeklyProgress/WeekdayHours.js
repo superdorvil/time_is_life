@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import {ViewVisibleWrapper} from '_components';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 import {DateUtils, HoursUtils} from '_utils';
-import {Utils} from '_constants';
+import {UTILS} from '_constants';
 
 const WeekdayHours = ({secondsWorked, weekday}) => {
   const hoursWorked = HoursUtils.convertSecondsToHrs({
@@ -12,7 +12,7 @@ const WeekdayHours = ({secondsWorked, weekday}) => {
   });
   const todayString = DateUtils.convertDayToString({
     date: new Date(),
-    format: Utils.weekdayFormat.abbreviation_capital,
+    format: UTILS.weekdayFormat.abbreviation_capital,
   });
   let todayActive = false;
   if (weekday === todayString) {
@@ -41,13 +41,13 @@ const textStyle = todayActive => {
     return {
       fontSize: 12,
       fontWeight: 'bold',
-      color: Colors.primary[global.colorScheme],
+      color: COLORS.primary[global.colorScheme],
     };
   } else {
     return {
       fontSize: 12,
       fontWeight: 'bold',
-      color: Colors.tertiary[global.colorScheme],
+      color: COLORS.tertiary[global.colorScheme],
     };
   }
 };
@@ -57,13 +57,13 @@ const dividerStyle = todayActive => {
     return {
       width: 1,
       height: 12,
-      backgroundColor: Colors.primary[global.colorScheme],
+      backgroundColor: COLORS.primary[global.colorScheme],
     };
   } else {
     return {
       width: 1,
       height: 12,
-      backgroundColor: Colors.tertiary[global.colorScheme],
+      backgroundColor: COLORS.tertiary[global.colorScheme],
     };
   }
 };
@@ -74,7 +74,7 @@ const todayHighlightStyle = () => {
     height: 1,
     position: 'absolute',
     bottom: -2,
-    backgroundColor: Colors.primary[global.colorScheme],
+    backgroundColor: COLORS.primary[global.colorScheme],
   };
 };
 

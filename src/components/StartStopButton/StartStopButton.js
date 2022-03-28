@@ -1,14 +1,14 @@
 import React from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 import {Icon} from '_components';
-import {Icons} from '_constants';
+import {ICONS} from '_constants';
 
 const StartStopButton = ({stopMode, timerPressed}) => {
   return (
     <View style={containerStyle()}>
       <TouchableOpacity style={ovalStyle()} onPress={timerPressed}>
-        <Icon name={Icons.playButton} size={20} style={playButtonStyle()} />
+        <Icon name={ICONS.playButton} size={20} style={playButtonStyle()} />
         <Text style={textStyle()}>{stopMode ? 'Stop' : 'Start'} Timer</Text>
       </TouchableOpacity>
     </View>
@@ -33,7 +33,7 @@ const ovalStyle = () => {
     borderRadius: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.primary[global.colorScheme],
+    backgroundColor: COLORS.primary[global.colorScheme],
   };
 };
 
@@ -42,13 +42,13 @@ const textStyle = () => {
     marginStart: 12,
     fontSize: 16,
     fontWeight: 'bold',
-    color: Colors.secondary[global.colorScheme],
+    color: COLORS.secondary[global.colorScheme],
   };
 };
 
 const playButtonStyle = () => {
   return {
-    color: Colors.secondary[global.colorScheme],
+    color: COLORS.secondary[global.colorScheme],
   };
 };
 

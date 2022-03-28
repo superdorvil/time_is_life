@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 
 const Task = ({task, selected, taskPressed}) => {
   return (
@@ -13,7 +13,7 @@ const Task = ({task, selected, taskPressed}) => {
 
 const containerStyle = () => {
   return {
-    backgroundColor: Colors.tertiary[global.colorScheme],
+    backgroundColor: COLORS.tertiary[global.colorScheme],
     flexDirection: 'row',
     alignItems: 'center',
   };
@@ -23,7 +23,7 @@ const taskStyle = () => {
   return {
     padding: 16,
     fontSize: 16,
-    color: Colors.secondary[global.colorScheme],
+    color: COLORS.secondary[global.colorScheme],
     flex: 1,
   };
 };
@@ -33,7 +33,7 @@ const selectedStyle = () => {
     borderRadius: 32,
     width: 32,
     height: 32,
-    backgroundColor: Colors.primary[global.colorScheme],
+    backgroundColor: COLORS.primary[global.colorScheme],
     marginEnd: 16,
   };
 };
@@ -44,7 +44,7 @@ const unselectedStyle = () => {
     width: 32,
     height: 32,
     borderWidth: 2,
-    borderColor: Colors.primary[global.colorScheme],
+    borderColor: COLORS.primary[global.colorScheme],
     marginEnd: 16,
   };
 };

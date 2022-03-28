@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text} from 'react-native';
 import Modal from 'react-native-modal';
 import ColorScheme from './ColorScheme';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 
 const ColorSchemeModal = ({
   visible,
@@ -23,32 +23,32 @@ const ColorSchemeModal = ({
         <Text style={selectColorStyle()}>Select Color Scheme</Text>
         <View style={colorSchemeContainerStyle()}>
           <ColorScheme
-            active={Colors.orangeLight === global.colorScheme}
+            active={COLORS.orangeLight === global.colorScheme}
             colorPressed={orangeLightPressed}
-            color1={Colors.orangeLightPrimary}
-            color2={Colors.orangeLightSecondary}
-            color3={Colors.orangeLightTertiary}
+            color1={COLORS.orangeLightPrimary}
+            color2={COLORS.orangeLightSecondary}
+            color3={COLORS.orangeLightTertiary}
           />
           <ColorScheme
-            active={Colors.orangeDark === global.colorScheme}
+            active={COLORS.orangeDark === global.colorScheme}
             colorPressed={orangeDarkPressed}
-            color1={Colors.orangeDarkPrimary}
-            color2={Colors.orangeDarkSecondary}
-            color3={Colors.orangeDarkTertiary}
+            color1={COLORS.orangeDarkPrimary}
+            color2={COLORS.orangeDarkSecondary}
+            color3={COLORS.orangeDarkTertiary}
           />
           <ColorScheme
-            active={Colors.blueLight === global.colorScheme}
+            active={COLORS.blueLight === global.colorScheme}
             colorPressed={blueLightPressed}
-            color1={Colors.blueLightPrimary}
-            color2={Colors.blueLightSecondary}
-            color3={Colors.blueLightTertiary}
+            color1={COLORS.blueLightPrimary}
+            color2={COLORS.blueLightSecondary}
+            color3={COLORS.blueLightTertiary}
           />
           <ColorScheme
-            active={Colors.blueDark === global.colorScheme}
+            active={COLORS.blueDark === global.colorScheme}
             colorPressed={blueDarkPressed}
-            color1={Colors.blueDarkPrimary}
-            color2={Colors.blueDarkSecondary}
-            color3={Colors.blueDarkTertiary}
+            color1={COLORS.blueDarkPrimary}
+            color2={COLORS.blueDarkSecondary}
+            color3={COLORS.blueDarkTertiary}
           />
         </View>
       </View>
@@ -60,7 +60,7 @@ const containerStyle = () => {
   return {
     borderRadius: 8,
     alignSelf: 'center',
-    backgroundColor: Colors.colorSchemeModal[global.colorScheme],
+    backgroundColor: COLORS.colorSchemeModal[global.colorScheme],
   };
 };
 
@@ -72,8 +72,8 @@ const selectColorStyle = () => {
     borderTopLeftRadius: 6,
     borderTopRightRadius: 6,
     textAlign: 'center',
-    color: Colors.secondary[global.colorScheme],
-    backgroundColor: Colors.primary[global.colorScheme],
+    color: COLORS.secondary[global.colorScheme],
+    backgroundColor: COLORS.primary[global.colorScheme],
   };
 };
 

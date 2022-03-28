@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text} from 'react-native';
 import ProgressBar from 'react-native-progress/Bar';
 import {HoursUtils} from '_utils';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 
 const HoursProgressBar = ({
   secondsWorked,
@@ -39,8 +39,8 @@ const HoursProgressBar = ({
         <ProgressBar
           animated
           progress={progress}
-          color={Colors.primary[global.colorScheme]}
-          unfilledColor={Colors.tertiary[global.colorScheme]}
+          color={COLORS.primary[global.colorScheme]}
+          unfilledColor={COLORS.tertiary[global.colorScheme]}
           borderWidth={1}
           height={6}
           width={null}
@@ -73,21 +73,21 @@ const hoursWorkedContainerStyle = () => {
 const weeklyHours12Style = () => {
   return {
     fontSize: 12,
-    color: Colors.tertiary[global.colorScheme],
+    color: COLORS.tertiary[global.colorScheme],
   };
 };
 
 const weeklyHours16Style = () => {
   return {
     fontSize: 16,
-    color: Colors.tertiary[global.colorScheme],
+    color: COLORS.tertiary[global.colorScheme],
   };
 };
 
 const hoursWorkedStyle = () => {
   return {
     fontSize: 16,
-    color: Colors.primary[global.colorScheme],
+    color: COLORS.primary[global.colorScheme],
     alignSelf: 'flex-end',
     fontWeight: 'bold',
   };
@@ -96,7 +96,7 @@ const hoursWorkedStyle = () => {
 const hoursGoalStyle = () => {
   return {
     fontSize: 12,
-    color: Colors.tertiary[global.colorScheme],
+    color: COLORS.tertiary[global.colorScheme],
     alignSelf: 'flex-end',
   };
 };

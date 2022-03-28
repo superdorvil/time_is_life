@@ -1,4 +1,4 @@
-import {Utils} from '_constants';
+import {UTILS} from '_constants';
 
 export const convertMonthToString = ({date, abbreviate}) => {
   const month = date.getMonth();
@@ -87,15 +87,15 @@ export const convertDayToString = ({date, format}) => {
   switch (day) {
     case 0:
       switch (format) {
-        case Utils.weekdayFormat.initial:
+        case UTILS.weekdayFormat.initial:
           return 'S';
-        case Utils.weekdayFormat.abbreviation:
+        case UTILS.weekdayFormat.abbreviation:
           return 'Sun';
-        case Utils.weekdayFormat.full:
+        case UTILS.weekdayFormat.full:
           return 'Sunday';
-        case Utils.weekdayFormat.abbreviation_capital:
+        case UTILS.weekdayFormat.abbreviation_capital:
           return 'SUN';
-        case Utils.weekdayFormat.full_capital:
+        case UTILS.weekdayFormat.full_capital:
           return 'SUNDAY';
         default:
           console.log(
@@ -105,15 +105,15 @@ export const convertDayToString = ({date, format}) => {
       break;
     case 1:
       switch (format) {
-        case Utils.weekdayFormat.initial:
+        case UTILS.weekdayFormat.initial:
           return 'M';
-        case Utils.weekdayFormat.abbreviation:
+        case UTILS.weekdayFormat.abbreviation:
           return 'Mon';
-        case Utils.weekdayFormat.full:
+        case UTILS.weekdayFormat.full:
           return 'Monday';
-        case Utils.weekdayFormat.abbreviation_capital:
+        case UTILS.weekdayFormat.abbreviation_capital:
           return 'MON';
-        case Utils.weekdayFormat.full_capital:
+        case UTILS.weekdayFormat.full_capital:
           return 'MONDAY';
         default:
           console.log(
@@ -123,15 +123,15 @@ export const convertDayToString = ({date, format}) => {
       break;
     case 2:
       switch (format) {
-        case Utils.weekdayFormat.initial:
+        case UTILS.weekdayFormat.initial:
           return 'T';
-        case Utils.weekdayFormat.abbreviation:
+        case UTILS.weekdayFormat.abbreviation:
           return 'Tue';
-        case Utils.weekdayFormat.full:
+        case UTILS.weekdayFormat.full:
           return 'Tuesday';
-        case Utils.weekdayFormat.abbreviation_capital:
+        case UTILS.weekdayFormat.abbreviation_capital:
           return 'TUE';
-        case Utils.weekdayFormat.full_capital:
+        case UTILS.weekdayFormat.full_capital:
           return 'TUESDAY';
         default:
           console.log(
@@ -141,15 +141,15 @@ export const convertDayToString = ({date, format}) => {
       break;
     case 3:
       switch (format) {
-        case Utils.weekdayFormat.initial:
+        case UTILS.weekdayFormat.initial:
           return 'W';
-        case Utils.weekdayFormat.abbreviation:
+        case UTILS.weekdayFormat.abbreviation:
           return 'Wed';
-        case Utils.weekdayFormat.full:
+        case UTILS.weekdayFormat.full:
           return 'Wednesday';
-        case Utils.weekdayFormat.abbreviation_capital:
+        case UTILS.weekdayFormat.abbreviation_capital:
           return 'WED';
-        case Utils.weekdayFormat.full_capital:
+        case UTILS.weekdayFormat.full_capital:
           return 'WEDNESDAY';
         default:
           console.log(
@@ -159,15 +159,15 @@ export const convertDayToString = ({date, format}) => {
       break;
     case 4:
       switch (format) {
-        case Utils.weekdayFormat.initial:
+        case UTILS.weekdayFormat.initial:
           return 'T';
-        case Utils.weekdayFormat.abbreviation:
+        case UTILS.weekdayFormat.abbreviation:
           return 'Thu';
-        case Utils.weekdayFormat.full:
+        case UTILS.weekdayFormat.full:
           return 'Thursday';
-        case Utils.weekdayFormat.abbreviation_capital:
+        case UTILS.weekdayFormat.abbreviation_capital:
           return 'THU';
-        case Utils.weekdayFormat.full_capital:
+        case UTILS.weekdayFormat.full_capital:
           return 'THURSDAY';
         default:
           console.log(
@@ -177,15 +177,15 @@ export const convertDayToString = ({date, format}) => {
       break;
     case 5:
       switch (format) {
-        case Utils.weekdayFormat.initial:
+        case UTILS.weekdayFormat.initial:
           return 'F';
-        case Utils.weekdayFormat.abbreviation:
+        case UTILS.weekdayFormat.abbreviation:
           return 'Fri';
-        case Utils.weekdayFormat.full:
+        case UTILS.weekdayFormat.full:
           return 'Friday';
-        case Utils.weekdayFormat.abbreviation_capital:
+        case UTILS.weekdayFormat.abbreviation_capital:
           return 'FRI';
-        case Utils.weekdayFormat.full_capital:
+        case UTILS.weekdayFormat.full_capital:
           return 'FRIDAY';
         default:
           console.log(
@@ -195,15 +195,15 @@ export const convertDayToString = ({date, format}) => {
       break;
     case 6:
       switch (format) {
-        case Utils.weekdayFormat.initial:
+        case UTILS.weekdayFormat.initial:
           return 'S';
-        case Utils.weekdayFormat.abbreviation:
+        case UTILS.weekdayFormat.abbreviation:
           return 'Sat';
-        case Utils.weekdayFormat.full:
+        case UTILS.weekdayFormat.full:
           return 'Saturday';
-        case Utils.weekdayFormat.abbreviation_capital:
+        case UTILS.weekdayFormat.abbreviation_capital:
           return 'SAT';
-        case Utils.weekdayFormat.full_capital:
+        case UTILS.weekdayFormat.full_capital:
           return 'SATURDAY';
         default:
           console.log(
@@ -222,49 +222,49 @@ export const convertDateToString = ({date, format}) => {
   let dateText = '';
 
   switch (format) {
-    case Utils.dateFormat.mon:
+    case UTILS.dateFormat.mon:
       dateText = convertMonthToString({
         date,
         abbreviate: true,
       });
       break;
-    case Utils.dateFormat.month:
+    case UTILS.dateFormat.month:
       dateText = convertMonthToString({
         date,
         abbreviate: false,
       });
       break;
-    case Utils.dateFormat.monDate:
+    case UTILS.dateFormat.monDate:
       dateText = dateText + convertMonthToString({date, abbreviate: true});
       dateText = dateText + ' ' + date.getDate();
       break;
-    case Utils.dateFormat.monthDate:
+    case UTILS.dateFormat.monthDate:
       dateText = dateText + convertMonthToString({date, abbreviate: false});
       dateText = dateText + ' ' + date.getDate();
       break;
-    case Utils.dateFormat.monthYear:
+    case UTILS.dateFormat.monthYear:
       dateText = dateText + convertMonthToString({date, abbreviate: false});
       dateText = dateText + ' ' + date.getFullYear();
       break;
-    case Utils.dateFormat.monDateYear:
+    case UTILS.dateFormat.monDateYear:
       dateText = dateText + convertMonthToString({date, abbreviate: true});
       dateText = dateText + ' ' + date.getDate();
       dateText = dateText + ', ' + date.getFullYear();
       break;
-    case Utils.dateFormat.monthDateYear:
+    case UTILS.dateFormat.monthDateYear:
       dateText = dateText + convertMonthToString({date, abbreviate: false});
       dateText = dateText + ' ' + date.getDate();
       dateText = dateText + ', ' + date.getFullYear();
       break;
-    case Utils.dateFormat.m_d_yy:
+    case UTILS.dateFormat.m_d_yy:
       const year = date.getFullYear().toString().substring(2);
       dateText = date.getMonth() + 1 + '-' + date.getDate() + '-' + year;
       break;
-    case Utils.dateFormat.m_d_yyyy:
+    case UTILS.dateFormat.m_d_yyyy:
       dateText =
         date.getMonth() + 1 + '-' + date.getDate() + '-' + date.getFullYear();
       break;
-    case Utils.dateFormat.yyyy_mm_dd:
+    case UTILS.dateFormat.yyyy_mm_dd:
       const month =
         date.getMonth() + 1 < 10
           ? '0' + (date.getMonth() + 1)
@@ -273,29 +273,29 @@ export const convertDateToString = ({date, format}) => {
       dateText = date.getFullYear() + '-' + month + '-' + day;
       break;
     // The following use date: {d1, d2} as parameters
-    case Utils.dateFormat.monDate_monDate:
+    case UTILS.dateFormat.monDate_monDate:
       dateText = convertDateToString({
         date: date.d1,
-        format: Utils.dateFormat.monDate,
+        format: UTILS.dateFormat.monDate,
       });
       dateText += ' - ';
       dateText += convertDateToString({
         date: date.d2,
-        format: Utils.dateFormat.monDate,
+        format: UTILS.dateFormat.monDate,
       });
       break;
-    case Utils.dateFormat.monthDate_monthDate:
+    case UTILS.dateFormat.monthDate_monthDate:
       dateText = convertDateToString({
         date: date.d1,
-        format: Utils.dateFormat.monthDate,
+        format: UTILS.dateFormat.monthDate,
       });
       dateText += ' - ';
       dateText += convertDateToString({
         date: date.d2,
-        format: Utils.dateFormat.monthDate,
+        format: UTILS.dateFormat.monthDate,
       });
       break;
-    case Utils.dateFormat.monDateYear_monDateYear:
+    case UTILS.dateFormat.monDateYear_monDateYear:
       dateText += convertMonthToString({
         date: date.d1,
         abbreviate: true,
@@ -310,7 +310,7 @@ export const convertDateToString = ({date, format}) => {
       dateText = dateText + ' ' + date.d2.getDate();
       dateText = dateText + ', ' + date.d2.getFullYear();
       break;
-    case Utils.dateFormat.monthDateYear_monthDateYear:
+    case UTILS.dateFormat.monthDateYear_monthDateYear:
       dateText += convertMonthToString({
         date: date.d1,
         abbreviate: false,
@@ -436,7 +436,7 @@ export const getLastDayOfYear = ({date}) => {
 };
 
 export const getDateIndex = ({date}) => {
-  const initialDate = new Date(Utils.initialDateString);
+  const initialDate = new Date(UTILS.initialDateString);
   const dateDiff = getDateDiff({
     startDate: initialDate,
     endDate: date,
@@ -446,7 +446,7 @@ export const getDateIndex = ({date}) => {
 };
 
 export const getWeekIndex = ({date}) => {
-  const initialWeekDate = new Date(Utils.initialDateString);
+  const initialWeekDate = new Date(UTILS.initialDateString);
   const dateDiff = getDateDiff({
     startDate: initialWeekDate,
     endDate: date,
@@ -458,13 +458,13 @@ export const getWeekIndex = ({date}) => {
 export const getMonthIndex = ({date}) => {
   const yearIndex = getYearIndex({date});
   // Javascript months are off by 1, so November is 10, but you add plus one, hence plus 11
-  const monthIndex = yearIndex * 12 + date.getMonth() + Utils.initialMonth + 1; // My bday month :D
+  const monthIndex = yearIndex * 12 + date.getMonth() + UTILS.initialMonth + 1; // My bday month :D
 
   return monthIndex;
 };
 
 export const getYearIndex = ({date}) => {
-  return date.getFullYear() - Utils.initialYear;
+  return date.getFullYear() - UTILS.initialYear;
 };
 
 export const getFirstMonthOfYearIndex = ({date}) => {
@@ -478,7 +478,7 @@ export const getLastMonthOfYearIndex = ({date}) => {
 export const getDateFromDateIndex = ({dateIndex}) => {
   return getFutureDate({
     diff: dateIndex,
-    date: new Date(Utils.initialDateString),
+    date: new Date(UTILS.initialDateString),
   });
 };
 

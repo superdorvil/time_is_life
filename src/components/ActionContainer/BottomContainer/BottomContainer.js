@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, FlatList} from 'react-native';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 import {ViewVisibleWrapper, Divider} from '_components';
 import ActionButton from './ActionButton';
 import LoadMoreButton from './LoadMoreButton';
@@ -58,7 +58,7 @@ const containerStyle = () => {
   return {
     flex: 1,
     borderBottomWidth: 1,
-    borderColor: Colors.primary[global.colorScheme],
+    borderColor: COLORS.primary[global.colorScheme],
   };
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text} from 'react-native';
 import {ViewVisibleWrapper} from '_components';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 
 const TopRightButton = ({
   topRightButtonActive,
@@ -27,8 +27,8 @@ const containerStyle = () => {
 const topRightStyle = topRightDeleteModeActive => {
   return {
     fontSize: 20,
-    color: Colors.primary[global.colorScheme],
-    borderColor: Colors.primary[global.colorScheme],
+    color: COLORS.primary[global.colorScheme],
+    borderColor: COLORS.primary[global.colorScheme],
     borderWidth: 1,
     padding: 6,
     borderRadius: 8,

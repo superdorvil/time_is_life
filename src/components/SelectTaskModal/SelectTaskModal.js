@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, ScrollView, Text} from 'react-native';
 import Modal from 'react-native-modal';
-//import {Colors} from '_resources';
+//import {COLORS} from '_resources';
 import Task from './Task';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 import projectDB from '_data';
 
 const SelectTaskModal = ({
@@ -53,7 +53,7 @@ const containerStyle = () => {
     paddingBottom: 16,
     borderRadius: 16,
     maxHeight: '75%',
-    backgroundColor: Colors.tertiary[global.colorScheme],
+    backgroundColor: COLORS.tertiary[global.colorScheme],
   };
 };
 
@@ -61,8 +61,8 @@ const headerStyle = () => {
   return {
     fontSize: 24,
     fontWeight: 'bold',
-    color: Colors.secondary[global.colorScheme],
-    backgroundColor: Colors.primary[global.colorScheme],
+    color: COLORS.secondary[global.colorScheme],
+    backgroundColor: COLORS.primary[global.colorScheme],
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
     padding: 16,
@@ -73,7 +73,7 @@ const dividerStyle = () => {
   return {
     height: 1,
     width: '100%',
-    backgroundColor: Colors.secondary[global.colorScheme],
+    backgroundColor: COLORS.secondary[global.colorScheme],
   };
 };
 

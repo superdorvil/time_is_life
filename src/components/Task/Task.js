@@ -1,7 +1,7 @@
 import React from 'react';
 import {TouchableOpacity, Text, View} from 'react-native';
 import {ViewVisibleWrapper} from '_components';
-import {Colors} from '_resources';
+import {COLORS} from '_resources';
 import Completion from './Completion';
 
 const Task = ({description, completed, taskPressed, hoursWorked}) => {
@@ -31,13 +31,13 @@ const descriptionStyle = completed => {
       fontWeight: 'bold',
       fontSize: 16,
       textDecorationLine: 'line-through',
-      color: Colors.tertiary[global.colorScheme],
+      color: COLORS.tertiary[global.colorScheme],
     };
   } else {
     return {
       fontWeight: 'bold',
       fontSize: 16,
-      color: Colors.tertiary[global.colorScheme],
+      color: COLORS.tertiary[global.colorScheme],
     };
   }
 };
@@ -45,7 +45,7 @@ const descriptionStyle = completed => {
 const hoursWorkedStyle = () => {
   return {
     fontSize: 12,
-    color: Colors.tertiary[global.colorScheme],
+    color: COLORS.tertiary[global.colorScheme],
   };
 };
 
