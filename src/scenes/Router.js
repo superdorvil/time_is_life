@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Scene, Router} from 'react-native-router-flux';
 import TimeIsLife from './TimeIsLife';
 import {
