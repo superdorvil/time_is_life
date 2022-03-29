@@ -7,3 +7,5 @@ Remove Router Flux for Navigation, use the latest version
 testcode
 
 Update the way we use the database, probably just in the mongoDB switch
+
+Back Button pressed on the timer screen
