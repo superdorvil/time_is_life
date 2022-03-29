@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {Component} from 'react';
 import {View} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import projectDB from '_data';
@@ -7,112 +7,88 @@ import {ActionContainer} from '_components';
 import {Project} from '_components';
 import {ICONS} from '_constants';
 
-function ProjectList({realm}) {
-  const actionScreenData = {
-    backArrowActive: true,
-    editButtonActive: true,
-    topRightButtonActive: true,
-    centerIconName: ICONS.checkmark,
-    actionDescription: 'Time is Life',
-    subDescription: '',
-    subDescription2: '',
-  };
-  const actionNavBarData = {
-    taskNavButtonActive: false,
-    taskNavButtonPressed: false,
-    timerNavButtonActive: false,
-    timerNavButtonPressed: false,
-    goalsNavButtonActive: false,
-    goalsNavButtonPressed: false,
-  };
+class ProjectList extends Component {
+  constructor(props) {
+    super(props);
 
-  const today = new Date();
-  const weekIndex = DateUtils.getWeekIndex({date: today});
-  const dateIndex = DateUtils.getDateIndex({date: today});
-  const sundayIndex = dateIndex - today.getDay();
+    const today = new Date();
 
-  projectDB.updateProjectSecondsData({realm});
+    const currentWeekIndex = DateUtils.getWeekIndex({date: today});
+    const currentDateIndex = DateUtils.getDateIndex({date: today});
+    const sundayIndex = currentDateIndex - today.getDay();
 
-  [projects, updateProjects] = useState(
-    projectDB.getProjects({realm})
-  );
-  [dailySecondsWorked, updateDailySecondsWorked] = useState(
-    projectDB.getDailySecondsWorked({
-      realm,
+    projectDB.updateProjectSecondsData({realm: this.props.realm});
+    const projects = projectDB.getProjects({realm: this.props.realm});
+    const dailySecondsWorked = projectDB.getDailySecondsWorked({
+      realm: this.props.realm,
       sundayIndex,
-      weekIndex,
-    })
-  );
-
-  [thisWeeksSecondsWorked, updateThisWeeksSecondsWorked] = useState(
-    projectDB.getSecondsWorked({
-      realm,
-      weekIndex,
-    })
-  );
-  [thisWeeksGoalSeconds, updateThisWeeksGoalSeconds] = useState(
-    projectDB.getWeeklyGoals({
-      realm,
-      weekIndex,
-    })
-  );
-
-  useEffect(() => {
-    let thisProjectIsRecordingHours;
-    projects.addListener(() => {
-      updateProjects(projectDB.getProjects({realm}));
-      updateDailySecondsWorked(
-        projectDB.getDailySecondsWorked({
-          realm,
-          sundayIndex,
-          weekIndex,
-        })
-      );
-      updateDailySecondsWorked(
-        projectDB.getDailySecondsWorked({
-          realm,
-          sundayIndex,
-          weekIndex,
-        })
-      );
-      updateThisWeeksSecondsWorked(
-        projectDB.getSecondsWorked({
-          realm,
-          weekIndex,
-        })
-      );
-      updateThisWeeksGoalSeconds(
-        projectDB.getWeeklyGoals({
-          realm,
-          weekIndex,
-        })
-      );
+      weekIndex: currentWeekIndex,
+    });
+    const thisWeeksSecondsWorked = projectDB.getSecondsWorked({
+      realm: this.props.realm,
+      weekIndex: currentWeekIndex,
+    });
+    const thisWeeksGoalSeconds = projectDB.getWeeklyGoals({
+      realm: this.props.realm,
+      weekIndex: currentWeekIndex,
     });
 
-    projects.forEach((p, i) => {
+    this.state = {
+      projects,
+      dailySecondsWorked,
+      currentWeekIndex,
+      currentDateIndex,
+      sundayIndex,
+      today,
+      thisWeeksGoalSeconds,
+      thisWeeksSecondsWorked,
+    };
+
+    this.createProject = this.createProject.bind(this);
+    this.selectProject = this.selectProject.bind(this);
+  }
+
+  componentDidMount() {
+    let project;
+    this.state.projects.addListener(() => {
+      this.setState({
+        projects: projectDB.getProjects({realm: this.props.realm}),
+        dailySecondsWorked: projectDB.getDailySecondsWorked({
+          realm: this.props.realm,
+          sundayIndex: this.state.sundayIndex,
+          weekIndex: this.state.currentWeekIndex,
+        }),
+      });
+    });
+
+    this.state.projects.forEach((p, i) => {
       if (p.timerActive) {
-        thisProjectIsRecordingHours = p;
+        project = p;
       }
     });
 
-    if (thisProjectIsRecordingHours) {
+    if (project) {
       Actions.projectTimer({
-        realm,
-        project: thisProjectIsRecordingHours,
+        realm: this.props.realm,
+        project,
       });
     }
+  }
 
-    return function cleanup() {
-      projects.removeAllListeners();
-      updateProjects(null);
+  componentWillUnmount() {
+    this.state.projects.removeAllListeners();
+
+    // Nulls State removing memory leak error state update on unmounted comp
+    this.setState = (state, callback) => {
+      return;
     };
-  }, []);
+  }
 
-  const createProject = () => {
-    Actions.createProject({realm});
-  };
+  createProject() {
+    Actions.createProject({realm: this.props.realm});
+  }
 
-  const selectProject = (realm, project) => {
+  selectProject(realm, project) {
     if (project.deleted) {
       projectDB.restoreProject({realm, projectID: project.id});
     }
@@ -120,9 +96,9 @@ function ProjectList({realm}) {
     projectDB.topProjectPosition({realm, projectID: project.id});
 
     Actions.projectTimer({realm, project});
-  };
+  }
 
-  const renderProject = (project, extraData) => {
+  renderProject(project, extraData) {
     return (
       <Project
         projectPressed={() => extraData.selectProject(extraData.realm, project)}
@@ -133,38 +109,59 @@ function ProjectList({realm}) {
         thisWeeksSecondsGoal={project.thisWeeksSecondsGoal}
       />
     );
-  };
+  }
 
-  return (
-    <View style={containerStyle()}>
-      <ActionContainer
-        extraData={{
-          realm,
-          currentWeekIndex: weekIndex,
-          selectProject,
-        }}
-        weeklyProgressActive
-        thisWeeksGoalSeconds={thisWeeksGoalSeconds}
-        thisWeeksSecondsWorked={thisWeeksSecondsWorked}
-        dailySecondsWorked={dailySecondsWorked}
-        actionScreenActive={false}
-        actionScreenData={actionScreenData}
-        actionNavBarActive={false}
-        actionNavBarData={actionNavBarData}
-        topChildActive={false}
-        topChild={false}
-        bottomChildActive={false}
-        bottomChild={false}
-        actionButtonActive={true}
-        actionButtonPressed={createProject}
-        actionButtonDescription="Your Projects"
-        listData={projects}
-        listDataActive={true}
-        renderListItem={renderProject}
-        topBottomContainerDivider
-      />
-    </View>
-  );
+  render() {
+    const actionScreenData = {
+      backArrowActive: true,
+      editButtonActive: true,
+      topRightButtonActive: true,
+      centerIconName: ICONS.checkmark,
+      actionDescription: 'Time is Life',
+      subDescription: '',
+      subDescription2: '',
+    };
+
+    const actionNavBarData = {
+      taskNavButtonActive: false,
+      taskNavButtonPressed: false,
+      timerNavButtonActive: false,
+      timerNavButtonPressed: false,
+      goalsNavButtonActive: false,
+      goalsNavButtonPressed: false,
+    };
+
+    return (
+      <View style={containerStyle()}>
+        <ActionContainer
+          extraData={{
+            realm: this.props.realm,
+            currentWeekIndex: this.state.currentWeekIndex,
+            selectProject: this.selectProject,
+          }}
+          weeklyProgressActive
+          thisWeeksGoalSeconds={this.state.thisWeeksGoalSeconds}
+          thisWeeksSecondsWorked={this.state.thisWeeksSecondsWorked}
+          dailySecondsWorked={this.state.dailySecondsWorked}
+          actionScreenActive={false}
+          actionScreenData={actionScreenData}
+          actionNavBarActive={false}
+          actionNavBarData={actionNavBarData}
+          topChildActive={false}
+          topChild={false}
+          bottomChildActive={false}
+          bottomChild={false}
+          actionButtonActive={true}
+          actionButtonPressed={this.createProject}
+          actionButtonDescription="Your Projects"
+          listData={this.state.projects}
+          listDataActive={true}
+          renderListItem={this.renderProject}
+          topBottomContainerDivider
+        />
+      </View>
+    );
+  }
 }
 
 const containerStyle = () => {
