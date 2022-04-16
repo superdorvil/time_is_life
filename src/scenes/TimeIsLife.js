@@ -30,7 +30,7 @@ class TimeIsLife extends Component {
         TaskSchema,
         WeeklyGoalSchema,
       ],
-      schemaVersion: 0,
+      schemaVersion: 1,
       migration: (oldRealm, newRealm) => {
         projectDB.runMigrations({oldRealm, newRealm});
       },

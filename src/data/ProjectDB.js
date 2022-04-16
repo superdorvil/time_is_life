@@ -17,6 +17,19 @@ class ProjectDB {
     }
   }
 
+  initTaskDueDates({realm}) {
+    const tasks = realm.objects(SCHEMAS.task);
+    const todayIndex = DateUtils.getDateIndex({date: new Date()});
+
+    tasks.forEach((task, i) => {
+      if (task.dueDateIndex) {
+        if (task.dueDateIndex < todayIndex) {
+          task.dueDateIndex = todayIndex;
+        }
+      }
+    });
+  }
+
   updateProjectSecondsData({realm, projectID}) {
     const projects = this.getProjects({realm});
     const weekIndex = DateUtils.getWeekIndex({date: new Date()});

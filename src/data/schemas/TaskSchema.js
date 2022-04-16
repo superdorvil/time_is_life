@@ -8,6 +8,7 @@ const TaskSchema = {
     projectID: 'int',
     description: 'string',
     position: 'int',
+    dueDateIndex: 'int?',
     completed: {type: 'bool', default: false},
   },
 };
