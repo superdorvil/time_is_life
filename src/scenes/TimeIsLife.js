@@ -30,13 +30,14 @@ class TimeIsLife extends Component {
         TaskSchema,
         WeeklyGoalSchema,
       ],
-      schemaVersion: 1,
+      schemaVersion: 3,
       migration: (oldRealm, newRealm) => {
         projectDB.runMigrations({oldRealm, newRealm});
       },
     }).then(realm => {
       // projectDB.timeMasteryToTimeIsLife({realm});
       projectDB.initSettings({realm});
+      projectDB.initTaskDueDates({realm});
       const settings = projectDB.getSettings({realm});
 
       settings.addListener(() => {

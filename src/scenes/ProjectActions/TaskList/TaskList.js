@@ -4,43 +4,26 @@ import {Actions} from 'react-native-router-flux';
 import {ActionContainer, Task} from '_components';
 import projectDB from '_data';
 import {ICONS} from '_constants';
-import {HoursUtils} from '_utils';
+import {HoursUtils, DateUtils} from '_utils';
 
-class ProjectTask extends Component {
+class TaskList extends Component {
   constructor(props) {
     super(props);
     const tasks = projectDB.getTasks({
       realm: this.props.realm,
-      projectID: this.props.project.id,
-    });
-    const project = projectDB.getProjects({
-      realm: this.props.realm,
-      projectID: this.props.project.id,
     });
 
     this.state = {
-      project,
       tasks,
       dueDatesToRender: [],
     };
-
-    this.addPressed = this.addPressed.bind(this);
   }
 
   componentDidMount() {
-    this.state.project.addListener(() => {
-      this.setState({
-        project: projectDB.getProjects({
-          realm: this.props.realm,
-          projectID: this.state.project.id,
-        }),
-      });
-    });
     this.state.tasks.addListener(() => {
       this.setState({
-        task: projectDB.getProjects({
+        task: projectDB.getTasks({
           realm: this.props.realm,
-          projectID: this.props.project.id,
         }),
       });
       this.dueDatesToRender();
@@ -50,19 +33,11 @@ class ProjectTask extends Component {
 
   componentWillUnmount() {
     this.state.tasks.removeAllListeners();
-    this.state.project.removeAllListeners();
 
     // Nulls State removing memory leak error state update on unmounted comp
     this.setState = (state, callback) => {
       return;
     };
-  }
-
-  addPressed() {
-    Actions.createTask({
-      realm: this.props.realm,
-      project: this.state.project,
-    });
   }
 
   dueDatesToRender() {
@@ -90,6 +65,7 @@ class ProjectTask extends Component {
       realm: extraData.realm,
       taskID: listData.id,
     });
+
     let renderDueDate = false;
 
     extraData.dueDatesToRender.forEach((id, i) => {
@@ -114,6 +90,8 @@ class ProjectTask extends Component {
             taskID: listData.id,
           });
         }}
+        projectID={listData.projectID}
+        showProject
         dueDateIndex={listData.dueDateIndex}
         renderDueDate={renderDueDate}
       />
@@ -124,24 +102,20 @@ class ProjectTask extends Component {
     const actionScreenData = {
       backArrowActive: true,
       centerIconName: ICONS.checkmark,
-      actionDescription: this.state.project.description,
+      actionDescription: 'Your Task',
     };
 
     return (
       <View style={containerStyle()}>
         <ActionContainer
-          extraData={{
-            realm: this.props.realm,
-            project: this.state.project,
-            dueDatesToRender: this.state.dueDatesToRender,
-          }}
+        extraData={{
+          realm: this.props.realm,
+          dueDatesToRender: this.state.dueDatesToRender,
+        }}
           weeklyProgressActive={false}
           weeklyProgressData={false}
           actionScreenActive={true}
           actionScreenData={actionScreenData}
-          actionButtonActive={true}
-          actionButtonPressed={this.addPressed}
-          actionButtonDescription="Your Task"
           listData={this.state.tasks}
           listDataActive={true}
           renderListItem={this.renderTask}
@@ -156,4 +130,4 @@ const containerStyle = () => {
   return {flex: 1};
 };
 
-export default ProjectTask;
+export default TaskList;

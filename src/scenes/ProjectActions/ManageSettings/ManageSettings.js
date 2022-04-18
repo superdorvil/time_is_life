@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text} from 'react-native';
+import {Actions} from 'react-native-router-flux';
 import {SettingsItem} from '_components';
 import {Icon, ColorSchemeModal} from '_components';
 import {ICONS} from '_constants';
@@ -47,7 +48,12 @@ class ManageSettings extends Component {
   }
 
   updateColorScheme(colorScheme) {
+        console.log(this.props.realm);
     projectDB.updateColorScheme({realm: this.props.realm, colorScheme});
+  }
+
+  taskList() {
+    Actions.taskList({realm: this.props.realm});
   }
 
   render() {
@@ -59,7 +65,10 @@ class ManageSettings extends Component {
             <Icon name={ICONS.settings} size={32} style={settingsStyle()} />
           </View>
         </View>
-        <SettingsItem description="SubTask Mode" />
+        <SettingsItem
+          description="Task"
+          settingsPressed={() => this.taskList()}
+        />
         <SettingsItem
           description="Color Scheme"
           settingsPressed={this.openColorSchemeModal}

@@ -14,6 +14,7 @@ import {
   ProjectGoals,
   ProjectTask,
   ProjectTimer,
+  TaskList,
   ViewProjectCharts,
 } from './ProjectActions';
 
@@ -97,6 +98,12 @@ const RouterComponent = () => (
         key="viewProjectCharts"
         component={ViewProjectCharts}
         title="ViewProjectCharts"
+        hideNavBar
+      />
+      <Scene
+        key="taskList"
+        component={TaskList}
+        title="TaskList"
         hideNavBar
       />
       <Scene

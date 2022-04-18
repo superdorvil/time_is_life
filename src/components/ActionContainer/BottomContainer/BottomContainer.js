@@ -26,8 +26,8 @@ class BottomContainer extends Component {
             style={listStyle()}>
             <FlatList
               data={this.props.listData}
-              renderItem={({item}) =>
-                this.props.renderListItem(item, this.props.extraData)
+              renderItem={({item, index}) =>
+                this.props.renderListItem(item, this.props.extraData, index)
               }
               keyExtractor={(item, index) => index.toString()}
               ListHeaderComponent={

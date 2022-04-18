@@ -21,12 +21,16 @@ class ProjectDB {
     const tasks = realm.objects(SCHEMAS.task);
     const todayIndex = DateUtils.getDateIndex({date: new Date()});
 
-    tasks.forEach((task, i) => {
-      if (task.dueDateIndex) {
-        if (task.dueDateIndex < todayIndex) {
-          task.dueDateIndex = todayIndex;
+    realm.write(() => {
+      tasks.forEach((task, i) => {
+        if (task.dueDateIndex != 9999999999999) {
+          if (task.dueDateIndex < todayIndex) {
+            if (!task.completed) { // if completeted the due date alone
+              task.dueDateIndex = todayIndex;
+            }
+          }
         }
-      }
+      });
     });
   }
 
@@ -94,6 +98,7 @@ class ProjectDB {
     return totalSecondsWorked;
   }
 
+  // FIXME: better due date sorting
   getTasks({realm, taskID, projectID, notSorted}) {
     if (taskID) {
       return realm.objectForPrimaryKey(SCHEMAS.task, taskID);
@@ -103,12 +108,14 @@ class ProjectDB {
       if (notSorted) {
         return realm
           .objects(SCHEMAS.task)
-          .filtered('projectID == $0', projectID);
+          .filtered('projectID == $0', projectID)
+          .sorted('dueDateIndex', false)
       }
 
       return realm
         .objects(SCHEMAS.task)
         .filtered('projectID == $0', projectID)
+        .sorted('dueDateIndex', false)
         .sorted('completed', false);
     }
 
@@ -116,7 +123,9 @@ class ProjectDB {
       return realm.objects(SCHEMAS.task);
     }
 
-    return realm.objects(SCHEMAS.task).sorted('completed', false);
+    return realm.objects(SCHEMAS.task)
+      .sorted('dueDateIndex', false)
+      .sorted('completed', false);
   }
 
   getProjects({realm, projectID, notSorted}) {
@@ -461,6 +470,14 @@ class ProjectDB {
     });
 
     this.updateProjectSecondsData({realm, projectID: secondsWorked.projectID});
+  }
+
+  updateTaskDueDate({realm, taskID, dueDateIndex}) {
+    const task = realm.objectForPrimaryKey(SCHEMAS.task, taskID);
+
+    realm.write(() => {
+      task.dueDateIndex = dueDateIndex;
+    });
   }
 
   topProjectPosition({realm, projectID}) {

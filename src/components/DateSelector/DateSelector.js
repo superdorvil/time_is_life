@@ -6,7 +6,15 @@ import {COLORS} from '_resources';
 import {DateUtils} from '_utils';
 import {UTILS} from '_constants';
 
-const DateSelector = ({visible, dateString, date, updateDate, closeModal}) => {
+const DateSelector = ({
+  visible,
+  dateString,
+  date,
+  updateDate,
+  closeModal,
+  taskDueDate,
+  notSelected,
+}) => {
   const year = date.getFullYear();
   const formattedDate =
     DateUtils.convertDayToString({
@@ -17,6 +25,8 @@ const DateSelector = ({visible, dateString, date, updateDate, closeModal}) => {
     DateUtils.convertMonthToString({date, abbreviate: true}) +
     ' ' +
     date.getDate();
+    // if in task due date mode than there is no max date, otherwise the max date is today
+    const maxDate = taskDueDate ? null : new Date();
 
   return (
     <Modal
@@ -33,7 +43,7 @@ const DateSelector = ({visible, dateString, date, updateDate, closeModal}) => {
         <Calendar
           //current={new Date()}
           //minDate={new Date()}
-          maxDate={new Date()}
+          maxDate={maxDate}
           hideExtraDays
           onDayPress={day => {
             updateDate(day);
@@ -43,7 +53,7 @@ const DateSelector = ({visible, dateString, date, updateDate, closeModal}) => {
           style={calendarStyle()}
           markedDates={{
             [dateString]: {
-              selected: true,
+              selected: notSelected ? false : true,
               disableTouchEvent: true,
               selectedColor: COLORS.primary[global.colorScheme],
             },

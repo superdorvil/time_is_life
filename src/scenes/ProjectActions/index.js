@@ -9,6 +9,7 @@ import ProjectList from './ProjectList';
 import ProjectGoals from './ProjectGoals';
 import ProjectTask from './ProjectTask';
 import ProjectTimer from './ProjectTimer';
+import TaskList from './TaskList';
 import ViewProjectCharts from './ViewProjectCharts';
 
 export {
@@ -23,5 +24,6 @@ export {
   ProjectGoals,
   ProjectTask,
   ProjectTimer,
+  TaskList,
   ViewProjectCharts,
 };
