@@ -107,6 +107,7 @@ class ProjectList extends Component {
         totalSecondsWorked={project.totalSecondsWorked}
         thisWeeksSecondsWorked={project.thisWeeksSecondsWorked}
         thisWeeksSecondsGoal={project.thisWeeksSecondsGoal}
+        timerActive={project.timerActive}
       />
     );
   }

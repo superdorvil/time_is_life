@@ -1,7 +1,9 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity, Text} from 'react-native';
+import {ViewVisibleWrapper} from '_components';
 import TotalHours from './TotalHours';
 import ProjectData from './ProjectData';
+import {COLORS} from '_resources';
 
 const Project = ({
   projectPressed,
@@ -10,22 +12,50 @@ const Project = ({
   totalSecondsWorked,
   thisWeeksSecondsWorked,
   thisWeeksSecondsGoal,
+  timerActive,
 }) => {
   return (
     <TouchableOpacity onPress={projectPressed} style={containerStyle()}>
-      <TotalHours totalSecondsWorked={totalSecondsWorked} />
-      <ProjectData
-        deleted={deleted}
-        description={description}
-        secondsWorked={thisWeeksSecondsWorked}
-        goalSeconds={thisWeeksSecondsGoal}
-      />
+      <ViewVisibleWrapper active={timerActive}>
+        <Text style={projectActiveStyle()}>Project Timer Active</Text>
+      </ViewVisibleWrapper>
+      <View style={innerContainerStyle()}>
+        <TotalHours totalSecondsWorked={totalSecondsWorked} />
+        <ProjectData
+          deleted={deleted}
+          description={description}
+          secondsWorked={thisWeeksSecondsWorked}
+          goalSeconds={thisWeeksSecondsGoal}
+        />
+      </View>
     </TouchableOpacity>
   );
 };
 
 const containerStyle = () => {
-  return {flexDirection: 'row'};
+  return {
+    flexDirection: 'column'
+  };
+};
+
+const innerContainerStyle = () => {
+  return {
+    flexDirection: 'row'
+  };
+};
+
+const projectActiveStyle = () => {
+  return {
+    fontSize: 14,
+    marginBottom: 8,
+    marginTop: 8,
+    color: COLORS.secondary[global.colorScheme],
+    backgroundColor: COLORS.primary[global.colorScheme],
+    alignSelf: 'baseline',
+    padding: 4,
+    borderRadius: 8,
+    fontWeight: 'bold',
+  };
 };
 
 export default Project;
