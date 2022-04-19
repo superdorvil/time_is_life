@@ -2,11 +2,14 @@ import React from 'react';
 import {View, Text} from 'react-native';
 import {COLORS} from '_resources';
 import {Icon} from '_components';
+import {ICONS} from '_constants';
 
 const SelectedTabBarIcon = ({name}) => {
+  const displayName = (name == ICONS.checkmark) ? 'todo' : name;
+
   return (
     <View style={containerStyle()}>
-      <Text style={textStyle()}>{name}</Text>
+      <Text style={textStyle()}>{displayName}</Text>
       <Icon name={name} size={30} style={iconStyle()} />
     </View>
   );

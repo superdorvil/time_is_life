@@ -2,6 +2,7 @@ import React from 'react';
 import {TouchableOpacity, Text} from 'react-native';
 import {COLORS} from '_resources';
 import {Icon} from '_components';
+import {ICONS} from '_constants';
 import SelectedTabBarIcon from './SelectedTabBarIcon';
 
 const TabBarIcon = ({name, selectedName, onPress}) => {
@@ -9,9 +10,11 @@ const TabBarIcon = ({name, selectedName, onPress}) => {
     return <SelectedTabBarIcon name={name} />;
   }
 
+  const displayName = (name == ICONS.checkmark) ? 'todo' : name;
+
   return (
     <TouchableOpacity onPress={onPress} style={containerStyle()}>
-      <Text style={textStyle()}>{name}</Text>
+      <Text style={textStyle()}>{displayName}</Text>
       <Icon name={name} size={22} style={iconStyle()} />
     </TouchableOpacity>
   );

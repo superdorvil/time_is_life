@@ -35,6 +35,7 @@ class ProjectNavigator extends Component {
           projectsPressed={() => this.tabBarPressed(ICONS.projects)}
           goalsPressed={() => this.tabBarPressed(ICONS.goals)}
           chartsPressed={() => this.tabBarPressed(ICONS.charts)}
+          todoPressed={() => this.tabBarPressed(ICONS.checkmark)}
           settingsPressed={() => this.tabBarPressed(ICONS.settings)}
         />
       </View>

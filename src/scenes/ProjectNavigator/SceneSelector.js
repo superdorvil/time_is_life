@@ -5,6 +5,7 @@ import {
   ManageSettings,
   ManageWeeklyGoals,
   ProjectList,
+  TaskList,
   ViewProjectCharts,
 } from '../ProjectActions';
 
@@ -20,6 +21,9 @@ const SceneSelector = ({scene, realm}) => {
       break;
     case ICONS.charts:
       selectedScene = <ViewProjectCharts realm={realm} />;
+      break;
+    case ICONS.checkmark:
+      selectedScene = <TaskList realm={realm} />;
       break;
     case ICONS.settings:
       selectedScene = <ManageSettings realm={realm} />;

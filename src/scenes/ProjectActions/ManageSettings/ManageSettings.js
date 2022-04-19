@@ -52,10 +52,6 @@ class ManageSettings extends Component {
     projectDB.updateColorScheme({realm: this.props.realm, colorScheme});
   }
 
-  taskList() {
-    Actions.taskList({realm: this.props.realm});
-  }
-
   render() {
     return (
       <View style={containerStyle()}>
@@ -65,10 +61,6 @@ class ManageSettings extends Component {
             <Icon name={ICONS.settings} size={32} style={settingsStyle()} />
           </View>
         </View>
-        <SettingsItem
-          description="Task"
-          settingsPressed={() => this.taskList()}
-        />
         <SettingsItem
           description="Color Scheme"
           settingsPressed={this.openColorSchemeModal}

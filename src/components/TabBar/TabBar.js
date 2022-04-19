@@ -9,6 +9,7 @@ const TabBar = ({
   projectsPressed,
   goalsPressed,
   chartsPressed,
+  todoPressed,
   settingsPressed,
 }) => {
   return (
@@ -27,6 +28,11 @@ const TabBar = ({
         name={ICONS.charts}
         selectedName={navigationState}
         onPress={chartsPressed}
+      />
+      <TabBarIcon
+        name={ICONS.checkmark}
+        selectedName={navigationState}
+        onPress={todoPressed}
       />
       <TabBarIcon
         name={ICONS.settings}
