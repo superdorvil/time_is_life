@@ -5,6 +5,7 @@ import EditProjectHours from './EditProjectHours';
 import AddProjectHours from './AddProjectHours';
 import ManageSettings from './ManageSettings';
 import ManageWeeklyGoals from './ManageWeeklyGoals';
+import Maxims from './Maxims';
 import ProjectList from './ProjectList';
 import ProjectGoals from './ProjectGoals';
 import ProjectTask from './ProjectTask';
@@ -20,6 +21,7 @@ export {
   AddProjectHours,
   ManageSettings,
   ManageWeeklyGoals,
+  Maxims,
   ProjectList,
   ProjectGoals,
   ProjectTask,

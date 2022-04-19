@@ -6,19 +6,18 @@ import projectDB from '_data';
 import {ICONS} from '_constants';
 import {HoursUtils, DateUtils} from '_utils';
 
-class TaskList extends Component {
+class Maxims extends Component {
   constructor(props) {
     super(props);
     const tasks = projectDB.getTasks({
       realm: this.props.realm,
+      projectID: 26,
     });
 
     this.state = {
       tasks,
       dueDatesToRender: [],
     };
-
-    this.maxims = this.maxims.bind(this);
   }
 
   componentDidMount() {
@@ -26,6 +25,7 @@ class TaskList extends Component {
       this.setState({
         task: projectDB.getTasks({
           realm: this.props.realm,
+          projectID: 26,
         }),
       });
       this.dueDatesToRender();
@@ -40,10 +40,6 @@ class TaskList extends Component {
     this.setState = (state, callback) => {
       return;
     };
-  }
-
-  maxims() {
-    Actions.maxims({realm: this.props.realm});
   }
 
   dueDatesToRender() {
@@ -97,7 +93,6 @@ class TaskList extends Component {
           });
         }}
         projectID={listData.projectID}
-        showProject
         dueDateIndex={listData.dueDateIndex}
         renderDueDate={renderDueDate}
       />
@@ -106,11 +101,9 @@ class TaskList extends Component {
 
   render() {
     const actionScreenData = {
+      backArrowActive: true,
       centerIconName: ICONS.checkmark,
-      actionDescription: 'Your Task',
-      topRightButtonActive: true,
-      topRightButtonDescription: 'maxims',
-      topRightButtonPressed: this.maxims,
+      actionDescription: 'Maxims',
     };
 
     return (
@@ -138,4 +131,4 @@ const containerStyle = () => {
   return {flex: 1};
 };
 
-export default TaskList;
+export default Maxims;

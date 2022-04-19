@@ -15,6 +15,7 @@ import {
   ProjectTask,
   ProjectTimer,
   TaskList,
+  Maxims,
   ViewProjectCharts,
 } from './ProjectActions';
 
@@ -80,6 +81,12 @@ const RouterComponent = () => (
         key="manageWeeklyGoals"
         component={ManageWeeklyGoals}
         title="ManageWeeklyGoals"
+        hideNavBar
+      />
+      <Scene
+        key="maxims"
+        component={Maxims}
+        title="Maxims"
         hideNavBar
       />
       <Scene
