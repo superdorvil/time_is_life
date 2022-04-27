@@ -88,10 +88,17 @@ class Task extends Component {
         dateText = 'Tomorrow';
         break;
       default:
-        dateText = DateUtils.convertDateToString({
-          date: dueDate,
-          format: UTILS.dateFormat.monthDateYear,
-        });
+        if (dueDateIndex > todayIndex + 1 && dueDateIndex < todayIndex + 7) {
+            dateText = DateUtils.convertDayToString({
+              date: dueDate,
+              format: UTILS.weekdayFormat.full,
+            });
+        } else {
+          dateText = DateUtils.convertDateToString({
+            date: dueDate,
+            format: UTILS.dateFormat.monthDateYear,
+          });
+        }
     }
 
     return dateText;
