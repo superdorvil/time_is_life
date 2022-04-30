@@ -155,10 +155,15 @@ class ProjectDB {
     yearIndex,
     inverseSort,
     returnList,
+    showDeleted,
   }) {
     let secondsWorked = realm
       .objects(SCHEMAS.secondsWorked)
       .sorted('startTime', true);
+
+    if (showDeleted) {
+      secondsWorked = secondsWorked.filtered('deleted == $0', showDeleted);
+    }
 
     if (projectID) {
       secondsWorked = secondsWorked.filtered('projectID == $0', projectID);
@@ -354,10 +359,7 @@ class ProjectDB {
   createSecondsWorked({
     realm,
     projectID,
-    dateIndex,
-    weekIndex,
-    monthIndex,
-    yearIndex,
+    taskID,
     startTime,
     endTime,
   }) {
@@ -367,10 +369,11 @@ class ProjectDB {
       secondsWorked = realm.create(SCHEMAS.secondsWorked, {
         id: realm.objects(SCHEMAS.secondsWorked).length + 1,
         projectID,
-        dateIndex,
-        weekIndex,
-        monthIndex,
-        yearIndex,
+        taskID,
+        dateIndex: DateUtils.getDateIndex({date: startTime}),
+        weekIndex: DateUtils.getWeekIndex({date: startTime}),
+        monthIndex: DateUtils.getMonthIndex({date: startTime}),
+        yearIndex: DateUtils.getYearIndex({date: startTime}),
         startTime,
         endTime,
       });
@@ -427,46 +430,45 @@ class ProjectDB {
   updateSecondsWorked({
     realm,
     secondsWorkedID,
-    hours,
-    minutes,
-    date,
-    updateStartTime,
+    startTime,
+    endTime,
+    projectID,
+    taskID,
   }) {
     const secondsWorked = realm.objectForPrimaryKey(
       SCHEMAS.secondsWorked,
       secondsWorkedID,
     );
-    const startTime = secondsWorked.startTime;
-    const endTime = secondsWorked.endTime;
 
     realm.write(() => {
-      if (date) {
-        if (updateStartTime) {
-          startTime.setDate(date.getDate());
-          startTime.setMonth(date.getMonth());
-          startTime.setFullYear(date.getFullYear());
-          secondsWorked.startTime = startTime;
-          secondsWorked.dateIndex = DateUtils.getDateIndex({date});
-          secondsWorked.weekIndex = DateUtils.getWeekIndex({date});
-          secondsWorked.monthIndex = DateUtils.getMonthIndex({date});
-          secondsWorked.yearIndex = DateUtils.getYearIndex({date});
-        } else {
-          endTime.setDate(date.getDate());
-          endTime.setMonth(date.getMonth());
-          endTime.setFullYear(date.getFullYear());
-          secondsWorked.endTime = endTime;
-        }
-      } else {
-        if (updateStartTime) {
-          startTime.setHours(hours);
-          startTime.setMinutes(minutes);
-          secondsWorked.startTime = startTime;
-        } else {
-          endTime.setHours(hours);
-          endTime.setMinutes(minutes);
-          secondsWorked.endTime = endTime;
-        }
-      }
+      secondsWorked.projectID = projectID;
+      secondsWorked.taskID = taskID;
+      secondsWorked.startTime = new Date(startTime);
+      secondsWorked.endTime = new Date(endTime);
+      secondsWorked.dateIndex = DateUtils.getDateIndex({date: startTime});
+      secondsWorked.weekIndex = DateUtils.getWeekIndex({date: startTime});
+      secondsWorked.monthIndex = DateUtils.getMonthIndex({date: startTime});
+      secondsWorked.yearIndex = DateUtils.getYearIndex({date: startTime});
+    });
+
+    this.updateProjectSecondsData({realm, projectID: secondsWorked.projectID});
+  }
+
+  deleteSecondsWorked({realm, secondsWorkedID}) {
+    const secondsWorked = realm.objectForPrimaryKey(
+      SCHEMAS.secondsWorked,
+      secondsWorkedID,
+    );
+    const date = new Date(1994, 10, 9, 0, 0, 0, 0);
+
+    realm.write(() => {
+      secondsWorked.startTime = new Date(date);
+      secondsWorked.endTime = new Date(date);
+      secondsWorked.dateIndex = DateUtils.getDateIndex({date});
+      secondsWorked.weekIndex = DateUtils.getWeekIndex({date});
+      secondsWorked.monthIndex = DateUtils.getMonthIndex({date});
+      secondsWorked.yearIndex = DateUtils.getYearIndex({date});
+      secondsWorked.deleted = true;
     });
 
     this.updateProjectSecondsData({realm, projectID: secondsWorked.projectID});

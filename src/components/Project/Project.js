@@ -1,7 +1,6 @@
 import React from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
-import {ViewVisibleWrapper} from '_components';
-import TotalHours from './TotalHours';
+import {ViewVisibleWrapper, TotalHours} from '_components';
 import ProjectData from './ProjectData';
 import {COLORS} from '_resources';
 

@@ -13,7 +13,7 @@ import projectDB from '_data';
 import {ICONS, STATES, UTILS} from '_constants';
 import {InputUtils, DateUtils} from '_utils';
 
-class EditProjectHours extends Component {
+class ProjectHours extends Component {
   constructor(props) {
     super(props);
     const weekIndex = DateUtils.getWeekIndex({date: new Date()});
@@ -443,4 +443,4 @@ const containerStyle = () => {
   return {flex: 1};
 };
 
-export default EditProjectHours;
+export default ProjectHours;

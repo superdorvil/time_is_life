@@ -9,14 +9,14 @@ import {COLORS} from '_resources';
 
 const TimeSelector = ({
   visible,
-  closeModal,
   setTimeDescription,
   hours,
   minutes,
+  seconds,
   updateHours,
   updateMinutes,
-  amPressed,
-  pmPressed,
+  updateSeconds,
+  ampmPressed,
   ampm,
   okayPressed,
   cancelPressed,
@@ -34,10 +34,11 @@ const TimeSelector = ({
           <TimeInput
             hours={hours}
             minutes={minutes}
+            seconds={seconds}
             updateHours={updateHours}
             updateMinutes={updateMinutes}
-            amPressed={amPressed}
-            pmPressed={pmPressed}
+            updateSeconds={updateSeconds}
+            ampmPressed={ampmPressed}
             ampm={ampm}
           />
         </View>

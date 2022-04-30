@@ -10,10 +10,11 @@ import {COLORS} from '_resources';
 const TimeInput = ({
   hours,
   minutes,
+  seconds,
   updateHours,
   updateMinutes,
-  amPressed,
-  pmPressed,
+  updateSeconds,
+  ampmPressed,
   ampm,
 }) => {
   return (
@@ -45,6 +46,19 @@ const TimeInput = ({
               placeholder="0"
             />
             <Text style={timeStyle()}>minutes</Text>
+          </View>
+          <Text style={colonStyle()}> : </Text>
+          <View style={timeInputInnerContainerStyle()}>
+            <TextInput
+              keyboardType="number-pad"
+              style={inputStyle()}
+              multiline
+              value={seconds.toString()}
+              autoCorrect={false}
+              onChangeText={updateSeconds}
+              placeholder="0"
+            />
+            <Text style={timeStyle()}>seconds</Text>
           </View>
         </View>
         {/*

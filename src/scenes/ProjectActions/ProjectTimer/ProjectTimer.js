@@ -127,7 +127,7 @@ class ProjectTimer extends Component {
         });
         break;
       case ICONS.clock:
-        Actions.editProjectHours({
+        Actions.projectHoursWorked({
           realm: this.props.realm,
           project: this.state.project,
         });

@@ -6,8 +6,8 @@ import ActionButton from './ActionButton';
 import LoadMoreButton from './LoadMoreButton';
 
 class BottomContainer extends Component {
-  renderDivider() {
-    return <Divider />;
+  renderDivider(dividerColorPrimary) {
+    return <Divider primary={dividerColorPrimary} />;
   }
 
   render() {
@@ -44,7 +44,7 @@ class BottomContainer extends Component {
                   active={this.props.loadMoreActive}
                 />
               }
-              ItemSeparatorComponent={this.renderDivider}
+              ItemSeparatorComponent={() => this.renderDivider(this.props.dividerColorPrimary)}
               contentContainerStyle={listPaddingStyle()}
             />
           </ViewVisibleWrapper>

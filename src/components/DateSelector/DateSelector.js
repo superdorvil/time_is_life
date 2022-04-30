@@ -43,7 +43,7 @@ const DateSelector = ({
         <Calendar
           //current={new Date()}
           //minDate={new Date()}
-          maxDate={maxDate}
+          //maxDate={date}
           hideExtraDays
           onDayPress={day => {
             updateDate(day);
@@ -54,7 +54,7 @@ const DateSelector = ({
           markedDates={{
             [dateString]: {
               selected: notSelected ? false : true,
-              disableTouchEvent: true,
+              disableTouchEvent: false,
               selectedColor: COLORS.primary[global.colorScheme],
             },
           }}

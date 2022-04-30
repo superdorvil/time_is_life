@@ -2,19 +2,34 @@ import React, {Component} from 'react';
 import {View, Text} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import {ActionContainer} from '_components';
-import {Button, EditHoursWorked, TimeSelector, DateSelector} from '_components';
+import {
+  Button,
+  EditHoursWorked,
+  TimeSelector,
+  DateSelector,
+  SelectItemModal,
+} from '_components';
 import {ICONS, UTILS} from '_constants';
 import {COLORS} from '_resources';
-import {STATES} from '_constants';
+import {STATES, SCHEMAS} from '_constants';
 import {DateUtils, HoursUtils, InputUtils} from '_utils';
 import projectDB from '_data';
 
-class AddProjectHours extends Component {
+class EditProjectHours extends Component {
   constructor(props) {
     super(props);
 
     const currentDate = new Date();
     currentDate.setSeconds(0);
+
+    const projects = projectDB.getProjects({
+      realm: this.props.realm,
+      projectID: this.props.project.id,
+    });
+    const tasks = projectDB.getTasks({
+      realm: this.props.realm,
+      projectID: this.props.project.id,
+    });
 
     this.state = {
       startDate: new Date(currentDate),
@@ -29,13 +44,22 @@ class AddProjectHours extends Component {
       endDateModalVisible: false,
       startTimeModalVisible: false,
       endTimeModalVisible: false,
+      editTaskModalVisible: false,
+      editProjectModalVisible: false,
+      secondsWorkedID: this.props.secondsWorkedID,
       ampm: STATES.am,
+      projects,
+      tasks,
     };
 
+    this.taskPressed = this.taskPressed.bind(this);
+    this.projectPressed = this.projectPressed.bind(this);
     this.updateStartDate = this.updateStartDate.bind(this);
     this.updateEndDate = this.updateEndDate.bind(this);
     this.openStartDateModal = this.openStartDateModal.bind(this);
     this.openEndDateModal = this.openEndDateModal.bind(this);
+    this.openEditProjectModal = this.openEditProjectModal.bind(this);
+    this.openEditTaskModal = this.openEditTaskModal.bind(this);
     this.confirmTimeChange = this.confirmTimeChange.bind(this);
     this.openStartTimeModal = this.openStartTimeModal.bind(this);
     this.openEndTimeModal = this.openEndTimeModal.bind(this);
@@ -103,22 +127,12 @@ class AddProjectHours extends Component {
     this.setState({endDateModalVisible: true, tempEndDate: this.state.endDate});
   }
 
-  confirmTimeChange() {
-    if (this.state.startTimeModalVisible) {
-      const startTime = new Date(this.state.startDate);
-      startTime.setHours(this.state.setTimeHours);
-      startTime.setMinutes(this.state.setTimeMinutes);
+  openEditTaskModal() {
+    this.setState({editTaskModalVisible: true});
+  }
 
-      this.setState({startTime});
-    } else if (this.state.endTimeModalVisible) {
-      const endTime = new Date(this.state.endDate);
-      endTime.setHours(this.state.setTimeHours);
-      endTime.setMinutes(this.state.setTimeMinutes);
-
-      this.setState({endTime});
-    }
-
-    this.closeModal();
+  openEditProjectModal() {
+    this.setState({editProjectModalVisible: true});
   }
 
   openStartTimeModal() {
@@ -135,7 +149,27 @@ class AddProjectHours extends Component {
       endDateModalVisible: false,
       startTimeModalVisible: false,
       endTimeModalVisible: false,
+      editTaskModalVisible: false,
+      editProjectModalVisible: false,
     });
+  }
+
+  confirmTimeChange() {
+    if (this.state.startTimeModalVisible) {
+      const startTime = new Date(this.state.startDate);
+      startTime.setHours(this.state.setTimeHours);
+      startTime.setMinutes(this.state.setTimeMinutes);
+
+      this.setState({startTime});
+    } else if (this.state.endTimeModalVisible) {
+      const endTime = new Date(this.state.endDate);
+      endTime.setHours(this.state.setTimeHours);
+      endTime.setMinutes(this.state.setTimeMinutes);
+
+      this.setState({endTime});
+    }
+
+    this.closeModal();
   }
 
   updateSetTimeHours(value) {
@@ -266,6 +300,24 @@ class AddProjectHours extends Component {
           visible={this.state.endDateModalVisible}
           closeModal={this.closeModal}
         />
+        <SelectTaskModal
+          realm={this.props.realm}
+          tasks={this.state.projects}
+          secondsWorkedID={this.state.secondsWorkedID}
+          visible={this.state.editTaskModalVisible}
+          closeModal={this.closeModal}
+          taskPressed={this.taskPressed}
+          schema={SCHEMAS.project}
+        />
+        <SelectTaskModal
+          realm={this.props.realm}
+          tasks={this.state.tasks}
+          secondsWorkedID={this.state.secondsWorkedID}
+          visible={this.state.editTaskModalVisible}
+          closeModal={this.closeModal}
+          taskPressed={this.taskPressed}
+          schema={SCHEMAS.task}
+        />
       </View>
     );
   }
@@ -301,4 +353,4 @@ const hoursWorkedStyle = () => {
   };
 };
 
-export default AddProjectHours;
+export default EditProjectHours;
