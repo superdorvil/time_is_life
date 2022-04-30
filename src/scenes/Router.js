@@ -7,14 +7,12 @@ import {
   CreateTask,
   EditProject,
   ManageProjectHours,
-  AddProjectHours,
   ManageSettings,
   ManageWeeklyGoals,
   ProjectList,
   ProjectGoals,
   ProjectTask,
   ProjectTimer,
-  ProjectHours,
   ProjectHoursWorked,
   TaskList,
   Maxims,
@@ -104,12 +102,6 @@ const RouterComponent = () => (
         hideNavBar
       />
       <Scene
-        key="projectHours"
-        component={ProjectHours}
-        title="ProjectHours"
-        hideNavBar
-      />
-      <Scene
         key="projectHoursWorked"
         component={ProjectHoursWorked}
         title="ProjectHoursWorked"
@@ -125,12 +117,6 @@ const RouterComponent = () => (
         key="taskList"
         component={TaskList}
         title="TaskList"
-        hideNavBar
-      />
-      <Scene
-        key="addProjectHours"
-        component={AddProjectHours}
-        title="addProjectHours"
         hideNavBar
       />
     </Scene>

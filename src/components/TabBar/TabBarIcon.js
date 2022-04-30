@@ -10,7 +10,8 @@ const TabBarIcon = ({name, selectedName, onPress}) => {
     return <SelectedTabBarIcon name={name} />;
   }
 
-  const displayName = (name == ICONS.checkmark) ? 'todo' : name;
+  let displayName = (name == ICONS.checkmark) ? 'todo' : name;
+  displayName = (name == ICONS.projects) ? 'projects' : displayName;
 
   return (
     <TouchableOpacity onPress={onPress} style={containerStyle()}>

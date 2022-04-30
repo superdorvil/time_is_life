@@ -31,6 +31,22 @@
 		C53F512750604FCFA48D8BD3 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C59AB34CF6DE41D5A148215D /* MaterialIcons.ttf */; };
 		E4D68C44424C4274A7339E4C /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2B807F1EFB9F453CAF9B133B /* Entypo.ttf */; };
 		EEB893ABAF33432DB7382F34 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF14859ECC2F4F2A93E51AA5 /* FontAwesome.ttf */; };
+		E7E49C5B7939426DABEC13E5 /* calendar.svg in Resources */ = {isa = PBXBuildFile; fileRef = B9932815E4B348D78205C80A /* calendar.svg */; };
+		228F46F05FD94176A701451F /* chart.svg in Resources */ = {isa = PBXBuildFile; fileRef = 036527CBECE24B85AC80D923 /* chart.svg */; };
+		D50E7D32B56140E491BB28D7 /* checkmark.svg in Resources */ = {isa = PBXBuildFile; fileRef = CE4C0F459963420EBE74CFAD /* checkmark.svg */; };
+		E3988768B67F4EF9B12DECC3 /* clock.svg in Resources */ = {isa = PBXBuildFile; fileRef = 156B99918F5C4EFC83C9FB09 /* clock.svg */; };
+		69CB788D7AF44674A9B4024D /* edit.svg in Resources */ = {isa = PBXBuildFile; fileRef = 012AF7E1336B4CF5A6D8A6E0 /* edit.svg */; };
+		9EA9A9D8FB22493D9DA3A04D /* goals.svg in Resources */ = {isa = PBXBuildFile; fileRef = 74A6C7D035744E5180853472 /* goals.svg */; };
+		6B514883A3CA4BA2834CF68A /* home.svg in Resources */ = {isa = PBXBuildFile; fileRef = 867E35507D914839A77D2245 /* home.svg */; };
+		66586FBFBB604782863996EB /* important.svg in Resources */ = {isa = PBXBuildFile; fileRef = FBE3B27024124CAB8BCF04DA /* important.svg */; };
+		1F66CE5B66294E6A9ACFBFBA /* left_arrow.svg in Resources */ = {isa = PBXBuildFile; fileRef = AC3525702336473590F50DF5 /* left_arrow.svg */; };
+		7F2703E35B7A48D7ACDA651E /* play_button.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5748CEA20C3644E0891BE7E0 /* play_button.svg */; };
+		5730BCE13282472CB1F62931 /* plus.svg in Resources */ = {isa = PBXBuildFile; fileRef = 0F57B3DDEA06486491C684C8 /* plus.svg */; };
+		CF88B552157E41B09121BBB9 /* right_arrow.svg in Resources */ = {isa = PBXBuildFile; fileRef = 5DFFF277D515442DBE291279 /* right_arrow.svg */; };
+		2712F68CF1AA472798B6EF67 /* settings.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4456FC03922F4998B1CEE7A8 /* settings.svg */; };
+		0E17D87A124F4B93958E11D5 /* up_arrow.svg in Resources */ = {isa = PBXBuildFile; fileRef = 35878EC2C5C24AC28CA60592 /* up_arrow.svg */; };
+		4334816102084DCE876D766D /* cancel.svg in Resources */ = {isa = PBXBuildFile; fileRef = 40EF3BD14B914D21A9ADA5E3 /* cancel.svg */; };
+		2304FC6F1AF54D8387926761 /* trash.svg in Resources */ = {isa = PBXBuildFile; fileRef = D7CE3EA37ED245B68C310F48 /* trash.svg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +94,22 @@
 		DC531E4CF43CDF2661F7A365 /* Pods-time_is_life.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-time_is_life.release.xcconfig"; path = "Target Support Files/Pods-time_is_life/Pods-time_is_life.release.xcconfig"; sourceTree = "<group>"; };
 		E23D546BA1C749CFB25BB622 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		B9932815E4B348D78205C80A /* calendar.svg */ = {isa = PBXFileReference; name = "calendar.svg"; path = "../src/resources/fonts/svg icons/calendar.svg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		036527CBECE24B85AC80D923 /* chart.svg */ = {isa = PBXFileReference; name = "chart.svg"; path = "../src/resources/fonts/svg icons/chart.svg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CE4C0F459963420EBE74CFAD /* checkmark.svg */ = {isa = PBXFileReference; name = "checkmark.svg"; path = "../src/resources/fonts/svg icons/checkmark.svg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		156B99918F5C4EFC83C9FB09 /* clock.svg */ = {isa = PBXFileReference; name = "clock.svg"; path = "../src/resources/fonts/svg icons/clock.svg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		012AF7E1336B4CF5A6D8A6E0 /* edit.svg */ = {isa = PBXFileReference; name = "edit.svg"; path = "../src/resources/fonts/svg icons/edit.svg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		74A6C7D035744E5180853472 /* goals.svg */ = {isa = PBXFileReference; name = "goals.svg"; path = "../src/resources/fonts/svg icons/goals.svg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		867E35507D914839A77D2245 /* home.svg */ = {isa = PBXFileReference; name = "home.svg"; path = "../src/resources/fonts/svg icons/home.svg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		FBE3B27024124CAB8BCF04DA /* important.svg */ = {isa = PBXFileReference; name = "important.svg"; path = "../src/resources/fonts/svg icons/important.svg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		AC3525702336473590F50DF5 /* left_arrow.svg */ = {isa = PBXFileReference; name = "left_arrow.svg"; path = "../src/resources/fonts/svg icons/left_arrow.svg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5748CEA20C3644E0891BE7E0 /* play_button.svg */ = {isa = PBXFileReference; name = "play_button.svg"; path = "../src/resources/fonts/svg icons/play_button.svg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0F57B3DDEA06486491C684C8 /* plus.svg */ = {isa = PBXFileReference; name = "plus.svg"; path = "../src/resources/fonts/svg icons/plus.svg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5DFFF277D515442DBE291279 /* right_arrow.svg */ = {isa = PBXFileReference; name = "right_arrow.svg"; path = "../src/resources/fonts/svg icons/right_arrow.svg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4456FC03922F4998B1CEE7A8 /* settings.svg */ = {isa = PBXFileReference; name = "settings.svg"; path = "../src/resources/fonts/svg icons/settings.svg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		35878EC2C5C24AC28CA60592 /* up_arrow.svg */ = {isa = PBXFileReference; name = "up_arrow.svg"; path = "../src/resources/fonts/svg icons/up_arrow.svg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		40EF3BD14B914D21A9ADA5E3 /* cancel.svg */ = {isa = PBXFileReference; name = "cancel.svg"; path = "../src/resources/fonts/svg icons/cancel.svg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D7CE3EA37ED245B68C310F48 /* trash.svg */ = {isa = PBXFileReference; name = "trash.svg"; path = "../src/resources/fonts/svg icons/trash.svg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +192,22 @@
 				1662018F56F943AD9948754C /* Octicons.ttf */,
 				5CF5BC6CBCDF4DCA8CB3E60E /* SimpleLineIcons.ttf */,
 				E23D546BA1C749CFB25BB622 /* Zocial.ttf */,
+				B9932815E4B348D78205C80A /* calendar.svg */,
+				036527CBECE24B85AC80D923 /* chart.svg */,
+				CE4C0F459963420EBE74CFAD /* checkmark.svg */,
+				156B99918F5C4EFC83C9FB09 /* clock.svg */,
+				012AF7E1336B4CF5A6D8A6E0 /* edit.svg */,
+				74A6C7D035744E5180853472 /* goals.svg */,
+				867E35507D914839A77D2245 /* home.svg */,
+				FBE3B27024124CAB8BCF04DA /* important.svg */,
+				AC3525702336473590F50DF5 /* left_arrow.svg */,
+				5748CEA20C3644E0891BE7E0 /* play_button.svg */,
+				0F57B3DDEA06486491C684C8 /* plus.svg */,
+				5DFFF277D515442DBE291279 /* right_arrow.svg */,
+				4456FC03922F4998B1CEE7A8 /* settings.svg */,
+				35878EC2C5C24AC28CA60592 /* up_arrow.svg */,
+				40EF3BD14B914D21A9ADA5E3 /* cancel.svg */,
+				D7CE3EA37ED245B68C310F48 /* trash.svg */,
 			);
 			name = Resources;
 			path = "";
@@ -322,6 +370,22 @@
 				BE074ADA1FFB44429C6FF3DE /* Octicons.ttf in Resources */,
 				91899C597D804F0A8D2544E4 /* SimpleLineIcons.ttf in Resources */,
 				09824489610546F4AC253801 /* Zocial.ttf in Resources */,
+				E7E49C5B7939426DABEC13E5 /* calendar.svg in Resources */,
+				228F46F05FD94176A701451F /* chart.svg in Resources */,
+				D50E7D32B56140E491BB28D7 /* checkmark.svg in Resources */,
+				E3988768B67F4EF9B12DECC3 /* clock.svg in Resources */,
+				69CB788D7AF44674A9B4024D /* edit.svg in Resources */,
+				9EA9A9D8FB22493D9DA3A04D /* goals.svg in Resources */,
+				6B514883A3CA4BA2834CF68A /* home.svg in Resources */,
+				66586FBFBB604782863996EB /* important.svg in Resources */,
+				1F66CE5B66294E6A9ACFBFBA /* left_arrow.svg in Resources */,
+				7F2703E35B7A48D7ACDA651E /* play_button.svg in Resources */,
+				5730BCE13282472CB1F62931 /* plus.svg in Resources */,
+				CF88B552157E41B09121BBB9 /* right_arrow.svg in Resources */,
+				2712F68CF1AA472798B6EF67 /* settings.svg in Resources */,
+				0E17D87A124F4B93958E11D5 /* up_arrow.svg in Resources */,
+				4334816102084DCE876D766D /* cancel.svg in Resources */,
+				2304FC6F1AF54D8387926761 /* trash.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

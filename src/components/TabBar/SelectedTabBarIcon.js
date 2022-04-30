@@ -5,7 +5,8 @@ import {Icon} from '_components';
 import {ICONS} from '_constants';
 
 const SelectedTabBarIcon = ({name}) => {
-  const displayName = (name == ICONS.checkmark) ? 'todo' : name;
+  let displayName = (name == ICONS.checkmark) ? 'todo' : name;
+  displayName = (name == ICONS.projects) ? 'projects' : displayName;
 
   return (
     <View style={containerStyle()}>
