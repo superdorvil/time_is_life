@@ -65,7 +65,7 @@ class ManageTask extends Component {
         actionDescription: 'Create New Task',
         topRightButtonActive: editMode,
         buttonDescription: "+ Add Task",
-        dueDateIndex: 9999999999999, // replace me with constant
+        dueDateIndex: UTILS.nullDueDate, // replace me with constant
         subtasks: [],
         completed: false,
         deleted: false,
@@ -192,7 +192,11 @@ class ManageTask extends Component {
     );
     const dueDateIndex = DateUtils.getDateIndex({date});
 
-    this.setState({dueDateIndex});
+    if (this.state.dueDateIndex === dueDateIndex) {
+      this.setState({dueDateIndex: UTILS.nullDueDate});
+    } else {
+      this.setState({dueDateIndex});
+    }
 
     this.closeModal();
   }
@@ -249,7 +253,7 @@ class ManageTask extends Component {
       topRightButtonPressed: this.deleteTask,
     };
 
-    const date = this.state.dueDateIndex === 9999999999999 ?
+    const date = this.state.dueDateIndex === UTILS.nullDueDate ?
       new Date():
       DateUtils.getDateFromDateIndex({
         dateIndex: this.state.dueDateIndex,
@@ -294,7 +298,7 @@ class ManageTask extends Component {
               <EditItemButton
                 header="Due Date"
                 description={
-                  this.state.dueDateIndex === 9999999999999 ?
+                  this.state.dueDateIndex === UTILS.nullDueDate ?
                   'none' :
                   DateUtils.convertDateToString({
                     date: DateUtils.getDateFromDateIndex({
@@ -379,7 +383,7 @@ class ManageTask extends Component {
           visible={this.state.dateModalVisible}
           closeModal={this.closeModal}
           taskDueDate
-          notSelected={this.state.dueDateIndex == 9999999999999}
+          notSelected={this.state.dueDateIndex == UTILS.nullDueDate}
         />
         <SubtaskModal
           visible={this.state.subtaskModalVisible}

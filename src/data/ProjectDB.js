@@ -1,5 +1,5 @@
 import {DateUtils} from '_utils';
-import {SCHEMAS} from '_constants';
+import {SCHEMAS, UTILS} from '_constants';
 import * as ProjectMigrations from './ProjectMigrations';
 
 class ProjectDB {
@@ -23,7 +23,7 @@ class ProjectDB {
 
     realm.write(() => {
       tasks.forEach((task, i) => {
-        if (task.dueDateIndex != 9999999999999) {
+        if (task.dueDateIndex != UTILS.nullDueDate) {
           if (task.dueDateIndex < todayIndex) {
             if (!task.completed) { // if completeted the due date alone
               task.dueDateIndex = todayIndex;

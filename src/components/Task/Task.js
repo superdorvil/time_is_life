@@ -70,7 +70,7 @@ class Task extends Component {
 
   openDueDateModal() {
     let dueDate;
-    if (this.props.dueDateIndex == 9999999999999) {
+    if (this.props.dueDateIndex == UTILS.nullDueDate) {
       const today = new Date();
       const todayIndex = DateUtils.getDateIndex({date: today});
 
@@ -150,12 +150,19 @@ class Task extends Component {
       dateObject.day,
     );
     const dueDateIndex = DateUtils.getDateIndex({date});
-
-    projectDB.updateTaskDueDate({
-      realm: this.props.realm,
-      taskID: this.props.taskID,
-      dueDateIndex
-    });
+    if (this.props.dueDateIndex === dueDateIndex) {
+      projectDB.updateTaskDueDate({
+        realm: this.props.realm,
+        taskID: this.props.taskID,
+        dueDateIndex: UTILS.nullDueDate,
+      });
+    } else {
+      projectDB.updateTaskDueDate({
+        realm: this.props.realm,
+        taskID: this.props.taskID,
+        dueDateIndex
+      });
+    }
 
     this.closeModal();
   }
@@ -236,7 +243,7 @@ class Task extends Component {
   }
 
   convertDueDateToText(dueDateIndex) {
-    if (dueDateIndex == 9999999999999) {
+    if (dueDateIndex == UTILS.nullDueDate) {
       return false;
     }
 
@@ -440,7 +447,7 @@ class Task extends Component {
             visible={this.state.dateModalVisible}
             closeModal={this.closeModal}
             taskDueDate
-            notSelected={this.props.dueDateIndex == 9999999999999}
+            notSelected={this.props.dueDateIndex == UTILS.nullDueDate}
           />
           <SubtaskModal
             visible={this.state.subtaskModalVisible}

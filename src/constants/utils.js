@@ -30,3 +30,4 @@ export const initialDateString = '11/3/2019';
 export const initialMonth = 10; // Nov is the 11th month and indexed as ten
 export const initialYear = 2019;
 export const initialDate = 9;
+export const nullDueDate = 9999999999999;
