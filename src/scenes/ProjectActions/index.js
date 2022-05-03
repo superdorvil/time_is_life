@@ -11,7 +11,6 @@ import ProjectTask from './ProjectTask';
 import ProjectTimer from './ProjectTimer';
 import TaskList from './TaskList';
 import ViewProjectCharts from './ViewProjectCharts';
-import Maxims from './Maxims';
 
 export {
   ManageProject,
@@ -27,5 +26,4 @@ export {
   ProjectTimer,
   TaskList,
   ViewProjectCharts,
-  Maxims,
 };

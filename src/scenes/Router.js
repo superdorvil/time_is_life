@@ -16,7 +16,6 @@ import {
   ProjectTimer,
   TaskList,
   ViewProjectCharts,
-  Maxims,
 } from './ProjectActions';
 
 const RouterComponent = () => (
@@ -111,12 +110,6 @@ const RouterComponent = () => (
         key="viewProjectCharts"
         component={ViewProjectCharts}
         title="ViewProjectCharts"
-        hideNavBar
-      />
-      <Scene
-        key="maxims"
-        component={Maxims}
-        title="Maxims"
         hideNavBar
       />
     </Scene>

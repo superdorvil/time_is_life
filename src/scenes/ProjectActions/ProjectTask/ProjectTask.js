@@ -25,7 +25,6 @@ class ProjectTask extends Component {
     };
 
     this.addPressed = this.addPressed.bind(this);
-    this.maxims = this.maxims.bind(this);
   }
 
   componentDidMount() {
@@ -105,6 +104,7 @@ class ProjectTask extends Component {
 
     return (
       <Task
+        index={index}
         hoursWorked={HoursUtils.convertSecondsToHrs({
           totalSeconds: hoursWorked,
           decimalMinutes: true,
@@ -131,9 +131,7 @@ class ProjectTask extends Component {
       backArrowActive: true,
       centerIconName: ICONS.checkmark,
       actionDescription: this.state.project.description,
-      topRightButtonActive: true,
-      topRightButtonDescription: 'maxims',
-      topRightButtonPressed: this.maxims,
+      topRightButtonActive: false,
     };
 
     return (

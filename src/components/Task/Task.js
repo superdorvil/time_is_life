@@ -375,7 +375,8 @@ class Task extends Component {
               active={
                 !this.props.completed &&
                 this.props.renderDueDate &&
-                !dueDateToText
+                !dueDateToText &&
+                this.props.index !== 0
               }
             />
             <Swipeable

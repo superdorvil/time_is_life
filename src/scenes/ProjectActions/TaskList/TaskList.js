@@ -17,8 +17,6 @@ class TaskList extends Component {
       tasks,
       dueDatesToRender: [],
     };
-
-    this.maxims = this.maxims.bind(this);
   }
 
   componentDidMount() {
@@ -40,10 +38,6 @@ class TaskList extends Component {
     this.setState = (state, callback) => {
       return;
     };
-  }
-
-  maxims() {
-    Actions.maxims({realm: this.props.realm});
   }
 
   dueDatesToRender() {
@@ -82,6 +76,7 @@ class TaskList extends Component {
 
     return (
       <Task
+        index={index}
         hoursWorked={HoursUtils.convertSecondsToHrs({
           totalSeconds: hoursWorked,
           decimalMinutes: true,
@@ -109,9 +104,7 @@ class TaskList extends Component {
     const actionScreenData = {
       centerIconName: ICONS.checkmark,
       actionDescription: 'Your Task',
-      topRightButtonActive: true,
-      topRightButtonDescription: 'maxims',
-      topRightButtonPressed: this.maxims,
+      topRightButtonActive: false,
     };
 
     return (
