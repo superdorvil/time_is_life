@@ -64,9 +64,9 @@ class ProjectTask extends Component {
   }
 
   addPressed() {
-    Actions.createTask({
+    Actions.manageTask({
       realm: this.props.realm,
-      project: this.state.project,
+      projectID: this.state.project.id,
     });
   }
 

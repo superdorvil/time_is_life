@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import {EditTimeButton} from '_components';
+import {EditItemButton} from '_components';
 import {DateUtils, HoursUtils} from '_utils';
 import {ICONS, UTILS} from '_constants';
 
@@ -16,18 +16,18 @@ const EditHours = ({
     <View style={containerStyle()}>
       <View style={topContainerStyle()}>
         <View style={endTimeContainerStyle()}>
-          <EditTimeButton
-            editDescription="Edit Start Time"
-            time={HoursUtils.dateToTimeAMPM({date: startTime})}
+          <EditItemButton
+            header="Edit Start Time"
+            description={HoursUtils.dateToTimeAMPM({date: startTime})}
             icon={ICONS.clock}
             editPressed={startTimePressed}
           />
         </View>
         <View style={spacingStyle()} />
         <View style={endTimeContainerStyle()}>
-          <EditTimeButton
-            editDescription="Edit Start Date"
-            time={DateUtils.convertDateToString({
+          <EditItemButton
+            header="Edit Start Date"
+            description={DateUtils.convertDateToString({
               date: startTime,
               format: UTILS.dateFormat.monthDateYear,
             })}
@@ -38,18 +38,18 @@ const EditHours = ({
       </View>
       <View style={bottomContainerStyle()}>
         <View style={endTimeContainerStyle()}>
-          <EditTimeButton
-            editDescription="Edit End Time"
-            time={HoursUtils.dateToTimeAMPM({date: endTime})}
+          <EditItemButton
+            header="Edit End Time"
+            description={HoursUtils.dateToTimeAMPM({date: endTime})}
             icon={ICONS.clock}
             editPressed={endTimePressed}
           />
         </View>
         <View style={spacingStyle()} />
         <View style={endTimeContainerStyle()}>
-          <EditTimeButton
-            editDescription="Edit End Date"
-            time={DateUtils.convertDateToString({
+          <EditItemButton
+            header="Edit End Date"
+            description={DateUtils.convertDateToString({
               date: endTime,
               format: UTILS.dateFormat.monthDateYear,
             })}

@@ -1,31 +1,31 @@
-import CreateProject from './CreateProject';
-import CreateTask from './CreateTask';
-import EditProject from './EditProject';
+import ManageProject from './ManageProject';
 import ManageProjectHours from './ManageProjectHours';
 import ManageSettings from './ManageSettings';
+import ManageTask from './ManageTask';
+import ManageSubtask from './ManageSubtask';
 import ManageWeeklyGoals from './ManageWeeklyGoals';
-import Maxims from './Maxims';
-import ProjectList from './ProjectList';
 import ProjectGoals from './ProjectGoals';
+import ProjectHoursWorked from './ProjectHoursWorked';
+import ProjectList from './ProjectList';
 import ProjectTask from './ProjectTask';
 import ProjectTimer from './ProjectTimer';
-import ProjectHoursWorked from './ProjectHoursWorked';
 import TaskList from './TaskList';
 import ViewProjectCharts from './ViewProjectCharts';
+import Maxims from './Maxims';
 
 export {
-  CreateProject,
-  CreateTask,
-  EditProject,
+  ManageProject,
   ManageProjectHours,
   ManageSettings,
+  ManageTask,
+  ManageSubtask,
   ManageWeeklyGoals,
-  Maxims,
-  ProjectList,
   ProjectGoals,
+  ProjectHoursWorked,
+  ProjectList,
   ProjectTask,
   ProjectTimer,
-  ProjectHoursWorked,
   TaskList,
   ViewProjectCharts,
+  Maxims,
 };

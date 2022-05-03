@@ -3,54 +3,29 @@ import {Scene, Router} from 'react-native-router-flux';
 import ProjectNavigator from './ProjectNavigator';
 import TimeIsLife from './TimeIsLife';
 import {
-  CreateProject,
-  CreateTask,
-  EditProject,
+  ManageProject,
   ManageProjectHours,
   ManageSettings,
+  ManageSubtask,
+  ManageTask,
   ManageWeeklyGoals,
-  ProjectList,
   ProjectGoals,
+  ProjectHoursWorked,
+  ProjectList,
   ProjectTask,
   ProjectTimer,
-  ProjectHoursWorked,
   TaskList,
-  Maxims,
   ViewProjectCharts,
+  Maxims,
 } from './ProjectActions';
 
 const RouterComponent = () => (
   <Router>
     <Scene key="root">
       <Scene
-        key="timeIsLife"
-        component={TimeIsLife}
-        title="TimeIsLife"
-        hideNavBar
-        initial
-      />
-      <Scene
-        key="projectNavigator"
-        component={ProjectNavigator}
-        title="ProjectNavigator"
-        hideNavBar
-      />
-      <Scene
-        key="createProject"
-        component={CreateProject}
-        title="CreateProject"
-        hideNavBar
-      />
-      <Scene
-        key="createTask"
-        component={CreateTask}
-        title="CreateTask"
-        hideNavBar
-      />
-      <Scene
-        key="editProject"
-        component={EditProject}
-        title="EditProject"
+        key="manageProject"
+        component={ManageProject}
+        title="ManageProject"
         hideNavBar
       />
       <Scene
@@ -60,21 +35,21 @@ const RouterComponent = () => (
         hideNavBar
       />
       <Scene
-        key="projectGoals"
-        component={ProjectGoals}
-        title="ProjectGoals"
-        hideNavBar
-      />
-      <Scene
-        key="projectTask"
-        component={ProjectTask}
-        title="ProjectTask"
-        hideNavBar
-      />
-      <Scene
         key="manageSettings"
         component={ManageSettings}
         title="ManageSettings"
+        hideNavBar
+      />
+      <Scene
+        key="manageTask"
+        component={ManageTask}
+        title="ManageTask"
+        hideNavBar
+      />
+      <Scene
+        key="manageSubtask"
+        component={ManageSubtask}
+        title="ManageSubtask"
         hideNavBar
       />
       <Scene
@@ -84,21 +59,9 @@ const RouterComponent = () => (
         hideNavBar
       />
       <Scene
-        key="maxims"
-        component={Maxims}
-        title="Maxims"
-        hideNavBar
-      />
-      <Scene
-        key="projectList"
-        component={ProjectList}
-        title="ProjectList"
-        hideNavBar
-      />
-      <Scene
-        key="projectTimer"
-        component={ProjectTimer}
-        title="ProjectTimer"
+        key="projectGoals"
+        component={ProjectGoals}
+        title="ProjectGoals"
         hideNavBar
       />
       <Scene
@@ -108,15 +71,52 @@ const RouterComponent = () => (
         hideNavBar
       />
       <Scene
-        key="viewProjectCharts"
-        component={ViewProjectCharts}
-        title="ViewProjectCharts"
+        key="projectList"
+        component={ProjectList}
+        title="ProjectList"
+        hideNavBar
+      />
+      <Scene
+        key="projectNavigator"
+        component={ProjectNavigator}
+        title="ProjectNavigator"
+        hideNavBar
+      />
+      <Scene
+        key="projectTask"
+        component={ProjectTask}
+        title="ProjectTask"
+        hideNavBar
+      />
+      <Scene
+        key="projectTimer"
+        component={ProjectTimer}
+        title="ProjectTimer"
         hideNavBar
       />
       <Scene
         key="taskList"
         component={TaskList}
         title="TaskList"
+        hideNavBar
+      />
+      <Scene
+        key="timeIsLife"
+        component={TimeIsLife}
+        title="TimeIsLife"
+        hideNavBar
+        initial
+      />
+      <Scene
+        key="viewProjectCharts"
+        component={ViewProjectCharts}
+        title="ViewProjectCharts"
+        hideNavBar
+      />
+      <Scene
+        key="maxims"
+        component={Maxims}
+        title="Maxims"
         hideNavBar
       />
     </Scene>

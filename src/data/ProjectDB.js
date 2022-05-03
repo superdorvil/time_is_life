@@ -10,6 +10,7 @@ class ProjectDB {
   }
 
   initSettings({realm}) {
+    console.log(realm.objects(SCHEMAS.subtask));
     if (realm.objects(SCHEMAS.settings).length < 1) {
       realm.write(() => {
         realm.create(SCHEMAS.settings, {});
@@ -100,6 +101,8 @@ class ProjectDB {
 
   // FIXME: better due date sorting
   getTasks({realm, taskID, projectID, notSorted}) {
+    const showDeleted = false;
+
     if (taskID) {
       return realm.objectForPrimaryKey(SCHEMAS.task, taskID);
     }
@@ -109,21 +112,24 @@ class ProjectDB {
         return realm
           .objects(SCHEMAS.task)
           .filtered('projectID == $0', projectID)
+          .filtered('deleted == $0', showDeleted)
           .sorted('dueDateIndex', false)
       }
 
       return realm
         .objects(SCHEMAS.task)
         .filtered('projectID == $0', projectID)
+        .filtered('deleted == $0', showDeleted)
         .sorted('dueDateIndex', false)
         .sorted('completed', false);
     }
 
     if (notSorted) {
-      return realm.objects(SCHEMAS.task);
+      return realm.objects(SCHEMAS.task).filtered('deleted == $0', showDeleted);
     }
 
     return realm.objects(SCHEMAS.task)
+      .filtered('deleted == $0', showDeleted)
       .sorted('dueDateIndex', false)
       .sorted('completed', false);
   }
@@ -161,6 +167,7 @@ class ProjectDB {
       .objects(SCHEMAS.secondsWorked)
       .sorted('startTime', true);
 
+    // FIXME:: I think
     if (showDeleted) {
       secondsWorked = secondsWorked.filtered('deleted == $0', showDeleted);
     }
@@ -308,9 +315,18 @@ class ProjectDB {
     return project;
   }
 
-  // id prexisiting objects id + 1
-  // sort order to the top
-  createTask({realm, projectID, description}) {
+  createTask({
+    realm,
+    projectID,
+    description,
+    dueDateIndex,
+    subtasks,
+    completed,
+    deleted,
+    repeatType,
+    repeatValue,
+    important,
+  }) {
     const tasks = realm.objects(SCHEMAS.task);
     let position = 0;
     let task;
@@ -328,6 +344,13 @@ class ProjectDB {
           projectID,
           description: description,
           position: this.getTopPosition(tasks),
+          dueDateIndex,
+          subtasks,
+          completed,
+          deleted,
+          repeatType,
+          repeatValue,
+          important,
         });
       });
     } catch (e) {
@@ -392,11 +415,30 @@ class ProjectDB {
     });
   }
 
-  editTask({realm, taskID, description}) {
+  editTask({
+    realm,
+    taskID,
+    description,
+    dueDateIndex,
+    subtasks,
+    completed,
+    deleted,
+    repeatType,
+    repeatValue,
+    important,
+  }) {
     const task = realm.objectForPrimaryKey(SCHEMAS.task, taskID);
 
     realm.write(() => {
       task.description = description;
+      task.dueDateIndex = dueDateIndex;
+      realm.delete(task.subtasks);
+      task.subtasks = subtasks;
+      task.completed = completed;
+      task.deleted = deleted;
+      task.repeatType = repeatType;
+      task.repeatValue = repeatValue;
+      task.important = important;
     });
   }
 
@@ -565,6 +607,15 @@ class ProjectDB {
 
     realm.write(() => {
       project.deleted = false;
+    });
+  }
+
+  // deleted boolean
+  deleteTask({realm, taskID}) {
+    const task = this.getTasks({realm, taskID});
+
+    realm.write(() => {
+      task.deleted = true;
     });
   }
 

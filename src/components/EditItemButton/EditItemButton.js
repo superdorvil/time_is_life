@@ -3,17 +3,24 @@ import {TouchableOpacity, Text, View} from 'react-native';
 import {Icon} from '_components';
 import {COLORS} from '_resources';
 
-const EditTimeButton = ({editDescription, time, icon, editPressed, disabled}) => {
+const EditItemButton = ({
+  header,
+  description,
+  icon,
+  editPressed,
+  disabled,
+  iconColorInactive
+}) => {
   return (
     <View style={containerStyle()}>
-      <Text style={editDescriptionStyle()}>{editDescription}</Text>
+      <Text style={headerStyle()}>{header}</Text>
       <TouchableOpacity
         disabled={disabled}
         style={buttonContainerStyle()}
         onPress={editPressed}>
-        <Text style={timeStyle()}>{time}</Text>
-        <View style={clockContainerStyle()}>
-          <Icon name={icon} size={20} style={clockStyle()} />
+        <Text style={descriptionStyle()}>{description}</Text>
+        <View style={iconContainerStyle()}>
+          <Icon name={icon} size={20} style={iconStyle(iconColorInactive)} />
         </View>
       </TouchableOpacity>
     </View>
@@ -34,7 +41,7 @@ const buttonContainerStyle = () => {
   };
 };
 
-const timeStyle = () => {
+const descriptionStyle = () => {
   return {
     fontSize: 12,
     color: COLORS.tertiary[global.colorScheme],
@@ -42,7 +49,7 @@ const timeStyle = () => {
   };
 };
 
-const editDescriptionStyle = () => {
+const headerStyle = () => {
   return {
     fontSize: 12,
     color: COLORS.tertiary[global.colorScheme],
@@ -51,15 +58,15 @@ const editDescriptionStyle = () => {
   };
 };
 
-const clockStyle = () => {
-  return {color: COLORS.primary[global.colorScheme]};
+const iconStyle = (iconColorInactive) => {
+  return {color: iconColorInactive ? '#000000' : COLORS.primary[global.colorScheme]};
 };
 
-const clockContainerStyle = () => {
+const iconContainerStyle = () => {
   return {
     alignItems: 'flex-end',
     flex: 1,
   };
 };
 
-export default EditTimeButton;
+export default EditItemButton;

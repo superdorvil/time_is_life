@@ -1,29 +1,58 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
 import {Actions} from 'react-native-router-flux';
-import {ActionContainer} from '_components';
 import projectDB from '_data';
+import {ActionContainer} from '_components';
 import {Button, ProjectInput} from '_components';
 import {ICONS} from '_constants';
 
-class CreateTask extends Component {
+class ManageSubtask extends Component {
   constructor(props) {
     super(props);
 
+    const editMode = this.props.subtask ? true : false;
+
     this.state = {
-      description: '',
+      editMode,
+      description: editMode ? this.props.subtask.description : '',
+      deleteButtonActive: editMode,
+      actionDescription: editMode ? 'Edit Subtask' : 'Create New Subtask',
+      topRightButtonActive: editMode,
+      buttonDescription: editMode ? "Edit Subtask" : "+ Add Subtask",
     };
 
-    this.createTask = this.createTask.bind(this);
+    this.createSubtask = this.createSubtask.bind(this);
+    this.deleteSubtask = this.deleteSubtask.bind(this);
+    this.editSubtask = this.editSubtask.bind(this);
     this.updateDescription = this.updateDescription.bind(this);
   }
 
-  createTask() {
+  createSubtask() {
     if (this.state.description !== '') {
-      projectDB.createTask({
+      projectDB.createSubtask({
         realm: this.props.realm,
         description: this.state.description,
-        projectID: this.props.project.id,
+      });
+
+      Actions.pop();
+    }
+  }
+
+  deleteSubtask() {
+    projectDB.deleteSubtask({
+      realm: this.props.realm,
+      subtaskID: this.props.subtask.id,
+    });
+
+    Actions.pop();
+  }
+
+  editSubtask() {
+    if (this.state.description !== '') {
+      projectDB.editSubtask({
+        realm: this.props.realm,
+        subtaskID: this.props.subtask.id,
+        description: this.state.description,
       });
 
       Actions.pop();
@@ -38,10 +67,13 @@ class CreateTask extends Component {
     const actionScreenData = {
       backArrowActive: true,
       editButtonActive: false,
-      topRightButtonActive: false,
+      deleteButtonActive: this.state.deleteButtonActive,
       centerIconName: ICONS.checkmark,
-      actionDescription: 'Create New Task',
+      actionDescription: this.state.actionDescription,
       subDescription: 'Time is Life',
+      topRightButtonActive: this.state.topRightButtonActive,
+      topRightButtonDescription: 'Delete Subtask',
+      topRightButtonPressed: this.deleteSubtask,
     };
 
     return (
@@ -59,14 +91,17 @@ class CreateTask extends Component {
           listData={false}
           renderListItem={false}>
           <ProjectInput
-            header="Task Name"
+            header="Subtask Name"
             value={this.state.description}
             onChangeText={this.updateDescription}
-            placeholder="enter task name ..."
+            placeholder="enter subtask name ..."
           />
         </ActionContainer>
         <View style={buttonStyle()}>
-          <Button description="+ Add Task" buttonPressed={this.createTask} />
+          <Button
+            description={this.state.buttonDescription}
+            buttonPressed={this.state.editMode ?  this.editSubtask : this.createSubtask}
+          />
         </View>
       </View>
     );
@@ -85,4 +120,4 @@ const buttonStyle = () => {
   };
 };
 
-export default CreateTask;
+export default ManageSubtask;

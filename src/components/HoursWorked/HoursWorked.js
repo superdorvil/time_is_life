@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {
-  EditTimeButton,
+  EditItemButton,
   TotalHours,
   ViewVisibleWrapper,
   Divider
@@ -53,18 +53,18 @@ const HoursWorked = ({
             totalSecondsWorked={(secondsWorked.endTime - secondsWorked.startTime) / 1000}
           />
           <View style={endTimeContainerStyle()}>
-            <EditTimeButton
-              editDescription='Start Time'
-              time={HoursUtils.dateToTimeAMPM({date: secondsWorked.startTime})}
+            <EditItemButton
+              header='Start Time'
+              description={HoursUtils.dateToTimeAMPM({date: secondsWorked.startTime})}
               icon={ICONS.clock}
               disabled={true}
             />
           </View>
           <View style={spacingStyle()} />
           <View style={endTimeContainerStyle()}>
-            <EditTimeButton
-              editDescription='End Time'
-              time={HoursUtils.dateToTimeAMPM({date: secondsWorked.endTime})}
+            <EditItemButton
+              header='End Time'
+              description={HoursUtils.dateToTimeAMPM({date: secondsWorked.endTime})}
               icon={ICONS.clock}
               disabled={true}
             />

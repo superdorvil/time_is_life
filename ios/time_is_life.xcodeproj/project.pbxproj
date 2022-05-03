@@ -47,6 +47,7 @@
 		0E17D87A124F4B93958E11D5 /* up_arrow.svg in Resources */ = {isa = PBXBuildFile; fileRef = 35878EC2C5C24AC28CA60592 /* up_arrow.svg */; };
 		4334816102084DCE876D766D /* cancel.svg in Resources */ = {isa = PBXBuildFile; fileRef = 40EF3BD14B914D21A9ADA5E3 /* cancel.svg */; };
 		2304FC6F1AF54D8387926761 /* trash.svg in Resources */ = {isa = PBXBuildFile; fileRef = D7CE3EA37ED245B68C310F48 /* trash.svg */; };
+		1A9A057A6875443BA7DE07A7 /* repeat.svg in Resources */ = {isa = PBXBuildFile; fileRef = ACE824E2BD264539B78ADD0D /* repeat.svg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +111,7 @@
 		35878EC2C5C24AC28CA60592 /* up_arrow.svg */ = {isa = PBXFileReference; name = "up_arrow.svg"; path = "../src/resources/fonts/svg icons/up_arrow.svg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		40EF3BD14B914D21A9ADA5E3 /* cancel.svg */ = {isa = PBXFileReference; name = "cancel.svg"; path = "../src/resources/fonts/svg icons/cancel.svg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		D7CE3EA37ED245B68C310F48 /* trash.svg */ = {isa = PBXFileReference; name = "trash.svg"; path = "../src/resources/fonts/svg icons/trash.svg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		ACE824E2BD264539B78ADD0D /* repeat.svg */ = {isa = PBXFileReference; name = "repeat.svg"; path = "../src/resources/fonts/svg icons/repeat.svg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +210,7 @@
 				35878EC2C5C24AC28CA60592 /* up_arrow.svg */,
 				40EF3BD14B914D21A9ADA5E3 /* cancel.svg */,
 				D7CE3EA37ED245B68C310F48 /* trash.svg */,
+				ACE824E2BD264539B78ADD0D /* repeat.svg */,
 			);
 			name = Resources;
 			path = "";
@@ -386,6 +389,7 @@
 				0E17D87A124F4B93958E11D5 /* up_arrow.svg in Resources */,
 				4334816102084DCE876D766D /* cancel.svg in Resources */,
 				2304FC6F1AF54D8387926761 /* trash.svg in Resources */,
+				1A9A057A6875443BA7DE07A7 /* repeat.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {TouchableOpacity, Text, View} from 'react-native';
-import {ViewVisibleWrapper, DateSelector} from '_components';
-import Completion from './Completion';
+import {Actions} from 'react-native-router-flux';
+import {ViewVisibleWrapper, DateSelector, Completion} from '_components';
 import projectDB from '_data';
 import {COLORS} from '_resources';
 import {DateUtils} from '_utils';
@@ -13,10 +13,11 @@ class Task extends Component {
 
     this.state = {
       dateModalVisible: false,
-      tempDate: new Date(),
+      dueDate: new Date(),
     };
 
     this.taskPressed = this.taskPressed.bind(this);
+    this.taskLongPressed = this.taskLongPressed.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.openDueDateModal = this.openDueDateModal.bind(this);
     this.updateTaskDueDate = this.updateTaskDueDate.bind(this);
@@ -29,19 +30,27 @@ class Task extends Component {
     });
   }
 
+  taskLongPressed() {
+    Actions.manageTask({
+      realm: this.props.realm,
+      taskID: this.props.taskID,
+      projectID: this.props.projectID,
+    });
+  }
+
   openDueDateModal() {
-    let tempDate;
+    let dueDate;
     if (this.props.dueDateIndex == 9999999999999) {
       const today = new Date();
       const todayIndex = DateUtils.getDateIndex({date: today});
 
-      tempDate = DateUtils.getDateFromDateIndex({dateIndex: todayIndex});
+      dueDate = DateUtils.getDateFromDateIndex({dateIndex: todayIndex});
     } else {
-      tempDate = DateUtils.getDateFromDateIndex({dateIndex: this.props.dueDateIndex});
+      dueDate = DateUtils.getDateFromDateIndex({dateIndex: this.props.dueDateIndex});
     }
 
     this.setState({
-      tempDate,
+      dueDate,
       dateModalVisible: true,
     });
   }
@@ -141,7 +150,7 @@ class Task extends Component {
         <TouchableOpacity
           style={innerContainerStyle()}
           onPress={this.taskPressed}
-          onLongPress={this.openDueDateModal}>
+          onLongPress={this.taskLongPressed}>
         <Completion completed={this.props.completed} />
         <View style={descriptionContainerStyle()}>
           <Text style={descriptionStyle(this.props.completed)}>{this.props.description}</Text>
@@ -151,10 +160,10 @@ class Task extends Component {
         </View>
         <DateSelector
           dateString={DateUtils.convertDateToString({
-            date: this.state.tempDate,
+            date: this.state.dueDate,
             format: UTILS.dateFormat.yyyy_mm_dd,
           })}
-          date={this.state.tempDate}
+          date={this.state.dueDate}
           updateDate={this.updateTaskDueDate}
           visible={this.state.dateModalVisible}
           closeModal={this.closeModal}

@@ -6,6 +6,7 @@ import {
   ProjectSchema,
   SecondsWorkedSchema,
   SettingsSchema,
+  SubtaskSchema,
   TaskSchema,
   WeeklyGoalSchema,
 } from '_schemas';
@@ -29,8 +30,9 @@ class TimeIsLife extends Component {
         SettingsSchema,
         TaskSchema,
         WeeklyGoalSchema,
+        SubtaskSchema,
       ],
-      schemaVersion: 3,
+      schemaVersion: 7,
       migration: (oldRealm, newRealm) => {
         projectDB.runMigrations({oldRealm, newRealm});
       },

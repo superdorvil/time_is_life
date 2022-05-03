@@ -6,15 +6,24 @@ import {ActionContainer} from '_components';
 import {Button, ProjectInput} from '_components';
 import {ICONS} from '_constants';
 
-class CreateProject extends Component {
+class ManageProject extends Component {
   constructor(props) {
     super(props);
 
+    const editMode = this.props.project ? true : false;
+
     this.state = {
-      description: '',
+      editMode,
+      description: editMode ? this.props.project.description : '',
+      deleteButtonActive: editMode,
+      actionDescription: editMode ? 'Edit Project' : 'Create New Project',
+      topRightButtonActive: editMode,
+      buttonDescription: editMode ? "Edit Project" : "+ Add Project",
     };
 
     this.createProject = this.createProject.bind(this);
+    this.deleteProject = this.deleteProject.bind(this);
+    this.editProject = this.editProject.bind(this);
     this.updateDescription = this.updateDescription.bind(this);
   }
 
@@ -22,6 +31,27 @@ class CreateProject extends Component {
     if (this.state.description !== '') {
       projectDB.createProject({
         realm: this.props.realm,
+        description: this.state.description,
+      });
+
+      Actions.pop();
+    }
+  }
+
+  deleteProject() {
+    projectDB.deleteProject({
+      realm: this.props.realm,
+      projectID: this.props.project.id,
+    });
+
+    Actions.pop();
+  }
+
+  editProject() {
+    if (this.state.description !== '') {
+      projectDB.editProject({
+        realm: this.props.realm,
+        projectID: this.props.project.id,
         description: this.state.description,
       });
 
@@ -37,9 +67,13 @@ class CreateProject extends Component {
     const actionScreenData = {
       backArrowActive: true,
       editButtonActive: false,
-      topRightButtonActive: false,
+      deleteButtonActive: this.state.deleteButtonActive,
       centerIconName: ICONS.checkmark,
-      actionDescription: 'Create New Project',
+      actionDescription: this.state.actionDescription,
+      subDescription: 'Time is Life',
+      topRightButtonActive: this.state.topRightButtonActive,
+      topRightButtonDescription: 'Delete Project',
+      topRightButtonPressed: this.deleteProject,
     };
 
     return (
@@ -65,8 +99,8 @@ class CreateProject extends Component {
         </ActionContainer>
         <View style={buttonStyle()}>
           <Button
-            description="+ Add Project"
-            buttonPressed={this.createProject}
+            description={this.state.buttonDescription}
+            buttonPressed={this.state.editMode ?  this.editProject : this.createProject}
           />
         </View>
       </View>
@@ -86,4 +120,4 @@ const buttonStyle = () => {
   };
 };
 
-export default CreateProject;
+export default ManageProject;

@@ -90,7 +90,7 @@ class ProjectTimer extends Component {
   }
 
   editPressed() {
-    Actions.editProject({
+    Actions.manageProject({
       realm: this.props.realm,
       project: this.props.project,
     });

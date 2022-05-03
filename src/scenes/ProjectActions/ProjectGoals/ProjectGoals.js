@@ -40,7 +40,7 @@ class ProjectGoals extends Component {
   componentWillUnmount() {}
 
   editProject() {
-    Actions.editProject({realm: this.props.realm, project: this.props.project});
+    Actions.manageProject({realm: this.props.realm, project: this.props.project});
   }
 
   loadMorePressed() {

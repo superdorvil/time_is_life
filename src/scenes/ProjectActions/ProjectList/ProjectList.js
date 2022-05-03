@@ -85,7 +85,7 @@ class ProjectList extends Component {
   }
 
   createProject() {
-    Actions.createProject({realm: this.props.realm});
+    Actions.manageProject({realm: this.props.realm});
   }
 
   selectProject(realm, project) {

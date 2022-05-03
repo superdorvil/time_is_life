@@ -14,3 +14,4 @@ export const important = 'important';
 export const edit = 'edit';
 export const cancel = 'cancel';
 export const trash = 'trash';
+export const repeat = 'repeat';

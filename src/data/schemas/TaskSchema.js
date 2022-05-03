@@ -12,7 +12,12 @@ const TaskSchema = {
     // To do list orders items to the bottom automatically
     // altered due dates automatically get pushed to the to of list
     dueDateIndex: {type: 'int', default: 9999999999999},
+    subtasks: "Subtask[]",
     completed: {type: 'bool', default: false},
+    deleted: {type: 'bool', default: false},
+    repeatType: {type: 'string', default: 'never'},
+    repeatValue: {type: 'int', default: 0},
+    important: {type: 'bool', default: false},
   },
 };
 
