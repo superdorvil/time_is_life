@@ -66,7 +66,10 @@ const WeeklyGoal = ({
 };
 
 const containerStyle = () => {
-  return {};
+  return {
+    paddingTop: 16,
+    paddingBottom: 16,
+  };
 };
 
 const innerContainerStyle = () => {

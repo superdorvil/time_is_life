@@ -100,6 +100,7 @@ class TaskList extends Component {
         showProject
         dueDateIndex={listData.dueDateIndex}
         renderDueDate={renderDueDate}
+        subtasks={listData.subtasks}
       />
     );
   }

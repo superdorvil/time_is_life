@@ -25,6 +25,7 @@ export StartStopButton from './StartStopButton';
 export SelectItemModal from './SelectItemModal';
 export Subtask from './Subtask';
 export SubtaskModal from './SubtaskModal';
+export SwipeButton from './SwipeButton';
 export TabBar from './TabBar';
 export Task from './Task';
 export TimeSelector from './TimeSelector';

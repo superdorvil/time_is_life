@@ -1,17 +1,20 @@
 import React, {Component} from 'react';
-import {TouchableOpacity, Text, View, FlatList} from 'react-native';
+import {Animated, TouchableOpacity, Text, View, FlatList} from 'react-native';
 import {Actions} from 'react-native-router-flux';
+import {Swipeable} from 'react-native-gesture-handler';
 import {
   ViewVisibleWrapper,
   DateSelector,
   Completion,
   Divider,
   Subtask,
+  SubtaskModal,
+  SwipeButton,
 } from '_components';
 import projectDB from '_data';
 import {COLORS} from '_resources';
 import {DateUtils} from '_utils';
-import {UTILS} from '_constants';
+import {ICONS, UTILS} from '_constants';
 
 class Task extends Component {
   constructor(props) {
@@ -21,6 +24,9 @@ class Task extends Component {
       dateModalVisible: false,
       dueDate: new Date(),
       showSubtask: false,
+      swipeOpen: false,
+      subtaskModalVisible: false,
+      subtaskDescription: '',
     };
 
     this.taskPressed = this.taskPressed.bind(this);
@@ -30,6 +36,9 @@ class Task extends Component {
     this.updateTaskDueDate = this.updateTaskDueDate.bind(this);
     this.showSubtask = this.showSubtask.bind(this);
     this.completeSubtask = this.completeSubtask.bind(this);
+    this.deleteTask = this.deleteTask.bind(this);
+    this.addSubtask = this.addSubtask.bind(this);
+    this.updateSubtaskDescription = this.updateSubtaskDescription.bind(this);
   }
 
   taskPressed() {
@@ -55,6 +64,10 @@ class Task extends Component {
     this.setState({showSubtask: !this.state.showSubtask});
   }
 
+  openSubtaskModal() {
+    this.setState({subtaskModalVisible: true});
+  }
+
   openDueDateModal() {
     let dueDate;
     if (this.props.dueDateIndex == 9999999999999) {
@@ -73,7 +86,61 @@ class Task extends Component {
   }
 
   closeModal() {
-    this.setState({dateModalVisible: false});
+    this.setState({
+      dateModalVisible: false,
+      subtaskModalVisible: false,
+      subtaskDescription: '',
+    });
+  }
+
+  swipeOpen() {
+    this.setState({swipeOpen: true});
+  }
+
+  swipeClose() {
+    this.setState({swipeOpen: false});
+  }
+
+  topTask() {
+    projectDB.topTaskPosition({
+      realm: this.props.realm,
+      taskID: this.props.taskID,
+    });
+  }
+
+  addSubtask() {
+    const subtasks = [];
+
+    this.props.subtasks.forEach((subtask, i) => {
+      subtasks.push({
+        description: subtask.description,
+        completed: subtask.completed,
+      });
+    });
+
+    subtasks.push({
+      description: this.state.subtaskDescription,
+      completed: false,
+    });
+
+    projectDB.addSubtask({
+      realm: this.props.realm,
+      taskID: this.props.taskID,
+      subtasks,
+    });
+
+    this.closeModal();
+  }
+
+  deleteTask() {
+    projectDB.deleteTask({
+      realm: this.props.realm,
+      taskID: this.props.taskID,
+    });
+  }
+
+  updateSubtaskDescription(description) {
+    this.setState({subtaskDescription: description});
   }
 
   updateTaskDueDate(dateObject) {
@@ -119,6 +186,55 @@ class Task extends Component {
     });
   }
 
+  deleteSubtask(index) {
+    const subtasks = [];
+    let completed = true;
+
+    this.props.subtasks.forEach((subtask, i) => {
+      if (i !== index) {
+        subtasks.push({
+          description: subtask.description,
+          completed: subtask.completed
+        });
+      }
+    });
+
+    if (subtasks.length > 0) {
+      subtasks.forEach((subtask, i) => {
+        if (!subtask.completed) {
+          completed = false;
+        }
+      });
+    } else {
+        completed = false;
+    }
+
+    projectDB.deleteSubtask({
+      realm: this.props.realm,
+      taskID: this.props.taskID,
+      subtasks,
+      completed,
+    });
+  }
+
+  topSubtask(index) {
+    const subtasks = [];
+
+    this.props.subtasks.forEach((subtask, i) => {
+      subtasks.push({
+        description: subtask.description,
+        completed: subtask.completed
+      });
+    });
+    [subtasks[0], subtasks[index]] = [subtasks[index], subtasks[0]];
+
+    projectDB.topSubtask({
+      realm: this.props.realm,
+      taskID: this.props.taskID,
+      subtasks,
+    });
+  }
+
   convertDueDateToText(dueDateIndex) {
     if (dueDateIndex == 9999999999999) {
       return false;
@@ -160,13 +276,65 @@ class Task extends Component {
     return <Divider primary={dividerColorPrimary} />;
   }
 
-  renderSubtask(subtask, index, completeSubtask) {
+  renderSubtask(subtask, index, completeSubtask, deleteSubtask, topSubtask) {
     return (
       <Subtask
         description={subtask.description}
         completed={subtask.completed}
         completeSubtask={completeSubtask}
+        deleteSubtask={deleteSubtask}
+        topSubtask={topSubtask}
       />
+    );
+  }
+
+  renderEditTaskSwipeButtons(
+    progress: Animated.AnimatedInterpolation,
+    dragX: Animated.AnimatedInterpolation,
+    topTask,
+    manageTask,
+    openDueDateModal,
+    addSubtask,
+    deleteTask
+  ) {
+    const opacity = dragX.interpolate({
+      inputRange: [-150, 0],
+      outputRange: [1, 0],
+      extrapolate: 'clamp',
+    });
+
+    return (
+      <View style={swipeContainerStyle()}>
+        <View style={swipeInnerContainer()}>
+          <Animated.View style={[swipeButtonStyle(), {opacity}]}>
+            <SwipeButton
+              displayName="Top"
+              iconName={ICONS.up_arrow}
+              onPress={topTask}
+            />
+            <SwipeButton
+              displayName="Edit"
+              iconName={ICONS.edit}
+              onPress={manageTask}
+            />
+            <SwipeButton
+              displayName="Date"
+              iconName={ICONS.calendar}
+              onPress={openDueDateModal}
+            />
+            <SwipeButton
+              displayName="Subtask"
+              iconName={ICONS.checkmark}
+              onPress={addSubtask}
+            />
+            <SwipeButton
+              displayName="Delete"
+              iconName={ICONS.trash}
+              onPress={deleteTask}
+            />
+          </Animated.View>
+        </View>
+      </View>
     );
   }
 
@@ -181,67 +349,105 @@ class Task extends Component {
     }
 
     return (
-      <View>
-        <View style={containerStyle()}>
-          <ViewVisibleWrapper
-            style={dueDateContainerStyle()}
-            active={
-              !this.props.completed &&
-              this.props.renderDueDate &&
-              dueDateToText
-            }>
-            <Text style={dueDateStyle()}>
-              {dueDateToText}
-            </Text>
-          </ViewVisibleWrapper>
-          <ViewVisibleWrapper
-            style={unassignedDueDatesDivider()}
-            active={
-              !this.props.completed &&
-              this.props.renderDueDate &&
-              !dueDateToText
-            }
-          />
-          <ViewVisibleWrapper active={project}>
-            <Text style={projectStyle()}>Project: {project}</Text>
-          </ViewVisibleWrapper>
-          <TouchableOpacity
-            style={innerContainerStyle()}
-            onPress={this.taskPressed}
-            onLongPress={this.taskLongPressed}>
-          <Completion completed={this.props.completed} />
-          <View style={descriptionContainerStyle()}>
-            <Text style={descriptionStyle(this.props.completed)}>{this.props.description}</Text>
-            <ViewVisibleWrapper active={this.props.hoursWorked > 0 ? true : false}>
-              <Text style={hoursWorkedStyle()}>{this.props.hoursWorked} hours worked</Text>
+        <View>
+          <View style={containerStyle()}>
+            <ViewVisibleWrapper
+              style={dueDateContainerStyle()}
+              active={
+                !this.props.completed &&
+                this.props.renderDueDate &&
+                dueDateToText
+              }>
+              <Text style={dueDateStyle()}>
+                {dueDateToText}
+              </Text>
             </ViewVisibleWrapper>
+            <ViewVisibleWrapper
+              style={unassignedDueDatesDivider()}
+              active={
+                !this.props.completed &&
+                this.props.renderDueDate &&
+                !dueDateToText
+              }
+            />
+            <Swipeable
+              renderRightActions={(
+                progress,
+                dragX,
+                topTask,
+                manageTask,
+                openDueDateModal,
+                openSubtaskModal,
+                deleteTask,
+              ) => this.renderEditTaskSwipeButtons(
+                progress,
+                dragX,
+                () => this.topTask(),
+                () => this.taskLongPressed(),
+                () => this.openDueDateModal(),
+                () => this.openSubtaskModal(),
+                () => this.deleteTask(),
+              )}
+              onSwipeableOpen={() => this.swipeOpen()}
+              onSwipeableClose={() => this.swipeClose()}>
+              <ViewVisibleWrapper active={project && !this.state.swipeOpen}>
+                <Text style={projectStyle()}>Project: {project}</Text>
+              </ViewVisibleWrapper>
+              <TouchableOpacity
+                style={innerContainerStyle(this.state.swipeOpen, this.state.showSubtask)}
+                onPress={this.taskPressed}
+                onLongPress={this.taskLongPressed}>
+              <Completion completed={this.props.completed} />
+              <View style={descriptionContainerStyle()}>
+                <Text style={descriptionStyle(this.props.completed)}>{this.props.description}</Text>
+                <ViewVisibleWrapper active={this.props.hoursWorked > 0 ? true : false}>
+                  <Text style={hoursWorkedStyle()}>{this.props.hoursWorked} hours worked</Text>
+                </ViewVisibleWrapper>
+              </View>
+              <ViewVisibleWrapper
+                active={this.props.subtasks.length > 0}
+                style={subtaskMarkerStyle()}
+              />
+              </TouchableOpacity>
+            </Swipeable>
           </View>
-          </TouchableOpacity>
-        </View>
-        <ViewVisibleWrapper
-          active={this.state.showSubtask}
-          style={subtaskContainerStyle()}>
-          <FlatList
-            data={this.props.subtasks}
-            renderItem={({item, index}) => this.renderSubtask(item, index, () => this.completeSubtask(index))}
-            keyExtractor={(item, index) => index.toString()}
-            ItemSeparatorComponent={() => this.renderDivider()}
-            contentContainerStyle={listPaddingStyle()}
+          <ViewVisibleWrapper
+            active={this.state.showSubtask}
+            style={subtaskContainerStyle()}>
+            <FlatList
+              data={this.props.subtasks}
+              renderItem={({item, index}) => this.renderSubtask(
+                item,
+                index,
+                () => this.completeSubtask(index),
+                () => this.deleteSubtask(index),
+                () => this.topSubtask(index),
+              )}
+              keyExtractor={(item, index) => index.toString()}
+              ItemSeparatorComponent={() => this.renderDivider()}
+              contentContainerStyle={listPaddingStyle()}
+            />
+          </ViewVisibleWrapper>
+          <DateSelector
+            dateString={DateUtils.convertDateToString({
+              date: this.state.dueDate,
+              format: UTILS.dateFormat.yyyy_mm_dd,
+            })}
+            date={this.state.dueDate}
+            updateDate={this.updateTaskDueDate}
+            visible={this.state.dateModalVisible}
+            closeModal={this.closeModal}
+            taskDueDate
+            notSelected={this.props.dueDateIndex == 9999999999999}
           />
-        </ViewVisibleWrapper>
-        <DateSelector
-          dateString={DateUtils.convertDateToString({
-            date: this.state.dueDate,
-            format: UTILS.dateFormat.yyyy_mm_dd,
-          })}
-          date={this.state.dueDate}
-          updateDate={this.updateTaskDueDate}
-          visible={this.state.dateModalVisible}
-          closeModal={this.closeModal}
-          taskDueDate
-          notSelected={this.props.dueDateIndex == 9999999999999}
-        />
-      </View>
+          <SubtaskModal
+            visible={this.state.subtaskModalVisible}
+            closeModal={this.closeModal}
+            description={this.state.subtaskDescription}
+            updateDescription={this.updateSubtaskDescription}
+            addSubtask={this.addSubtask}
+          />
+        </View>
     );
   }
 }
@@ -252,11 +458,13 @@ const containerStyle = () => {
   };
 };
 
-const innerContainerStyle = () => {
+const innerContainerStyle = (swipeOpen, subtaskVisible) => {
   return {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
+    paddingTop: swipeOpen ? 24 : 16,
+    paddingBottom: subtaskVisible ? 8 : 16,
   };
 }
 
@@ -270,7 +478,6 @@ const descriptionContainerStyle = () => {
 const projectStyle = () => {
   return {
     fontSize: 14,
-    marginBottom: 4,
   }
 }
 
@@ -331,12 +538,50 @@ const listPaddingStyle = () => {
   return {paddingBottom: 16};
 };
 
+const editTextStyle = () => {
+  return {
+    fontSize: 10,
+    color: COLORS.primary[global.colorScheme],
+  };
+};
+
 const subtaskContainerStyle = () => {
   return {
     flex: 1,
-    marginTop: 16,
     borderColor: COLORS.primary[global.colorScheme],
   };
+};
+
+const swipeInnerContainer = () => {
+  return {
+    flex: 1,
+    alignItems: 'center',
+  }
+};
+
+const swipeContainerStyle = () => {
+  return {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+  };
+};
+
+const swipeButtonStyle = () => {
+  return {
+    flex: 1,
+    flexDirection: 'row',
+  };
+};
+
+const subtaskMarkerStyle = () => {
+    return {
+      height: 4,
+      width: 4,
+      borderRadius: 4,
+      backgroundColor: COLORS.primary[global.colorScheme],
+    };
 };
 
 export default Task;

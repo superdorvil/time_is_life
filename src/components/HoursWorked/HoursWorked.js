@@ -37,15 +37,17 @@ const HoursWorked = ({
     });
   }
   let totalSeconds = 0;
-  const startEndTimeButtons = [];
+  const hoursWorked = [];
 
   secondsWorkedList.forEach((secondsWorked, i) => {
-    startEndTimeButtons.push(
+    hoursWorked.push(
       <TouchableOpacity
         key={i}
         onPress={() => editHoursPressed(realm, secondsWorked.id, projectID)}>
         <ViewVisibleWrapper active={i == 0}>
+          <View style={spacingStyle()}/>
           <Divider primary={true} />
+          <View style={spacingStyle()}/>
         </ViewVisibleWrapper>
         <Text style={editStyle()}>tap to edit hours</Text>
         <View style={startEndTimeButtonsContainerStyle()}>
@@ -78,6 +80,7 @@ const HoursWorked = ({
         </ViewVisibleWrapper>
         <ViewVisibleWrapper active={i != secondsWorkedList.length - 1}>
           <Divider primary={true} />
+          <View style={spacingStyle()}/>
         </ViewVisibleWrapper>
       </TouchableOpacity>
     );
@@ -99,7 +102,7 @@ const HoursWorked = ({
         </Text>
         <Text style={hoursStyle()}>{totalHours} h</Text>
       </View>
-      {startEndTimeButtons}
+      {hoursWorked}
     </View>
   );
 };

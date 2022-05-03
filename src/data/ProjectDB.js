@@ -112,6 +112,7 @@ class ProjectDB {
           .objects(SCHEMAS.task)
           .filtered('projectID == $0', projectID)
           .filtered('deleted == $0', showDeleted)
+          .sorted('position', true)
           .sorted('dueDateIndex', false)
       }
 
@@ -119,6 +120,7 @@ class ProjectDB {
         .objects(SCHEMAS.task)
         .filtered('projectID == $0', projectID)
         .filtered('deleted == $0', showDeleted)
+        .sorted('position', true)
         .sorted('dueDateIndex', false)
         .sorted('completed', false);
     }
@@ -129,6 +131,7 @@ class ProjectDB {
 
     return realm.objects(SCHEMAS.task)
       .filtered('deleted == $0', showDeleted)
+      .sorted('position', true)
       .sorted('dueDateIndex', false)
       .sorted('completed', false);
   }
@@ -441,6 +444,20 @@ class ProjectDB {
     });
   }
 
+  addSubtask({
+    realm,
+    taskID,
+    subtasks,
+  }) {
+    const task = realm.objectForPrimaryKey(SCHEMAS.task, taskID);
+
+    realm.write(() => {
+      realm.delete(task.subtasks);
+      task.subtasks = subtasks;
+      task.completed = false;
+    });
+  }
+
   completeSubtask({
     realm,
     taskID,
@@ -450,8 +467,37 @@ class ProjectDB {
     const task = realm.objectForPrimaryKey(SCHEMAS.task, taskID);
 
     realm.write(() => {
+      realm.delete(task.subtasks);
       task.subtasks = subtasks;
       task.completed = completed;
+    });
+  }
+
+  deleteSubtask({
+    realm,
+    taskID,
+    subtasks,
+    completed,
+  }) {
+    const task = realm.objectForPrimaryKey(SCHEMAS.task, taskID);
+
+    realm.write(() => {
+      realm.delete(task.subtasks);
+      task.subtasks = subtasks;
+      task.completed = completed;
+    });
+  }
+
+  topSubtask({
+    realm,
+    taskID,
+    subtasks,
+  }) {
+    const task = realm.objectForPrimaryKey(SCHEMAS.task, taskID);
+
+    realm.write(() => {
+      realm.delete(task.subtasks);
+      task.subtasks = subtasks;
     });
   }
 
@@ -542,6 +588,14 @@ class ProjectDB {
 
     realm.write(() => {
       project.position = this.getTopPosition(realm.objects(SCHEMAS.project));
+    });
+  }
+
+  topTaskPosition({realm, taskID}) {
+    const task = realm.objectForPrimaryKey(SCHEMAS.task, taskID);
+
+    realm.write(() => {
+      task.position = this.getTopPosition(realm.objects(SCHEMAS.task));
     });
   }
 

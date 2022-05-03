@@ -23,6 +23,8 @@ const containerStyle = () => {
     marginStart: 32,
     marginEnd: 32,
     alignItems: 'center',
+    paddingTop: 16,
+    paddingBottom: 16,
   };
 };
 

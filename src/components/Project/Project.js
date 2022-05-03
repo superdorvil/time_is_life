@@ -33,7 +33,9 @@ const Project = ({
 
 const containerStyle = () => {
   return {
-    flexDirection: 'column'
+    flexDirection: 'column',
+    paddingTop: 16,
+    paddingBottom: 16,
   };
 };
 
