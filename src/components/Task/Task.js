@@ -279,6 +279,7 @@ class Task extends Component {
   renderSubtask(subtask, index, completeSubtask, deleteSubtask, topSubtask) {
     return (
       <Subtask
+        index={index}
         description={subtask.description}
         completed={subtask.completed}
         completeSubtask={completeSubtask}
@@ -371,6 +372,7 @@ class Task extends Component {
               }
             />
             <Swipeable
+              key={this.props.taskID}
               renderRightActions={(
                 progress,
                 dragX,

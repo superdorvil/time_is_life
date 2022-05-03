@@ -74,6 +74,7 @@ class Subtask extends Component {
 
     return (
       <Swipeable
+        key={this.props.description}
         renderRightActions={(
           progress,
           dragX,
