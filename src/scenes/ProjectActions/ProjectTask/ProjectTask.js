@@ -121,6 +121,7 @@ class ProjectTask extends Component {
         }}
         dueDateIndex={listData.dueDateIndex}
         renderDueDate={renderDueDate}
+        subtasks={listData.subtasks}
       />
     );
   }

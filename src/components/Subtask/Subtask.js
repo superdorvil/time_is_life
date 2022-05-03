@@ -3,7 +3,7 @@ import {TouchableOpacity, View, Text} from 'react-native';
 import {Completion} from '_components';
 import {COLORS} from '_resources';
 
-const Subtask = ({description, completed, edit, deleteSubtask}) => {
+const Subtask = ({description, completed, edit, deleteSubtask, completeSubtask}) => {
   if (edit) {
     return (
       <View style={containerStyle()}>
@@ -18,7 +18,7 @@ const Subtask = ({description, completed, edit, deleteSubtask}) => {
   }
 
   return (
-    <TouchableOpacity style={containerStyle()}>
+    <TouchableOpacity style={containerStyle()} onPress={completeSubtask}>
       <Completion completed={completed} subtask />
       <Text style={descriptionStyle(completed)}>{description}</Text>
     </TouchableOpacity>

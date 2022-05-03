@@ -4,7 +4,6 @@ const SubtaskSchema = {
   name: SCHEMAS.subtask,
   properties: {
     description: 'string',
-    position: 'int',
     completed: {type: 'bool', default: false},
   },
 };

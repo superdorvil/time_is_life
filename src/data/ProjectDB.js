@@ -10,7 +10,6 @@ class ProjectDB {
   }
 
   initSettings({realm}) {
-    console.log(realm.objects(SCHEMAS.subtask));
     if (realm.objects(SCHEMAS.settings).length < 1) {
       realm.write(() => {
         realm.create(SCHEMAS.settings, {});
@@ -439,6 +438,20 @@ class ProjectDB {
       task.repeatType = repeatType;
       task.repeatValue = repeatValue;
       task.important = important;
+    });
+  }
+
+  completeSubtask({
+    realm,
+    taskID,
+    subtasks,
+    completed,
+  }) {
+    const task = realm.objectForPrimaryKey(SCHEMAS.task, taskID);
+
+    realm.write(() => {
+      task.subtasks = subtasks;
+      task.completed = completed;
     });
   }
 

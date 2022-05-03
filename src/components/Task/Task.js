@@ -1,7 +1,13 @@
 import React, {Component} from 'react';
-import {TouchableOpacity, Text, View} from 'react-native';
+import {TouchableOpacity, Text, View, FlatList} from 'react-native';
 import {Actions} from 'react-native-router-flux';
-import {ViewVisibleWrapper, DateSelector, Completion} from '_components';
+import {
+  ViewVisibleWrapper,
+  DateSelector,
+  Completion,
+  Divider,
+  Subtask,
+} from '_components';
 import projectDB from '_data';
 import {COLORS} from '_resources';
 import {DateUtils} from '_utils';
@@ -14,6 +20,7 @@ class Task extends Component {
     this.state = {
       dateModalVisible: false,
       dueDate: new Date(),
+      showSubtask: false,
     };
 
     this.taskPressed = this.taskPressed.bind(this);
@@ -21,13 +28,19 @@ class Task extends Component {
     this.closeModal = this.closeModal.bind(this);
     this.openDueDateModal = this.openDueDateModal.bind(this);
     this.updateTaskDueDate = this.updateTaskDueDate.bind(this);
+    this.showSubtask = this.showSubtask.bind(this);
+    this.completeSubtask = this.completeSubtask.bind(this);
   }
 
   taskPressed() {
-    projectDB.completeTask({
-      realm: this.props.realm,
-      taskID: this.props.taskID,
-    });
+    if (this.props.subtasks.length > 0) {
+      this.setState({showSubtask: !this.state.showSubtask});
+    } else {
+      projectDB.completeTask({
+        realm: this.props.realm,
+        taskID: this.props.taskID,
+      });
+    }
   }
 
   taskLongPressed() {
@@ -36,6 +49,10 @@ class Task extends Component {
       taskID: this.props.taskID,
       projectID: this.props.projectID,
     });
+  }
+
+  showSubtask() {
+    this.setState({showSubtask: !this.state.showSubtask});
   }
 
   openDueDateModal() {
@@ -76,6 +93,32 @@ class Task extends Component {
     this.closeModal();
   }
 
+  completeSubtask(index) {
+    const subtasks = [];
+    let completed = true;
+
+    this.props.subtasks.forEach((subtask, i) => {
+      subtasks.push({
+        description: subtask.description,
+        completed: subtask.completed
+      });
+    });
+    subtasks[index].completed = !subtasks[index].completed;
+
+    subtasks.forEach((subtask, i) => {
+      if (!subtask.completed) {
+        completed = false;
+      }
+    });
+
+    projectDB.completeSubtask({
+      realm: this.props.realm,
+      taskID: this.props.taskID,
+      subtasks,
+      completed,
+    });
+  }
+
   convertDueDateToText(dueDateIndex) {
     if (dueDateIndex == 9999999999999) {
       return false;
@@ -113,6 +156,20 @@ class Task extends Component {
     return dateText;
   }
 
+  renderDivider(dividerColorPrimary) {
+    return <Divider primary={dividerColorPrimary} />;
+  }
+
+  renderSubtask(subtask, index, completeSubtask) {
+    return (
+      <Subtask
+        description={subtask.description}
+        completed={subtask.completed}
+        completeSubtask={completeSubtask}
+      />
+    );
+  }
+
   render() {
     const dueDateToText = this.convertDueDateToText(this.props.dueDateIndex);
     let project;
@@ -124,40 +181,54 @@ class Task extends Component {
     }
 
     return (
-      <View style={containerStyle()}>
-        <ViewVisibleWrapper
-          style={dueDateContainerStyle()}
-          active={
-            !this.props.completed &&
-            this.props.renderDueDate &&
-            dueDateToText
-          }>
-          <Text style={dueDateStyle()}>
-            {dueDateToText}
-          </Text>
-        </ViewVisibleWrapper>
-        <ViewVisibleWrapper
-          style={unassignedDueDatesDivider()}
-          active={
-            !this.props.completed &&
-            this.props.renderDueDate &&
-            !dueDateToText
-          }
-        />
-        <ViewVisibleWrapper active={project}>
-          <Text style={projectStyle()}>Project: {project}</Text>
-        </ViewVisibleWrapper>
-        <TouchableOpacity
-          style={innerContainerStyle()}
-          onPress={this.taskPressed}
-          onLongPress={this.taskLongPressed}>
-        <Completion completed={this.props.completed} />
-        <View style={descriptionContainerStyle()}>
-          <Text style={descriptionStyle(this.props.completed)}>{this.props.description}</Text>
-          <ViewVisibleWrapper active={this.props.hoursWorked > 0 ? true : false}>
-            <Text style={hoursWorkedStyle()}>{this.props.hoursWorked} hours worked</Text>
+      <View>
+        <View style={containerStyle()}>
+          <ViewVisibleWrapper
+            style={dueDateContainerStyle()}
+            active={
+              !this.props.completed &&
+              this.props.renderDueDate &&
+              dueDateToText
+            }>
+            <Text style={dueDateStyle()}>
+              {dueDateToText}
+            </Text>
           </ViewVisibleWrapper>
+          <ViewVisibleWrapper
+            style={unassignedDueDatesDivider()}
+            active={
+              !this.props.completed &&
+              this.props.renderDueDate &&
+              !dueDateToText
+            }
+          />
+          <ViewVisibleWrapper active={project}>
+            <Text style={projectStyle()}>Project: {project}</Text>
+          </ViewVisibleWrapper>
+          <TouchableOpacity
+            style={innerContainerStyle()}
+            onPress={this.taskPressed}
+            onLongPress={this.taskLongPressed}>
+          <Completion completed={this.props.completed} />
+          <View style={descriptionContainerStyle()}>
+            <Text style={descriptionStyle(this.props.completed)}>{this.props.description}</Text>
+            <ViewVisibleWrapper active={this.props.hoursWorked > 0 ? true : false}>
+              <Text style={hoursWorkedStyle()}>{this.props.hoursWorked} hours worked</Text>
+            </ViewVisibleWrapper>
+          </View>
+          </TouchableOpacity>
         </View>
+        <ViewVisibleWrapper
+          active={this.state.showSubtask}
+          style={subtaskContainerStyle()}>
+          <FlatList
+            data={this.props.subtasks}
+            renderItem={({item, index}) => this.renderSubtask(item, index, () => this.completeSubtask(index))}
+            keyExtractor={(item, index) => index.toString()}
+            ItemSeparatorComponent={() => this.renderDivider()}
+            contentContainerStyle={listPaddingStyle()}
+          />
+        </ViewVisibleWrapper>
         <DateSelector
           dateString={DateUtils.convertDateToString({
             date: this.state.dueDate,
@@ -170,7 +241,6 @@ class Task extends Component {
           taskDueDate
           notSelected={this.props.dueDateIndex == 9999999999999}
         />
-        </TouchableOpacity>
       </View>
     );
   }
@@ -254,6 +324,18 @@ const unassignedDueDatesDivider = () => {
     marginTop: 16,
     marginBottom: 16,
     backgroundColor: COLORS.primary[global.colorScheme],
+  };
+};
+
+const listPaddingStyle = () => {
+  return {paddingBottom: 16};
+};
+
+const subtaskContainerStyle = () => {
+  return {
+    flex: 1,
+    marginTop: 16,
+    borderColor: COLORS.primary[global.colorScheme],
   };
 };
 

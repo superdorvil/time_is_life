@@ -32,7 +32,6 @@ class ManageTask extends Component {
       task.subtasks.forEach((st, i) => {
         subtasks.push({
           description: st.description,
-          position: st.position,
           completed: st.completed
         });
       });
@@ -162,7 +161,6 @@ class ManageTask extends Component {
     const subtasks = this.state.subtasks;
     subtasks.push({
       description: this.state.subtaskDescription,
-      position: 0,
       completed: false,
     });
 
