@@ -45,6 +45,7 @@ class ManageProject extends Component {
     });
 
     Actions.pop();
+    Actions.pop();
   }
 
   editProject() {

@@ -149,7 +149,9 @@ class ProjectDB {
       .objects(SCHEMAS.project)
       .sorted('position', true)
       .sorted('thisWeeksSecondsGoal', true)
-      .sorted('deleted', false);
+      .sorted('completed', false)
+      .sorted('deleted', false)
+      .sorted('timerActive', true);
   }
 
   getSecondsWorked({
@@ -417,6 +419,14 @@ class ProjectDB {
     });
   }
 
+  completeProject({realm, projectID}) {
+    const project = realm.objectForPrimaryKey(SCHEMAS.project, projectID);
+
+    realm.write(() => {
+      project.completed = !project.completed;
+    });
+  }
+
   editTask({
     realm,
     taskID,
@@ -601,6 +611,14 @@ class ProjectDB {
 
   startTimer({realm, projectID}) {
     const project = realm.objectForPrimaryKey(SCHEMAS.project, projectID);
+    const projects = realm.objects(SCHEMAS.project);
+
+    // shut any active projects
+    projects.forEach((p, i) => {
+      if (p.timerActive) {
+        this.stopTimer({realm, projectID: p.id});
+      }
+    });
 
     realm.write(() => {
       project.timerStartTime = new Date();
@@ -662,6 +680,10 @@ class ProjectDB {
   // deleted boolean
   deleteProject({realm, projectID}) {
     const project = this.getProjects({realm, projectID});
+
+    if (project.timerActive) {
+      this.stopTimer({realm, projectID});
+    }
 
     realm.write(() => {
       project.deleted = true;

@@ -7,6 +7,7 @@ const ProjectSchema = {
     id: 'int',
     description: 'string',
     position: 'int',
+    completed: {type: 'bool', default: false},
     deleted: {type: 'bool', default: false},
     timerActive: {type: 'bool', default: false},
     timerStartTime: 'date?',

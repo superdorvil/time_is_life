@@ -8,6 +8,7 @@ const ProjectTimerTabBar = ({
   subTaskPressed,
   hoursWorkedPressed,
   goalsPressed,
+  editPressed,
 }) => {
   return (
     <View style={containerStyle()}>
@@ -25,6 +26,11 @@ const ProjectTimerTabBar = ({
         description="Goals"
         iconName={ICONS.goals}
         onPress={goalsPressed}
+      />
+      <TabBarIcon
+        description="Edit Project"
+        iconName={ICONS.edit}
+        onPress={editPressed}
       />
     </View>
   );

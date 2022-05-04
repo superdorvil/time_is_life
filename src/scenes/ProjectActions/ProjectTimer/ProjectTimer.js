@@ -12,7 +12,7 @@ import {
 import {COLORS} from '_resources';
 import {ICONS} from '_constants';
 import projectDB from '_data';
-import {DateUtils} from '_utils';
+import {DateUtils, HoursUtils} from '_utils';
 
 class ProjectTimer extends Component {
   constructor(props) {
@@ -34,14 +34,16 @@ class ProjectTimer extends Component {
     this.state = {
       project,
       secondsWorkedToday,
+      thisWeeksHoursWorked: {hours: 0, minutes: 0, seconds: 0},
+      totalHoursWorked: {hours: 0, minutes: 0, seconds: 0},
       secondsWorkedTimer,
     };
 
     this.timerPressed = this.timerPressed.bind(this);
     this.backArrowPressed = this.backArrowPressed.bind(this);
-    this.closeModal = this.closeModal.bind(this);
+    //this.closeModal = this.closeModal.bind(this);
     this.tabBarPressed = this.tabBarPressed.bind(this);
-    this.editPressed = this.editPressed.bind(this);
+    this.completePressed = this.completePressed.bind(this);
   }
 
   componentDidMount() {
@@ -70,11 +72,12 @@ class ProjectTimer extends Component {
   }
 
   backArrowPressed() {
-    if (this.state.project.timerActive) {
+    /*if (this.state.project.timerActive) {
       this.setState({confirmExitModalVisible: true});
     } else {
       Actions.pop();
-    }
+    }*/
+    Actions.pop();
   }
 
   getSecondsWorked() {
@@ -85,14 +88,30 @@ class ProjectTimer extends Component {
         dateIndex: DateUtils.getDateIndex({date: new Date()}),
       }) +
       (new Date() - this.state.project.timerStartTime) / 1000;
+    const thisWeeksHoursWorked = HoursUtils.convertSecondsToHrsMinsSecs({
+      totalSeconds: secondsWorkedToday + this.state.project.thisWeeksSecondsWorked,
+      doubleDigitHours: false,
+      doubleDigitMinutes: true,
+      doubleDigitSeconds: true,
+    });
+    const totalHoursWorked = HoursUtils.convertSecondsToHrsMinsSecs({
+      totalSeconds: secondsWorkedToday + this.state.project.totalSecondsWorked,
+      doubleDigitHours: false,
+      doubleDigitMinutes: true,
+      doubleDigitSeconds: true,
+    });
 
-    this.setState({secondsWorkedToday});
+    this.setState({
+      secondsWorkedToday,
+      thisWeeksHoursWorked,
+      totalHoursWorked,
+    });
   }
 
-  editPressed() {
-    Actions.manageProject({
+  completePressed() {
+    projectDB.completeProject({
       realm: this.props.realm,
-      project: this.props.project,
+      projectID: this.props.project.id,
     });
   }
 
@@ -138,6 +157,12 @@ class ProjectTimer extends Component {
           project: this.state.project,
         });
         break;
+      case ICONS.edit:
+        Actions.manageProject({
+          realm: this.props.realm,
+          project: this.props.project,
+        });
+        break;
       default:
       // fixme: error checking
     }
@@ -152,8 +177,8 @@ class ProjectTimer extends Component {
         <View style={topRightButtonStyle()}>
           <TopRightButton
             topRightButtonActive={true}
-            topRightButtonDescription="Edit Project"
-            topRightButtonPressed={this.editPressed}
+            topRightButtonDescription={this.props.project.completed ? 'Mark Incomplete' : 'Mark Complete'}
+            topRightButtonPressed={this.completePressed}
           />
         </View>
         <Text style={projectNameStyle()}>{this.props.project.description}</Text>
@@ -164,7 +189,7 @@ class ProjectTimer extends Component {
             timerPressed={this.timerPressed}
           />
         </View>
-        <ConfirmationModal
+        {/*<ConfirmationModal
           visible={this.state.confirmExitModalVisible}
           header="Stop Timer???"
           description="Press okay and the timer will record your time."
@@ -174,11 +199,27 @@ class ProjectTimer extends Component {
             Actions.pop();
           }}
           cancelPressed={this.closeModal}
-        />
+        />*/}
+        <View style={projectDataContainerStyle()}>
+          <Text>
+            {this.props.project.completed ? 'Project Complete' : 'Project Incomplete'}
+          </Text>
+          <Text>
+            {'This Weeks Hours ' +
+            this.state.thisWeeksHoursWorked.hours + ' hrs : ' +
+            this.state.thisWeeksHoursWorked.minutes + ' mins'}
+          </Text>
+          <Text>
+            {'Total Hours ' +
+            this.state.totalHoursWorked.hours + ' hrs : ' +
+            this.state.totalHoursWorked.minutes + ' mins'}
+          </Text>
+        </View>
         <ProjectTimerTabBar
           subTaskPressed={() => this.tabBarPressed(ICONS.checkmark)}
           hoursWorkedPressed={() => this.tabBarPressed(ICONS.clock)}
           goalsPressed={() => this.tabBarPressed(ICONS.goals)}
+          editPressed={() => this.tabBarPressed(ICONS.edit)}
         />
       </View>
     );
@@ -194,8 +235,23 @@ const containerStyle = () => {
 
 const timerContainerStyle = () => {
   return {
-    paddingTop: 24,
+    paddingTop: 32,
     flex: 1,
+  };
+};
+
+const projectDataContainerStyle = () => {
+  return {
+    borderWidth: 1,
+    alignSelf: 'center',
+    paddingStart: 16,
+    paddingEnd: 16,
+    paddingTop: 8,
+    paddingBottom: 8,
+    marginBottom: 24,
+    borderRadius: 8,
+    borderColor: COLORS.primary[global.colorScheme],
+    alignItems: 'center',
   };
 };
 
@@ -206,7 +262,7 @@ const projectNameStyle = () => {
     color: COLORS.primary[global.colorScheme],
     marginStart: 32,
     marginEnd: 32,
-    marginTop: 24,
+    marginTop: 32,
   };
 };
 

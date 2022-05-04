@@ -60,19 +60,6 @@ class ProjectList extends Component {
         }),
       });
     });
-
-    this.state.projects.forEach((p, i) => {
-      if (p.timerActive) {
-        project = p;
-      }
-    });
-
-    if (project) {
-      Actions.projectTimer({
-        realm: this.props.realm,
-        project,
-      });
-    }
   }
 
   componentWillUnmount() {
@@ -101,13 +88,19 @@ class ProjectList extends Component {
   renderProject(project, extraData) {
     return (
       <Project
+        key={project.id}
+        realm={extraData.realm}
         projectPressed={() => extraData.selectProject(extraData.realm, project)}
+        projectID={project.id}
         deleted={project.deleted}
         description={project.description}
         totalSecondsWorked={project.totalSecondsWorked}
         thisWeeksSecondsWorked={project.thisWeeksSecondsWorked}
         thisWeeksSecondsGoal={project.thisWeeksSecondsGoal}
         timerActive={project.timerActive}
+        timerStartTime={project.timerStartTime}
+        completed={project.completed}
+        deleted={project.deleted}
       />
     );
   }
