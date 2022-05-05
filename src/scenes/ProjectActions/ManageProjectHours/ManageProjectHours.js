@@ -381,6 +381,7 @@ class ManageProjectHours extends Component {
           closeModal={this.closeModal}
           itemPressed={this.taskPressed}
           header="Select Task"
+          completeButton
         />
         <TimeSelector
           visible={this.state.editStartTimeModalVisible}
