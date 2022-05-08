@@ -234,13 +234,22 @@ class Task extends Component {
   topSubtask(index) {
     const subtasks = [];
 
-    this.props.subtasks.forEach((subtask, i) => {
+    if (this.props.subtasks.length > 0) {
       subtasks.push({
-        description: subtask.description,
-        completed: subtask.completed
+        description: this.props.subtasks[index].description,
+        completed: this.props.subtasks[index].completed
       });
+    }
+
+    this.props.subtasks.forEach((subtask, i) => {
+      if (i !== index) {
+        subtasks.push({
+          description: subtask.description,
+          completed: subtask.completed
+        });
+      }
     });
-    [subtasks[0], subtasks[index]] = [subtasks[index], subtasks[0]];
+//    [subtasks[0], subtasks[index]] = [subtasks[index], subtasks[0]];
 
     projectDB.topSubtask({
       realm: this.props.realm,
@@ -293,6 +302,7 @@ class Task extends Component {
   renderSubtask(subtask, index, completeSubtask, deleteSubtask, topSubtask) {
     return (
       <Subtask
+        key={subtask.description}
         index={index}
         description={subtask.description}
         completed={subtask.completed}
