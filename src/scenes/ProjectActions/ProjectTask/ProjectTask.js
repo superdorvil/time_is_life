@@ -111,6 +111,7 @@ class ProjectTask extends Component {
         })}
         description={listData.description}
         completed={listData.completed}
+        important={listData.important}
         realm={extraData.realm}
         taskID={listData.id}
         taskPressed={() => {

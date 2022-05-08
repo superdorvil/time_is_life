@@ -92,6 +92,7 @@ class TaskList extends Component {
           });
         }}
         projectID={listData.projectID}
+        important={listData.important}
         showProject
         dueDateIndex={listData.dueDateIndex}
         renderDueDate={renderDueDate}

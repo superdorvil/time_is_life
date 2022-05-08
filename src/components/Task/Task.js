@@ -409,14 +409,14 @@ class Task extends Component {
                 onLongPress={this.taskLongPressed}>
               <Completion completed={this.props.completed} />
               <View style={descriptionContainerStyle()}>
-                <Text style={descriptionStyle(this.props.completed)}>{this.props.description}</Text>
+                <Text style={descriptionStyle(this.props.completed, this.props.important)}>{this.props.description}</Text>
                 <ViewVisibleWrapper active={this.props.hoursWorked > 0 ? true : false}>
                   <Text style={hoursWorkedStyle()}>{this.props.hoursWorked} hours worked</Text>
                 </ViewVisibleWrapper>
               </View>
               <ViewVisibleWrapper
-                active={this.props.subtasks.length > 0}
-                style={subtaskMarkerStyle()}
+                active={this.props.subtasks.length > 0 || this.props.important}
+                style={markerStyle()}
               />
               </TouchableOpacity>
             </Swipeable>
@@ -491,19 +491,23 @@ const projectStyle = () => {
   }
 }
 
-const descriptionStyle = completed => {
+const descriptionStyle = (completed, important) => {
+  const color = important ?
+    COLORS.primary[global.colorScheme] :
+    COLORS.tertiary[global.colorScheme];
+
   if (completed) {
     return {
       fontWeight: 'bold',
       fontSize: 16,
       textDecorationLine: 'line-through',
-      color: COLORS.tertiary[global.colorScheme],
+      color,
     };
   } else {
     return {
       fontWeight: 'bold',
       fontSize: 16,
-      color: COLORS.tertiary[global.colorScheme],
+      color,
     };
   }
 };
@@ -585,7 +589,7 @@ const swipeButtonStyle = () => {
   };
 };
 
-const subtaskMarkerStyle = () => {
+const markerStyle = () => {
     return {
       height: 4,
       width: 4,
@@ -593,5 +597,6 @@ const subtaskMarkerStyle = () => {
       backgroundColor: COLORS.primary[global.colorScheme],
     };
 };
+
 
 export default Task;

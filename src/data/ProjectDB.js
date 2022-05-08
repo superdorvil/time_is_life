@@ -112,8 +112,9 @@ class ProjectDB {
           .objects(SCHEMAS.task)
           .filtered('projectID == $0', projectID)
           .filtered('deleted == $0', showDeleted)
+          .sorted('important', true)
           .sorted('position', true)
-          .sorted('dueDateIndex', false)
+          .sorted('dueDateIndex', false);
       }
 
       return realm
@@ -121,6 +122,7 @@ class ProjectDB {
         .filtered('projectID == $0', projectID)
         .filtered('deleted == $0', showDeleted)
         .sorted('position', true)
+        .sorted('important', true)
         .sorted('dueDateIndex', false)
         .sorted('completed', false);
     }
@@ -132,6 +134,7 @@ class ProjectDB {
     return realm.objects(SCHEMAS.task)
       .filtered('deleted == $0', showDeleted)
       .sorted('position', true)
+      .sorted('important', true)
       .sorted('dueDateIndex', false)
       .sorted('completed', false);
   }
