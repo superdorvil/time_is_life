@@ -483,6 +483,7 @@ class ProjectDB {
       realm.delete(task.subtasks);
       task.subtasks = subtasks;
       task.completed = completed;
+      task.position = this.getTopPosition(realm.objects(SCHEMAS.task));
     });
   }
 
@@ -659,6 +660,7 @@ class ProjectDB {
     realm.write(() => {
       task.position = this.getTopPosition(realm.objects(SCHEMAS.task));
       task.completed = !task.completed;
+      task.position = this.getTopPosition(realm.objects(SCHEMAS.task));
     });
   }
 

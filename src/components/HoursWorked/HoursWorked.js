@@ -74,13 +74,15 @@ const HoursWorked = ({
         </View>
         <ViewVisibleWrapper style={taskContainerStyle()} active={secondsWorked.task}>
           <Text style={taskStyle(true)}>Task</Text>
-          <Text style={taskStyle()}>
-            {secondsWorked.task}
-          </Text>
+          <Text style={taskStyle()}>{secondsWorked.task}</Text>
+        </ViewVisibleWrapper>
+        <ViewVisibleWrapper style={taskContainerStyle()} active={!secondsWorked.task}>
+          <Text style={taskStyle(true)}>Task</Text>
+          <Text style={taskStyle()}>+ add task</Text>
         </ViewVisibleWrapper>
         <ViewVisibleWrapper active={i != secondsWorkedList.length - 1}>
           <Divider primary={true} />
-          <View style={spacingStyle()}/>
+          <View style={spacingStyle()} />
         </ViewVisibleWrapper>
       </TouchableOpacity>
     );
@@ -178,6 +180,7 @@ const taskContainerStyle = () => {
     borderColor: COLORS.primary[global.colorScheme],
     borderRadius: 8,
     padding: 4,
+    marginBottom: 16,
   };
 }
 

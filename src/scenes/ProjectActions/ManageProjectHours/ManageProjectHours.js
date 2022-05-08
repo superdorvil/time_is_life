@@ -265,7 +265,10 @@ class ManageProjectHours extends Component {
         project,
         task: null,
         tasks,
+        editProjectModalVisible: false
       });
+    } else {
+      this.setState({editProjectModalVisible: false});
     }
   }
 
@@ -280,7 +283,7 @@ class ManageProjectHours extends Component {
       task = null;
     }
 
-    this.setState({task});
+    this.setState({task, editTaskModalVisible: false});
   }
 
   deleteHours() {
@@ -324,7 +327,7 @@ class ManageProjectHours extends Component {
       backArrowActive: true,
       editButtonActive: false,
       topRightButtonActive: this.state.topRightButtonActive,
-      topRightButtonDescription: 'Delete',
+      topRightButtonDescription: 'Delete Hours',
       topRightButtonPressed: this.deleteHours,
       centerIconName: ICONS.checkmark,
       actionDescription: this.state.actionDescription,

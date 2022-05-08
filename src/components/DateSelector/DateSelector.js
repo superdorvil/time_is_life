@@ -41,7 +41,7 @@ const DateSelector = ({
           <Text style={formattedDateStyle()}>{formattedDate}</Text>
         </View>
         <Calendar
-          //current={new Date()}
+          //current={'2022-05-07'}
           //minDate={new Date()}
           //maxDate={date}
           hideExtraDays
@@ -52,6 +52,13 @@ const DateSelector = ({
           // renderArrow={(direction) => (<Arrow/>)}
           style={calendarStyle()}
           markedDates={{
+            [DateUtils.convertDateToString({
+              date: new Date,
+              format: UTILS.dateFormat.yyyy_mm_dd,
+            })]: {
+              marked: true,
+              disableTouchEvent: false,
+            },
             [dateString]: {
               selected: notSelected ? false : true,
               disableTouchEvent: false,

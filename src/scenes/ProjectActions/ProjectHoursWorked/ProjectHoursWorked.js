@@ -197,6 +197,7 @@ class ProjectHoursWorked extends Component {
   renderHoursWorked(listData, extraData) {
     return (
       <HoursWorked
+        key={listData.id}
         realm={extraData.realm}
         date={listData.date}
         projectID={extraData.project.id}

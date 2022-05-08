@@ -104,6 +104,7 @@ class ProjectTask extends Component {
 
     return (
       <Task
+        key={listData.id}
         index={index}
         hoursWorked={HoursUtils.convertSecondsToHrs({
           totalSeconds: hoursWorked,

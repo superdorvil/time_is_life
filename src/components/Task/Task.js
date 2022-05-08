@@ -29,7 +29,8 @@ class Task extends Component {
       subtaskDescription: '',
     };
 
-    this.taskPressed = this.taskPressed.bind(this);
+    this.completeTask = this.completeTask.bind(this);
+    this.openSubtask = this.openSubtask.bind(this);
     this.taskLongPressed = this.taskLongPressed.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.openDueDateModal = this.openDueDateModal.bind(this);
@@ -41,7 +42,7 @@ class Task extends Component {
     this.updateSubtaskDescription = this.updateSubtaskDescription.bind(this);
   }
 
-  taskPressed() {
+  completeTask() {
     if (this.props.subtasks.length > 0) {
       this.setState({showSubtask: !this.state.showSubtask});
     } else {
@@ -49,6 +50,12 @@ class Task extends Component {
         realm: this.props.realm,
         taskID: this.props.taskID,
       });
+    }
+  }
+
+  openSubtask() {
+    if (this.props.subtasks.length > 0) {
+      this.setState({showSubtask: !this.state.showSubtask});
     }
   }
 
@@ -405,8 +412,8 @@ class Task extends Component {
               </ViewVisibleWrapper>
               <TouchableOpacity
                 style={innerContainerStyle(this.state.swipeOpen, this.state.showSubtask)}
-                onPress={this.taskPressed}
-                onLongPress={this.taskLongPressed}>
+                onPress={this.openSubtask}
+                onLongPress={this.completeTask}>
               <Completion completed={this.props.completed} />
               <View style={descriptionContainerStyle()}>
                 <Text style={descriptionStyle(this.props.completed, this.props.important)}>{this.props.description}</Text>
@@ -415,8 +422,8 @@ class Task extends Component {
                 </ViewVisibleWrapper>
               </View>
               <ViewVisibleWrapper
-                active={this.props.subtasks.length > 0 || this.props.important}
-                style={markerStyle()}
+                active={this.props.subtasks.length > 0}
+                style={subtaskMarkerStyle()}
               />
               </TouchableOpacity>
             </Swipeable>
@@ -589,12 +596,14 @@ const swipeButtonStyle = () => {
   };
 };
 
-const markerStyle = () => {
+const subtaskMarkerStyle = () => {
     return {
-      height: 4,
-      width: 4,
-      borderRadius: 4,
+      height: 8,
+      width: 8,
+      borderRadius: 8,
       backgroundColor: COLORS.primary[global.colorScheme],
+      position: 'absolute',
+      right: 0,
     };
 };
 
