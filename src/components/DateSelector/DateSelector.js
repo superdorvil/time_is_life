@@ -27,7 +27,10 @@ const DateSelector = ({
     date.getDate();
     // if in task due date mode than there is no max date, otherwise the max date is today
     const maxDate = taskDueDate ? null : new Date();
-
+    const todayDateString = DateUtils.convertDateToString({
+      date: new Date,
+      format: UTILS.dateFormat.yyyy_mm_dd,
+    });
   return (
     <Modal
       animationType="slide"
@@ -52,10 +55,7 @@ const DateSelector = ({
           // renderArrow={(direction) => (<Arrow/>)}
           style={calendarStyle()}
           markedDates={{
-            [DateUtils.convertDateToString({
-              date: new Date,
-              format: UTILS.dateFormat.yyyy_mm_dd,
-            })]: {
+            [todayDateString]: {
               marked: true,
               disableTouchEvent: false,
             },
@@ -63,6 +63,7 @@ const DateSelector = ({
               selected: notSelected ? false : true,
               disableTouchEvent: false,
               selectedColor: COLORS.primary[global.colorScheme],
+              marked: dateString === todayDateString,
             },
           }}
           theme={{
