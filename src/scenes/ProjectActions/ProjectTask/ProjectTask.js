@@ -17,13 +17,43 @@ class ProjectTask extends Component {
       realm: this.props.realm,
       projectID: this.props.project.id,
     });
+    let completed = 0;
+    let active = 0;
+    let completeButtonActive;
+    let showCompleted;
+
+    tasks.forEach((task, i) => {
+      if (!task.deleted) {
+        if (task.completed) {
+          completed++;
+        } else {
+          active++;
+        }
+      }
+    });
+
+    if (active + completed > 15) {
+      if (active > 6) {
+        completeButtonActive = true;
+        showCompleted = false;
+      } else {
+        completeButtonActive = false;
+        showCompleted = true;
+      }
+    } else {
+      completeButtonActive = false;
+      showCompleted = true;
+    }
 
     this.state = {
       project,
       tasks,
       dueDatesToRender: [],
+      completeButtonActive,
+      showCompleted,
     };
 
+    this.showCompleted = this.showCompleted.bind(this);
     this.addPressed = this.addPressed.bind(this);
   }
 
@@ -37,11 +67,42 @@ class ProjectTask extends Component {
       });
     });
     this.state.tasks.addListener(() => {
+      const tasks = projectDB.getTasks({
+        realm: this.props.realm,
+        projectID: this.props.project.id,
+      });
+      let completed = 0;
+      let active = 0;
+      let completeButtonActive;
+      let showCompleted;
+
+      tasks.forEach((task, i) => {
+        if (!task.deleted) {
+          if (task.completed) {
+            completed++;
+          } else {
+            active++;
+          }
+        }
+      });
+
+      if (active + completed > 15) {
+        if (active > 6) {
+          completeButtonActive = true;
+          showCompleted = false;
+        } else {
+          completeButtonActive = false;
+          showCompleted = true;
+        }
+      } else {
+        completeButtonActive = false;
+        showCompleted = true;
+      }
+
       this.setState({
-        task: projectDB.getProjects({
-          realm: this.props.realm,
-          projectID: this.props.project.id,
-        }),
+        tasks,
+        completeButtonActive,
+        showCompleted
       });
       this.dueDatesToRender();
     });
@@ -87,6 +148,10 @@ class ProjectTask extends Component {
     }
 
     this.setState({dueDatesToRender: indexes});
+  }
+
+  showCompleted() {
+    this.setState({showCompleted: !this.state.showCompleted});
   }
 
   renderTask(listData, extraData, index) {
@@ -151,10 +216,21 @@ class ProjectTask extends Component {
           actionButtonActive={true}
           actionButtonPressed={this.addPressed}
           actionButtonDescription="Your Task"
-          listData={this.state.tasks}
+          listData={
+            this.state.showCompleted ?
+            this.state.tasks :
+            this.state.tasks.filtered('completed == $0', false)
+          }
           listDataActive={true}
           renderListItem={this.renderTask}
           topBottomContainerDivider
+          loadMorePressed={this.showCompleted}
+          loadMoreText={
+            this.state.showCompleted ?
+            "Hide Deleted Task" :
+            "Show Deleted Task"
+          }
+          loadMoreActive={this.state.completeButtonActive}
         />
       </View>
     );

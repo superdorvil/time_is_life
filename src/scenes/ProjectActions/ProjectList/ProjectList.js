@@ -32,6 +32,31 @@ class ProjectList extends Component {
       realm: this.props.realm,
       weekIndex: currentWeekIndex,
     });
+    let deleted = 0;
+    let active = 0;
+    let deleteButtonActive;
+    let showDeleted;
+
+    projects.forEach((project, i) => {
+      if (project.deleted) {
+        deleted++;
+      } else {
+        active++;
+      }
+    });
+
+    if (active + deleted > 7) {
+      if (active > 3) {
+        deleteButtonActive = true;
+        showDeleted = false;
+      } else {
+        deleteButtonActive = false;
+        showDeleted = true;
+      }
+    } else {
+      deleteButtonActive = false;
+      showDeleted = true;
+    }
 
     this.state = {
       projects,
@@ -42,22 +67,53 @@ class ProjectList extends Component {
       today,
       thisWeeksGoalSeconds,
       thisWeeksSecondsWorked,
+      deleteButtonActive,
+      showDeleted,
     };
 
     this.createProject = this.createProject.bind(this);
     this.selectProject = this.selectProject.bind(this);
+    this.showDeleted = this.showDeleted.bind(this);
   }
 
   componentDidMount() {
-    let project;
     this.state.projects.addListener(() => {
+      const projects = projectDB.getProjects({realm: this.props.realm});
+      let deleted = 0;
+      let active = 0;
+      let deleteButtonActive;
+      let showDeleted;
+
+      projects.forEach((project, i) => {
+        if (project.deleted) {
+          deleted++;
+        } else {
+          active++;
+        }
+      });
+
+      if (active + deleted > 7) {
+        if (active > 3) {
+          deleteButtonActive = true;
+          showDeleted = false;
+        } else {
+          deleteButtonActive = false;
+          showDeleted = true;
+        }
+      } else {
+        deleteButtonActive = false;
+        showDeleted = true;
+      }
+
       this.setState({
-        projects: projectDB.getProjects({realm: this.props.realm}),
+        projects,
         dailySecondsWorked: projectDB.getDailySecondsWorked({
           realm: this.props.realm,
           sundayIndex: this.state.sundayIndex,
           weekIndex: this.state.currentWeekIndex,
         }),
+        deleteButtonActive,
+        showDeleted,
       });
     });
   }
@@ -83,6 +139,10 @@ class ProjectList extends Component {
     projectDB.topProjectPosition({realm, projectID: project.id});
 
     Actions.projectTimer({realm, project});
+  }
+
+  showDeleted() {
+    this.setState({showDeleted: !this.state.showDeleted});
   }
 
   renderProject(project, extraData) {
@@ -148,10 +208,21 @@ class ProjectList extends Component {
           actionButtonActive={true}
           actionButtonPressed={this.createProject}
           actionButtonDescription="Your Projects"
-          listData={this.state.projects}
+          listData={
+            this.state.showDeleted ?
+            this.state.projects :
+            this.state.projects.filtered('deleted == $0', false)
+          }
           listDataActive={true}
           renderListItem={this.renderProject}
           topBottomContainerDivider
+          loadMorePressed={this.showDeleted}
+          loadMoreText={
+            this.state.showDeleted ?
+            "Hide Deleted Projects" :
+            "Show Deleted Projects"
+          }
+          loadMoreActive={this.state.deleteButtonActive}
         />
       </View>
     );

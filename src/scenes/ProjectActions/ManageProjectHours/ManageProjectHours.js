@@ -376,6 +376,8 @@ class ManageProjectHours extends Component {
           closeModal={this.closeModal}
           itemPressed={this.projectPressed}
           header="Select Project"
+          completeButton
+          schema={SCHEMAS.project}
         />
         <SelectItemModal
           items={this.state.tasks}
@@ -385,6 +387,7 @@ class ManageProjectHours extends Component {
           itemPressed={this.taskPressed}
           header="Select Task"
           completeButton
+          schema={SCHEMAS.task}
         />
         <TimeSelector
           visible={this.state.editStartTimeModalVisible}

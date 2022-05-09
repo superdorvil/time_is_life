@@ -70,8 +70,8 @@ class SelectItemModal extends Component {
               key={itemList.length}>
               <Text style={completedStyle()}>
                 {this.state.showCompleted ?
-                  'Dont Show Completed Task' :
-                  'Show Completed Task'}
+                  'Dont Show Completed ' + this.props.schema :
+                  'Show Completed ' + this.props.schema}
               </Text>
             </TouchableOpacity>
           );

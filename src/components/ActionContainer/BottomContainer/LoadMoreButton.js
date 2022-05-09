@@ -3,15 +3,17 @@ import {Text} from 'react-native';
 import {ViewVisibleWrapper} from '_components';
 import {COLORS} from '_resources';
 
-const LoadMoreButton = ({loadMorePressed, previous, active}) => {
+const LoadMoreButton = ({loadMoreText, loadMorePressed, previous, active}) => {
+  let text = loadMoreText ?
+    loadMoreText :
+    (previous ? 'load previous' : 'load more');
+
   return (
     <ViewVisibleWrapper
       style={containerStyle()}
       active={active}
       onPress={loadMorePressed}>
-      <Text style={textStyle()}>
-        {previous ? 'load previous' : 'load more'}
-      </Text>
+      <Text style={textStyle()}>{text}</Text>
     </ViewVisibleWrapper>
   );
 };

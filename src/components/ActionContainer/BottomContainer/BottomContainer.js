@@ -39,6 +39,7 @@ class BottomContainer extends Component {
               }
               ListFooterComponent={
                 <LoadMoreButton
+                  loadMoreText={this.props.loadMoreText}
                   loadMorePressed={this.props.loadMorePressed}
                   previous={false}
                   active={this.props.loadMoreActive}

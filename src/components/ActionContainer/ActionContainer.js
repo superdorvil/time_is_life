@@ -56,6 +56,7 @@ class ActionContainer extends Component {
           loadPreviousActive={this.props.loadPreviousActive}
           loadMorePressed={this.props.loadMorePressed}
           loadMoreActive={this.props.loadMoreActive}
+          loadMoreText={this.props.loadMoreText}
           dividerColorPrimary={this.props.dividerColorPrimary}>
           {this.props.children}
         </BottomContainer>
