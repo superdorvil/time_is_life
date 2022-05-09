@@ -70,6 +70,7 @@ class ManageProjectHours extends Component {
         endTimeSeconds: endTime.getSeconds(),
         startTimeAMPM: startTime.getHours() >= 12 ? STATES.pm : STATES.am,
         endTimeAMPM: endTime.getHours() >= 12 ? STATES.pm : STATES.am,
+        stateHasChanged: false,
       };
     } else {
       const currentDate = new Date();
@@ -98,6 +99,7 @@ class ManageProjectHours extends Component {
         endTimeSeconds: 0,
         startTimeAMPM: currentDate.getHours() >= 12 ? STATES.pm : STATES.am,
         endTimeAMPM: currentDate.getHours() >= 12 ? STATES.pm : STATES.am,
+        stateHasChanged: false,
       };
     }
 
@@ -114,7 +116,7 @@ class ManageProjectHours extends Component {
     this.openEditStartDateModal = this.openEditStartDateModal.bind(this);
     this.openEditEndDateModal = this.openEditEndDateModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-
+    this.backArrowPressed = this.backArrowPressed.bind(this);
     this.updateStartTimeHours = this.updateStartTimeHours.bind(this);
     this.updateEndTimeHours = this.updateEndTimeHours.bind(this);
     this.updateStartTimeMinutes = this.updateStartTimeMinutes.bind(this);
@@ -161,6 +163,7 @@ class ManageProjectHours extends Component {
       editEndTimeModalVisible: false,
       editStartDateModalVisible: false,
       editEndDateModalVisible: false,
+      confirmExitModalVisible: false,
     });
   }
 
@@ -214,7 +217,7 @@ class ManageProjectHours extends Component {
     startTime.setMinutes(this.state.startTimeMinutes);
     startTime.setSeconds(this.state.startTimeSeconds);
 
-    this.setState({startTime});
+    this.setState({startTime, stateHasChanged: true});
     this.closeModal();
   }
 
@@ -224,7 +227,7 @@ class ManageProjectHours extends Component {
     endTime.setMinutes(this.state.endTimeMinutes);
     endTime.setSeconds(this.state.endTimeSeconds);
 
-    this.setState({endTime});
+    this.setState({endTime, stateHasChanged: true});
     this.closeModal();
   }
 
@@ -234,7 +237,7 @@ class ManageProjectHours extends Component {
     startTime.setMonth(dateObject.month - 1);
     startTime.setDate(dateObject.day);
 
-    this.setState({startTime});
+    this.setState({startTime, stateHasChanged: true});
 
     this.closeModal();
   }
@@ -245,7 +248,7 @@ class ManageProjectHours extends Component {
     endTime.setMonth(dateObject.month - 1);
     endTime.setDate(dateObject.day);
 
-    this.setState({endTime});
+    this.setState({endTime, stateHasChanged: true});
 
     this.closeModal();
   }
@@ -265,7 +268,8 @@ class ManageProjectHours extends Component {
         project,
         task: null,
         tasks,
-        editProjectModalVisible: false
+        editProjectModalVisible: false,
+        stateHasChanged: true
       });
     } else {
       this.setState({editProjectModalVisible: false});
@@ -283,7 +287,7 @@ class ManageProjectHours extends Component {
       task = null;
     }
 
-    this.setState({task, editTaskModalVisible: false});
+    this.setState({task, editTaskModalVisible: false, stateHasChanged: true});
   }
 
   deleteHours() {
@@ -331,7 +335,7 @@ class ManageProjectHours extends Component {
       topRightButtonPressed: this.deleteHours,
       centerIconName: ICONS.checkmark,
       actionDescription: this.state.actionDescription,
-
+      backArrowOverrideFunction: this.backArrowPressed
     };
 
     return (
@@ -436,6 +440,16 @@ class ManageProjectHours extends Component {
           updateDate={this.updateEndDate}
           visible={this.state.editEndDateModalVisible}
           closeModal={this.closeModal}
+        />
+        <ConfirmationModal
+          visible={this.state.confirmExitModalVisible}
+          header="Confirm Changes"
+          description="Are you sure you want to exit before confirming your changes??? Press okay to exit. Or Press cancel and Add/Edit your task."
+          iconName={ICONS.clock}
+          okayPressed={() => {
+            Actions.pop();
+          }}
+          cancelPressed={this.closeModal}
         />
       </View>
     );

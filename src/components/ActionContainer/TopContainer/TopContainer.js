@@ -19,6 +19,7 @@ const TopContainer = ({
   topRightButtonActive,
   topRightButtonDescription,
   topRightButtonPressed,
+  backArrowOverrideFunction,
 }) => {
   return (
     <View style={containerStyle()}>
@@ -33,7 +34,7 @@ const TopContainer = ({
       <ViewVisibleWrapper active={actionScreenActive}>
         <ActionScreen
           backArrowActive={backArrowActive}
-          backArrowPressed={backArrowPressed}
+          backArrowPressed={backArrowOverrideFunction ? backArrowOverrideFunction : backArrowPressed}
           centerIconName={centerIconName}
           actionDescription={actionDescription}
           subDescription={subDescription}

@@ -11,6 +11,7 @@ import {
   ProjectInput,
   Divider,
   Subtask,
+  ConfirmationModal,
   SubtaskModal,
 } from '_components';
 import {DateUtils, HoursUtils} from '_utils';
@@ -55,6 +56,7 @@ class ManageTask extends Component {
         repeatModalVisible: false,
         subtaskModalVisible: false,
         subtaskDescription: '',
+        stateHasChanged: false,
       };
     } else {
       this.state = {
@@ -76,6 +78,7 @@ class ManageTask extends Component {
         repeatModalVisible: false,
         subtaskModalVisible: false,
         subtaskDescription: '',
+        stateHasChanged: false,
       };
     }
 
@@ -87,7 +90,7 @@ class ManageTask extends Component {
     this.updateTaskDueDate = this.updateTaskDueDate.bind(this);
     this.updateRepeatType = this.updateRepeatType.bind(this);
     this.editTask = this.editTask.bind(this);
-
+    this.backArrowPressed = this.backArrowPressed.bind(this);
     this.subtaskMode = this.subtaskMode.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.openRepeatModal = this.openRepeatModal.bind(this);
@@ -118,6 +121,7 @@ class ManageTask extends Component {
       repeatModalVisible: false,
       subtaskModalVisible: false,
       subtaskDescription: '',
+      confirmExitModalVisible: false,
     });
   }
 
@@ -150,7 +154,7 @@ class ManageTask extends Component {
   }
 
   updateDescription(description) {
-    this.setState({description});
+    this.setState({description, stateHasChanged: true});
   }
 
   updateSubtaskDescription(description) {
@@ -164,7 +168,7 @@ class ManageTask extends Component {
       completed: false,
     });
 
-    this.setState({subtasks, completeted: false});
+    this.setState({subtasks, completeted: false, stateHasChanged: true});
 
     this.closeModal();
   }
@@ -173,15 +177,15 @@ class ManageTask extends Component {
     const subtasks = this.state.subtasks;
     subtasks.splice(index, 1);
 
-    this.setState({subtasks});
+    this.setState({subtasks, stateHasChanged: true});
   }
 
   completeTask() {
-    this.setState({completed: !this.state.completed});
+    this.setState({completed: !this.state.completed, stateHasChanged: true});
   }
 
   markImportant() {
-    this.setState({important: !this.state.important});
+    this.setState({important: !this.state.important, stateHasChanged: true});
   }
 
   updateTaskDueDate(dateObject) {
@@ -193,16 +197,16 @@ class ManageTask extends Component {
     const dueDateIndex = DateUtils.getDateIndex({date});
 
     if (this.state.dueDateIndex === dueDateIndex) {
-      this.setState({dueDateIndex: UTILS.nullDueDate});
+      this.setState({dueDateIndex: UTILS.nullDueDate, stateHasChanged: true});
     } else {
-      this.setState({dueDateIndex});
+      this.setState({dueDateIndex, stateHasChanged: true});
     }
 
     this.closeModal();
   }
 
   updateRepeatType() {
-
+//, stateHasChanged: true
   }
 
   editTask() {
@@ -220,6 +224,14 @@ class ManageTask extends Component {
         important: this.state.important,
       });
 
+      Actions.pop();
+    }
+  }
+
+  backArrowPressed() {
+    if (this.state.stateHasChanged) {
+      this.setState({confirmExitModalVisible: true});
+    } else {
       Actions.pop();
     }
   }
@@ -251,6 +263,7 @@ class ManageTask extends Component {
       topRightButtonActive: this.state.topRightButtonActive,
       topRightButtonDescription: 'Delete Task',
       topRightButtonPressed: this.deleteTask,
+      backArrowOverrideFunction: this.backArrowPressed
     };
 
     const date = this.state.dueDateIndex === UTILS.nullDueDate ?
@@ -391,6 +404,16 @@ class ManageTask extends Component {
           description={this.state.subtaskDescription}
           updateDescription={this.updateSubtaskDescription}
           addSubtask={this.addSubtask}
+        />
+        <ConfirmationModal
+          visible={this.state.confirmExitModalVisible}
+          header="Confirm Changes"
+          description="Are you sure you want to exit before confirming your changes??? Press okay to exit. Or Press cancel and Add/Edit your task."
+          iconName={ICONS.checkmark}
+          okayPressed={() => {
+            Actions.pop();
+          }}
+          cancelPressed={this.closeModal}
         />
       </View>
     );
