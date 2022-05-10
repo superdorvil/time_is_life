@@ -13,8 +13,9 @@ import {
   Subtask,
   ConfirmationModal,
   SubtaskModal,
+  RepeatModal,
 } from '_components';
-import {DateUtils, HoursUtils} from '_utils';
+import {DateUtils, HoursUtils, InputUtils} from '_utils';
 import {ICONS, UTILS} from '_constants';
 import {COLORS} from '_resources';
 
@@ -72,7 +73,7 @@ class ManageTask extends Component {
         completed: false,
         deleted: false,
         repeatType: 'none',
-        repeatValue: 0,
+        repeatValue: 1,
         important: false,
         dateModalVisible: false,
         repeatModalVisible: false,
@@ -97,6 +98,7 @@ class ManageTask extends Component {
     this.openDueDateModal = this.openDueDateModal.bind(this);
     this.addSubtask = this.addSubtask.bind(this);
     this.updateSubtaskDescription = this.updateSubtaskDescription.bind(this);
+    this.updateRepeatValue = this.updateRepeatValue.bind(this);
   }
 
   openSubtaskModal() {
@@ -157,6 +159,17 @@ class ManageTask extends Component {
     this.setState({description, stateHasChanged: true});
   }
 
+  updateRepeatValue(repeatValue) {
+    this.setState({
+      repeatValue: InputUtils.numberRangeInput({
+        min: 1,
+        max: 3650,
+        value: repeatValue
+      }),
+      stateHasChanged: true
+    });
+  }
+
   updateSubtaskDescription(description) {
     this.setState({subtaskDescription: description});
   }
@@ -205,8 +218,14 @@ class ManageTask extends Component {
     this.closeModal();
   }
 
-  updateRepeatType() {
-//, stateHasChanged: true
+  updateRepeatType(repeatType) {
+    if (repeatType == this.state.repeatType) {
+      this.setState({repeatType: UTILS.repeatType.none, stateHasChanged: true});
+    } else {
+      this.setState({repeatType, stateHasChanged: true});
+    }
+
+    this.closeModal();
   }
 
   editTask() {
@@ -299,30 +318,21 @@ class ManageTask extends Component {
           <ViewVisibleWrapper active={this.state.editSubtask}>
             <View style={innerContainerStyle()}>
               <View style={buttonContainerStyle()}>
-              <EditItemButton
-                header="Repeat Task"
-                description={this.state.repeatType}
-                icon={ICONS.repeat}
-                editPressed={this.openRepeatModal}
-              />
-              </View>
-              <View style={spacingStyle()} />
-              <View style={buttonContainerStyle()}>
-              <EditItemButton
-                header="Due Date"
-                description={
-                  this.state.dueDateIndex === UTILS.nullDueDate ?
-                  'none' :
-                  DateUtils.convertDateToString({
-                    date: DateUtils.getDateFromDateIndex({
-                      dateIndex: this.state.dueDateIndex
-                    }),
-                    format: UTILS.dateFormat.monthDateYear,
-                  })
-                }
-                icon={ICONS.calendar}
-                editPressed={this.openDueDateModal}
-              />
+                <EditItemButton
+                  header="Due Date"
+                  description={
+                    this.state.dueDateIndex === UTILS.nullDueDate ?
+                    'none' :
+                    DateUtils.convertDateToString({
+                      date: DateUtils.getDateFromDateIndex({
+                        dateIndex: this.state.dueDateIndex
+                      }),
+                      format: UTILS.dateFormat.monthDateYear,
+                    })
+                  }
+                  icon={ICONS.calendar}
+                  editPressed={this.openDueDateModal}
+                />
               </View>
               <View style={spacingStyle()} />
               <View style={buttonContainerStyle()}>
@@ -336,16 +346,17 @@ class ManageTask extends Component {
               </View>
             </View>
             <View style={innerContainerStyle()}>
-              {/*<View style={spacingStyle()} />
               <View style={buttonContainerStyle()}>
                 <EditItemButton
-                  header="Task Completed"
-                  description={this.state.completed ? 'Completed' : 'Incomplete'}
-                  icon={ICONS.checkmark}
-                  editPressed={this.completeTask}
-                  iconColorInactive={!this.state.completed}
+                  header="Repeat Task"
+                  description={this.state.repeatType === UTILS.repeatType.dfn ?
+                    'Repeat ' + this.state.repeatValue + ' day' + (this.state.repeatValue > 1 ? 's' : '') + ' from now' :
+                    this.state.repeatType
+                  }
+                  icon={ICONS.repeat}
+                  editPressed={this.openRepeatModal}
                 />
-              </View>*/}
+              </View>
             </View>
           </ViewVisibleWrapper>
           <ViewVisibleWrapper
@@ -414,6 +425,24 @@ class ManageTask extends Component {
             Actions.pop();
           }}
           cancelPressed={this.closeModal}
+        />
+        <RepeatModal
+          visible={this.state.repeatModalVisible}
+          closeModal={this.closeModal}
+          selected={this.state.repeatType}
+          repeatValue={this.state.repeatValue}
+          updateRepeatValue={this.updateRepeatValue}
+          sundayPressed={() => this.updateRepeatType(UTILS.repeatType.sun)}
+          mondayPressed={() => this.updateRepeatType(UTILS.repeatType.mon)}
+          tuesdayPressed={() => this.updateRepeatType(UTILS.repeatType.tue)}
+          wednesdayPressed={() => this.updateRepeatType(UTILS.repeatType.wed)}
+          thursdayPressed={() => this.updateRepeatType(UTILS.repeatType.thu)}
+          fridayPressed={() => this.updateRepeatType(UTILS.repeatType.fri)}
+          saturdayPressed={() => this.updateRepeatType(UTILS.repeatType.sat)}
+          fomPressed={() => this.updateRepeatType(UTILS.repeatType.fom)}
+          lomPressed={() => this.updateRepeatType(UTILS.repeatType.lom)}
+          dfnPressed={() => this.updateRepeatType(UTILS.repeatType.dfn)}
+          yearPressed={() => this.updateRepeatType(UTILS.repeatType.year)}
         />
       </View>
     );

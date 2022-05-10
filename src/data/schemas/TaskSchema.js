@@ -15,7 +15,7 @@ const TaskSchema = {
     subtasks: "Subtask[]",
     completed: {type: 'bool', default: false},
     deleted: {type: 'bool', default: false},
-    repeatType: {type: 'string', default: 'never'},
+    repeatType: {type: 'string', default: 'none'},
     repeatValue: {type: 'int', default: 0},
     important: {type: 'bool', default: false},
   },

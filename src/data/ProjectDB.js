@@ -656,11 +656,108 @@ class ProjectDB {
 
   completeTask({realm, taskID}) {
     const task = realm.objectForPrimaryKey(SCHEMAS.task, taskID);
+    let repeatDate;
+    let repeatIndex;
+
+    if (task.dueDateIndex !== UTILS.nullDueDate) {
+      repeatIndex = task.dueDateIndex;
+      repeatDate = DateUtils.getDateFromDateIndex({dateIndex: repeatIndex});
+    } else {
+      repeatDate = new Date();
+      repeatIndex = DateUtils.getDateIndex({date: repeatDate});
+    }
 
     realm.write(() => {
       task.position = this.getTopPosition(realm.objects(SCHEMAS.task));
-      task.completed = !task.completed;
-      task.position = this.getTopPosition(realm.objects(SCHEMAS.task));
+
+      if (task.completed) {
+        task.completed = false;
+      } else {
+        let dayDiff;
+        switch (task.repeatType) {
+          case UTILS.repeatType.sun:
+            dayDiff = 0 - repeatDate.getDay();
+
+            if (dayDiff > 0) {
+              task.dueDateIndex = dayDiff + repeatIndex;
+            } else {
+              task.dueDateIndex = dayDiff + repeatIndex + 7;
+            }
+            break;
+          case UTILS.repeatType.mon:
+            dayDiff = 1 - repeatDate.getDay();
+
+            if (dayDiff > 0) {
+              task.dueDateIndex = dayDiff + repeatIndex;
+            } else {
+              task.dueDateIndex = dayDiff + repeatIndex + 7;
+            }
+            break;
+          case UTILS.repeatType.tue:
+            dayDiff = 2 - repeatDate.getDay();
+
+            if (dayDiff > 0) {
+              task.dueDateIndex = dayDiff + repeatIndex;
+            } else {
+              task.dueDateIndex = dayDiff + repeatIndex + 7;
+            }
+            break;
+          case UTILS.repeatType.wed:
+            dayDiff = 3 - repeatDate.getDay();
+
+            if (dayDiff > 0) {
+              task.dueDateIndex = dayDiff + repeatIndex;
+            } else {
+              task.dueDateIndex = dayDiff + repeatIndex + 7;
+            }
+            break;
+          case UTILS.repeatType.thu:
+            dayDiff = 4 - repeatDate.getDay();
+
+            if (dayDiff > 0) {
+              task.dueDateIndex = dayDiff + repeatIndex;
+            } else {
+              task.dueDateIndex = dayDiff + repeatIndex + 7;
+            }
+            break;
+          case UTILS.repeatType.fri:
+            dayDiff = 5 - repeatDate.getDay();
+
+            if (dayDiff > 0) {
+              task.dueDateIndex = dayDiff + repeatIndex;
+            } else {
+              task.dueDateIndex = dayDiff + repeatIndex + 7;
+            }
+            break;
+          case UTILS.repeatType.sat:
+            dayDiff = 6 - repeatDate.getDay();
+
+            if (dayDiff > 0) {
+              task.dueDateIndex = dayDiff + repeatIndex;
+            } else {
+              task.dueDateIndex = dayDiff + repeatIndex + 7;
+            }
+            break;
+          case UTILS.repeatType.fom:
+            task.dueDateIndex = DateUtils.getDateIndex({
+              date: DateUtils.getFirstDayOfNextMonth({date: repeatDate})
+            });
+            break;
+          case UTILS.repeatType.lom:
+            task.dueDateIndex = DateUtils.getDateIndex({
+              date: DateUtils.getLastDayOfNextMonth({date: repeatDate})
+            });
+            break;
+          case UTILS.repeatType.dfn:
+            task.dueDateIndex = repeatIndex + task.repeatValue;
+            break;
+          case UTILS.repeatType.year:
+            task.dueDateIndex = repeatIndex + 365;
+            break;
+          default:
+            task.completed = true;
+        }
+      }
     });
   }
 

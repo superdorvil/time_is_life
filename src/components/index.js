@@ -20,6 +20,7 @@ export Project from './Project';
 export ProjectClock from './ProjectClock';
 export ProjectInput from './ProjectInput';
 export ProjectTimerTabBar from './ProjectTimerTabBar';
+export RepeatModal from './RepeatModal';
 export SettingsItem from './SettingsItem';
 export StartStopButton from './StartStopButton';
 export SelectItemModal from './SelectItemModal';

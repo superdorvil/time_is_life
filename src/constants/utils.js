@@ -23,6 +23,21 @@ export const weekdayFormat = {
   full_capital: 'full capital',
 };
 
+export const repeatType = {
+  sun: 'Repeat every Sunday',
+  mon: 'Repeat every Monday',
+  tue: 'Repeat every Tuesday',
+  wed: 'Repeat every Wednesday',
+  thu: 'Repeat every Thursday',
+  fri: 'Repeat every Friday',
+  sat: 'Repeat every Saturday',
+  fom: 'Repeat on the First day of the Month',
+  lom: 'Repeat on the Last day of the month',
+  dfn: 'Repeat days from now',
+  year: 'Repeat Yearly',
+  none: 'none',
+};
+
 // These are for the date indexes
 //the initial index is zero
 // the initial index is represented by my birthday
