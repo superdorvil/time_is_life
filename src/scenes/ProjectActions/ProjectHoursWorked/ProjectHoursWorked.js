@@ -62,8 +62,12 @@ class ProjectHoursWorked extends Component {
   }
 
   componentWillUnmount() {
-    this.state.secondsWorked.removeAllListeners();
-    this.state.project.removeAllListeners();
+    if (this.state.secondsWorked) {
+      this.state.secondsWorked.removeAllListeners();
+    }
+    if (this.state.project) {
+      this.state.project.removeAllListeners();
+    }
 
     // Nulls State removing memory leak error state update on unmounted comp
     this.setState = (state, callback) => {

@@ -59,7 +59,9 @@ class TimeIsLife extends Component {
 
   componentWillUnmount() {
     const {realm} = this.state;
-    this.state.settings.removeAllListeners();
+    if (this.state.settings) {
+      this.state.settings.removeAllListeners();
+    }
 
     if (realm !== null && !realm.isClosed) {
       realm.close();

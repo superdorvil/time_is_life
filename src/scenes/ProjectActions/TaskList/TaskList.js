@@ -94,7 +94,9 @@ class TaskList extends Component {
   }
 
   componentWillUnmount() {
-    this.state.tasks.removeAllListeners();
+    if (this.state.tasks) {
+      this.state.tasks.removeAllListeners();
+    }
 
     // Nulls State removing memory leak error state update on unmounted comp
     this.setState = (state, callback) => {

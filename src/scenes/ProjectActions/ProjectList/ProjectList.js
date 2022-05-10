@@ -119,7 +119,9 @@ class ProjectList extends Component {
   }
 
   componentWillUnmount() {
-    this.state.projects.removeAllListeners();
+    if (this.state.project) {
+      this.state.projects.removeAllListeners();
+    }
 
     // Nulls State removing memory leak error state update on unmounted comp
     this.setState = (state, callback) => {

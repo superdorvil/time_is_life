@@ -31,8 +31,9 @@ class ManageSettings extends Component {
   }
 
   componentWillUnmount() {
-    this.state.settings.removeAllListeners();
-
+    if (this.state.settings) {
+      this.state.settings.removeAllListeners();
+    }
     // Nulls State removing memory leak error state update on unmounted comp
     this.setState = (state, callback) => {
       return;

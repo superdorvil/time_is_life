@@ -6,7 +6,6 @@ import {
   ManageProject,
   ManageProjectHours,
   ManageSettings,
-  ManageSubtask,
   ManageTask,
   ManageWeeklyGoals,
   ProjectGoals,
@@ -43,12 +42,6 @@ const RouterComponent = () => (
         key="manageTask"
         component={ManageTask}
         title="ManageTask"
-        hideNavBar
-      />
-      <Scene
-        key="manageSubtask"
-        component={ManageSubtask}
-        title="ManageSubtask"
         hideNavBar
       />
       <Scene

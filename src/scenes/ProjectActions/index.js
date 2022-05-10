@@ -2,7 +2,6 @@ import ManageProject from './ManageProject';
 import ManageProjectHours from './ManageProjectHours';
 import ManageSettings from './ManageSettings';
 import ManageTask from './ManageTask';
-import ManageSubtask from './ManageSubtask';
 import ManageWeeklyGoals from './ManageWeeklyGoals';
 import ProjectGoals from './ProjectGoals';
 import ProjectHoursWorked from './ProjectHoursWorked';
@@ -17,7 +16,6 @@ export {
   ManageProjectHours,
   ManageSettings,
   ManageTask,
-  ManageSubtask,
   ManageWeeklyGoals,
   ProjectGoals,
   ProjectHoursWorked,
