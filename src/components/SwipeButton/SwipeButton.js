@@ -17,11 +17,15 @@ const containerStyle = () => {
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
-    padding: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
     borderWidth: 1,
     borderColor: COLORS.primary[global.colorScheme],
     borderRadius: 8,
-    margin: 8,
+    marginTop: 8,
+    marginBottom: 8,
+    marginStart: 2,
+    marginEnd: 2,
   };
 };
 

@@ -31,7 +31,7 @@ class Task extends Component {
 
     this.completeTask = this.completeTask.bind(this);
     this.openSubtask = this.openSubtask.bind(this);
-    this.taskLongPressed = this.taskLongPressed.bind(this);
+    this.editTask = this.editTask.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.openDueDateModal = this.openDueDateModal.bind(this);
     this.updateTaskDueDate = this.updateTaskDueDate.bind(this);
@@ -59,7 +59,7 @@ class Task extends Component {
     }
   }
 
-  taskLongPressed() {
+  editTask() {
     Actions.manageTask({
       realm: this.props.realm,
       taskID: this.props.taskID,
@@ -317,6 +317,7 @@ class Task extends Component {
     progress: Animated.AnimatedInterpolation,
     dragX: Animated.AnimatedInterpolation,
     completeTask,
+    topTask,
     manageTask,
     openDueDateModal,
     addSubtask,
@@ -336,6 +337,11 @@ class Task extends Component {
               displayName="Complete"
               iconName={ICONS.checkmark}
               onPress={completeTask}
+            />
+            <SwipeButton
+              displayName="Top"
+              iconName={ICONS.up_arrow}
+              onPress={topTask}
             />
             <SwipeButton
               displayName="Edit"
@@ -402,6 +408,7 @@ class Task extends Component {
                 progress,
                 dragX,
                 completeTask,
+                topTask,
                 manageTask,
                 openDueDateModal,
                 openSubtaskModal,
@@ -410,7 +417,8 @@ class Task extends Component {
                 progress,
                 dragX,
                 () => this.completeTask(),
-                () => this.taskLongPressed(),
+                () => this.topTask(),
+                () => this.editTask(),
                 () => this.openDueDateModal(),
                 () => this.openSubtaskModal(),
                 () => this.deleteTask(),
