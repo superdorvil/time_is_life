@@ -8,6 +8,7 @@ import {
   TimeSelector,
   DateSelector,
   SelectItemModal,
+  ConfirmationModal,
 } from '_components';
 import {ICONS, UTILS} from '_constants';
 import {COLORS} from '_resources';
@@ -325,6 +326,15 @@ class ManageProjectHours extends Component {
       console.log('fix me, add proper error checking for this');
     }
   }
+
+  backArrowPressed() {
+    if (this.state.stateHasChanged) {
+      this.setState({confirmExitModalVisible: true});
+    } else {
+      Actions.pop();
+    }
+  }
+
 
   render() {
     const actionScreenData = {

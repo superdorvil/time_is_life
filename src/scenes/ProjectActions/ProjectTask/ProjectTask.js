@@ -224,7 +224,7 @@ class ProjectTask extends Component {
           listData={
             this.state.showCompleted ?
             this.state.tasks :
-            this.state.tasks//.filtered('completed == $0', false)
+            this.state.tasks.filtered('completed == $0', false)
           }
           listDataActive={true}
           renderListItem={this.renderTask}
