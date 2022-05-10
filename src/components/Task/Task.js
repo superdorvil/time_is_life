@@ -316,7 +316,7 @@ class Task extends Component {
   renderEditTaskSwipeButtons(
     progress: Animated.AnimatedInterpolation,
     dragX: Animated.AnimatedInterpolation,
-    topTask,
+    completeTask,
     manageTask,
     openDueDateModal,
     addSubtask,
@@ -333,9 +333,9 @@ class Task extends Component {
         <View style={swipeInnerContainer()}>
           <Animated.View style={[swipeButtonStyle(), {opacity}]}>
             <SwipeButton
-              displayName="Top"
-              iconName={ICONS.up_arrow}
-              onPress={topTask}
+              displayName="Complete"
+              iconName={ICONS.checkmark}
+              onPress={completeTask}
             />
             <SwipeButton
               displayName="Edit"
@@ -401,7 +401,7 @@ class Task extends Component {
               renderRightActions={(
                 progress,
                 dragX,
-                topTask,
+                completeTask,
                 manageTask,
                 openDueDateModal,
                 openSubtaskModal,
@@ -409,7 +409,7 @@ class Task extends Component {
               ) => this.renderEditTaskSwipeButtons(
                 progress,
                 dragX,
-                () => this.topTask(),
+                () => this.completeTask(),
                 () => this.taskLongPressed(),
                 () => this.openDueDateModal(),
                 () => this.openSubtaskModal(),
@@ -423,7 +423,7 @@ class Task extends Component {
               <TouchableOpacity
                 style={innerContainerStyle(this.state.swipeOpen, this.state.showSubtask)}
                 onPress={this.openSubtask}
-                onLongPress={this.completeTask}>
+                /*onLongPress={this.completeTask}*/>
               <Completion completed={this.props.completed} />
               <View style={descriptionContainerStyle()}>
                 <Text style={descriptionStyle(this.props.completed, this.props.important)}>{this.props.description}</Text>

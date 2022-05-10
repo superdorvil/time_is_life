@@ -32,7 +32,7 @@ const iconStyle = () => {
 const textStyle = () => {
   return {
     marginTop: 4,
-    fontSize: 10,
+    fontSize: 8,
     color: COLORS.primary[global.colorScheme],
   };
 };
