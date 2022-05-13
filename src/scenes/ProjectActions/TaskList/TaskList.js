@@ -200,8 +200,8 @@ class TaskList extends Component {
           loadMorePressed={this.showCompleted}
           loadMoreText={
             this.state.showCompleted ?
-            "Hide Deleted Task" :
-            "Show Deleted Task"
+            "Hide Completed Task" :
+            "Show Completed Task"
           }
           loadMoreActive={this.state.completeButtonActive}
         />

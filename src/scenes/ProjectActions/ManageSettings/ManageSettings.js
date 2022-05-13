@@ -21,6 +21,8 @@ class ManageSettings extends Component {
     this.closeModal = this.closeModal.bind(this);
     this.updateColorScheme = this.updateColorScheme.bind(this);
     this.sendDataBackUp = this.sendDataBackUp.bind(this);
+    this.deletedProjects = this.deletedProjects.bind(this);
+    this.deletedTasks = this.deletedTasks.bind(this);
   }
 
   componentDidMount() {
@@ -76,6 +78,14 @@ class ManageSettings extends Component {
     });
   }
 
+  deletedProjects() {
+    Actions.manageDeletedItem({realm: this.props.realm, projectMode: true});
+  }
+
+  deletedTasks() {
+    Actions.manageDeletedItem({realm: this.props.realm, projectMode: false});
+  }
+
   render() {
     return (
       <View style={containerStyle()}>
@@ -92,6 +102,14 @@ class ManageSettings extends Component {
         <SettingsItem
           description="Back Up data"
           settingsPressed={this.sendDataBackUp}
+        />
+        <SettingsItem
+          description="Deleted Projects"
+          settingsPressed={this.deletedProjects}
+        />
+        <SettingsItem
+          description="Deleted Tasks"
+          settingsPressed={this.deletedTasks}
         />
         {/*<SettingsItem description="Notifications" />
         <SettingsItem description="About" />

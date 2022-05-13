@@ -32,30 +32,30 @@ class ProjectList extends Component {
       realm: this.props.realm,
       weekIndex: currentWeekIndex,
     });
-    let deleted = 0;
+    let completed = 0;
     let active = 0;
-    let deleteButtonActive;
-    let showDeleted;
+    let completeButtonActive;
+    let showCompleted;
 
     projects.forEach((project, i) => {
-      if (project.deleted) {
-        deleted++;
+      if (project.completed) {
+        completed++;
       } else {
         active++;
       }
     });
 
-    if (active + deleted > 7) {
+    if (active + completed > 7) {
       if (active > 3) {
-        deleteButtonActive = true;
-        showDeleted = false;
+        completeButtonActive = true;
+        showCompleted = false;
       } else {
-        deleteButtonActive = false;
-        showDeleted = true;
+        completeButtonActive = false;
+        showCompleted = true;
       }
     } else {
-      deleteButtonActive = false;
-      showDeleted = true;
+      completeButtonActive = false;
+      showCompleted = true;
     }
 
     this.state = {
@@ -67,42 +67,42 @@ class ProjectList extends Component {
       today,
       thisWeeksGoalSeconds,
       thisWeeksSecondsWorked,
-      deleteButtonActive,
-      showDeleted,
+      completeButtonActive,
+      showCompleted,
     };
 
     this.createProject = this.createProject.bind(this);
     this.selectProject = this.selectProject.bind(this);
-    this.showDeleted = this.showDeleted.bind(this);
+    this.showCompleted = this.showCompleted.bind(this);
   }
 
   componentDidMount() {
     this.state.projects.addListener(() => {
       const projects = projectDB.getProjects({realm: this.props.realm});
-      let deleted = 0;
+      let completed = 0;
       let active = 0;
-      let deleteButtonActive;
-      let showDeleted;
+      let completeButtonActive;
+      let showCompleted;
 
       projects.forEach((project, i) => {
-        if (project.deleted) {
-          deleted++;
+        if (project.completed) {
+          completed++;
         } else {
           active++;
         }
       });
 
-      if (active + deleted > 7) {
+      if (active + completed > 7) {
         if (active > 3) {
-          deleteButtonActive = true;
-          showDeleted = false;
+          completeButtonActive = true;
+          showCompleted = false;
         } else {
-          deleteButtonActive = false;
-          showDeleted = true;
+          completeButtonActive = false;
+          showCompleted = true;
         }
       } else {
-        deleteButtonActive = false;
-        showDeleted = true;
+        completeButtonActive = false;
+        showCompleted = true;
       }
 
       this.setState({
@@ -112,8 +112,8 @@ class ProjectList extends Component {
           sundayIndex: this.state.sundayIndex,
           weekIndex: this.state.currentWeekIndex,
         }),
-        deleteButtonActive,
-        showDeleted,
+        completeButtonActive,
+        showCompleted,
       });
     });
   }
@@ -134,7 +134,7 @@ class ProjectList extends Component {
   }
 
   selectProject(realm, project) {
-    if (project.deleted) {
+    if (project.completed) {
       projectDB.restoreProject({realm, projectID: project.id});
     }
 
@@ -143,8 +143,8 @@ class ProjectList extends Component {
     Actions.projectTimer({realm, project});
   }
 
-  showDeleted() {
-    this.setState({showDeleted: !this.state.showDeleted});
+  showCompleted() {
+    this.setState({showCompleted: !this.state.showCompleted});
   }
 
   renderProject(project, extraData) {
@@ -162,7 +162,6 @@ class ProjectList extends Component {
         timerActive={project.timerActive}
         timerStartTime={project.timerStartTime}
         completed={project.completed}
-        deleted={project.deleted}
       />
     );
   }
@@ -211,20 +210,20 @@ class ProjectList extends Component {
           actionButtonPressed={this.createProject}
           actionButtonDescription="Your Projects"
           listData={
-            this.state.showDeleted ?
+            this.state.showCompleted ?
             this.state.projects :
-            this.state.projects.filtered('deleted == $0', false)
+            this.state.projects.filtered('completed == $0', false)
           }
           listDataActive={true}
           renderListItem={this.renderProject}
           topBottomContainerDivider
-          loadMorePressed={this.showDeleted}
+          loadMorePressed={this.showCompleted}
           loadMoreText={
-            this.state.showDeleted ?
-            "Hide Deleted Projects" :
-            "Show Deleted Projects"
+            this.state.showCompleted ?
+            "Hide Completed Projects" :
+            "Show Completed Projects"
           }
-          loadMoreActive={this.state.deleteButtonActive}
+          loadMoreActive={this.state.completeButtonActive}
         />
       </View>
     );

@@ -115,8 +115,11 @@ class ProjectDB {
   }
 
   // FIXME: better due date sorting
-  getTasks({realm, taskID, projectID, notSorted}) {
-    const showDeleted = false;
+  getTasks({realm, taskID, projectID, notSorted, getDeleted}) {
+    if (getDeleted) {
+      return realm.objects(SCHEMAS.task)
+        .filtered('deleted == $0', true);
+    }
 
     if (taskID) {
       return realm.objectForPrimaryKey(SCHEMAS.task, taskID);
@@ -127,7 +130,7 @@ class ProjectDB {
         return realm
           .objects(SCHEMAS.task)
           .filtered('projectID == $0', projectID)
-          .filtered('deleted == $0', showDeleted)
+          .filtered('deleted == $0', false)
           .sorted('important', true)
           .sorted('position', true)
           .sorted('dueDateIndex', false);
@@ -136,7 +139,7 @@ class ProjectDB {
       return realm
         .objects(SCHEMAS.task)
         .filtered('projectID == $0', projectID)
-        .filtered('deleted == $0', showDeleted)
+        .filtered('deleted == $0', false)
         .sorted('position', true)
         .sorted('important', true)
         .sorted('dueDateIndex', false)
@@ -144,32 +147,37 @@ class ProjectDB {
     }
 
     if (notSorted) {
-      return realm.objects(SCHEMAS.task).filtered('deleted == $0', showDeleted);
+      return realm.objects(SCHEMAS.task).filtered('deleted == $0', false);
     }
 
     return realm.objects(SCHEMAS.task)
-      .filtered('deleted == $0', showDeleted)
+      .filtered('deleted == $0', false)
       .sorted('position', true)
       .sorted('important', true)
       .sorted('dueDateIndex', false)
       .sorted('completed', false);
   }
 
-  getProjects({realm, projectID, notSorted}) {
+  getProjects({realm, projectID, notSorted, getDeleted}) {
+    if (getDeleted) {
+      return realm.objects(SCHEMAS.project)
+        .filtered('deleted == $0', true);
+    }
+
     if (projectID) {
       return realm.objectForPrimaryKey(SCHEMAS.project, projectID);
     }
 
     if (notSorted) {
-      return realm.objects(SCHEMAS.project);
+      return realm.objects(SCHEMAS.project).filtered('deleted == $0', false);
     }
 
     return realm
       .objects(SCHEMAS.project)
+      .filtered('deleted == $0', false)
       .sorted('position', true)
       .sorted('thisWeeksSecondsGoal', true)
       .sorted('completed', false)
-      .sorted('deleted', false)
       .sorted('timerActive', true);
   }
 
@@ -814,6 +822,14 @@ class ProjectDB {
 
     realm.write(() => {
       project.deleted = false;
+    });
+  }
+
+  restoreTask({realm, taskID}) {
+    const task = this.getTasks({realm, taskID});
+
+    realm.write(() => {
+      task.deleted = false;
     });
   }
 

@@ -8,6 +8,7 @@ import {
   ManageSettings,
   ManageTask,
   ManageWeeklyGoals,
+  ManageDeletedItems,
   ProjectGoals,
   ProjectHoursWorked,
   ProjectList,
@@ -42,6 +43,12 @@ const RouterComponent = () => (
         key="manageTask"
         component={ManageTask}
         title="ManageTask"
+        hideNavBar
+      />
+      <Scene
+        key="manageDeletedItem"
+        component={ManageDeletedItems}
+        title="ManageDeletedItems"
         hideNavBar
       />
       <Scene
