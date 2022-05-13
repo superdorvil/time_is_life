@@ -9,6 +9,22 @@ class ProjectDB {
     }*/
   }
 
+  stringifyDB({realm}) {
+    const projects = realm.objects(SCHEMAS.project);
+    const tasks = realm.objects(SCHEMAS.task);
+    const settings = realm.objects(SCHEMAS.settings);
+    const secondsWorked = realm.objects(SCHEMAS.secondsWorked);
+    const weeklyGoals = realm.objects(SCHEMAS.weeklyGoal);
+
+    return JSON.stringify([
+      {projects},
+      {tasks},
+      {settings},
+      {secondsWorked},
+      {weeklyGoals}
+    ]);
+  }
+
   initSettings({realm}) {
     if (realm.objects(SCHEMAS.settings).length < 1) {
       realm.write(() => {

@@ -3,9 +3,10 @@ import {View, Text} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import {SettingsItem} from '_components';
 import {Icon, ColorSchemeModal} from '_components';
-import {ICONS} from '_constants';
+import {ICONS, UTILS} from '_constants';
 import {COLORS} from '_resources';
 import projectDB from '_data';
+import {EmailUtils, DateUtils} from '_utils';
 
 class ManageSettings extends Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class ManageSettings extends Component {
     this.openColorSchemeModal = this.openColorSchemeModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.updateColorScheme = this.updateColorScheme.bind(this);
+    this.sendDataBackUp = this.sendDataBackUp.bind(this);
   }
 
   componentDidMount() {
@@ -53,6 +55,27 @@ class ManageSettings extends Component {
     projectDB.updateColorScheme({realm: this.props.realm, colorScheme});
   }
 
+  sendDataBackUp() {
+    const realmData = projectDB.stringifyDB({realm: this.props.realm});
+    const to = 'dgabriel999@gmail.com';
+    const subject = 'back up time is life ' + DateUtils.convertDateToString({
+      date: new Date(),
+      format: UTILS.dateFormat.monthDateYear,
+    });
+    const spaces = `
+
+
+
+
+
+    `;
+    let body = realmData;
+
+    EmailUtils.sendEmail(to, subject, body).then(() => {
+        console.log('Your message was successfully sent!');
+    });
+  }
+
   render() {
     return (
       <View style={containerStyle()}>
@@ -66,12 +89,16 @@ class ManageSettings extends Component {
           description="Color Scheme"
           settingsPressed={this.openColorSchemeModal}
         />
-        <SettingsItem description="Notifications" />
+        <SettingsItem
+          description="Back Up data"
+          settingsPressed={this.sendDataBackUp}
+        />
+        {/*<SettingsItem description="Notifications" />
         <SettingsItem description="About" />
         <SettingsItem description="Help / Tutorial" />
         <SettingsItem description="Rate App" />
         <SettingsItem description="Share with friends" />
-        <SettingsItem description="Contact Us" />
+        <SettingsItem description="Contact Us" />*/}
         <ColorSchemeModal
           visible={this.state.colorSchemeModalVisible}
           orangeLightPressed={() => this.updateColorScheme(COLORS.orangeLight)}
