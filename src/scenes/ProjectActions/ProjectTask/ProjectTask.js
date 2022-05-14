@@ -34,11 +34,12 @@ class ProjectTask extends Component {
     });
 
     if (active + completed > 15) {
+      console.log('hey');
       if (active > 6) {
         completeButtonActive = true;
         showCompleted = false;
       } else {
-        completeButtonActive = false;
+        completeButtonActive = true;
         showCompleted = true;
       }
     } else {
@@ -76,8 +77,6 @@ class ProjectTask extends Component {
       });
       let completed = 0;
       let active = 0;
-      let completeButtonActive;
-      let showCompleted;
 
       tasks.forEach((task, i) => {
         if (!task.deleted) {
@@ -89,25 +88,10 @@ class ProjectTask extends Component {
         }
       });
 
-      if (active + completed > 15) {
-        if (active > 6) {
-          completeButtonActive = true;
-          showCompleted = false;
-        } else {
-          completeButtonActive = false;
-          showCompleted = true;
-        }
-      } else {
-        completeButtonActive = false;
-        showCompleted = true;
-      }
-
       this.setState({
         tasks,
-        completeButtonActive,
-        showCompleted,
-        active,
-        completed
+        completed,
+        active
       });
       this.dueDatesToRender();
     });
@@ -134,10 +118,11 @@ class ProjectTask extends Component {
   }
 
   addPressed() {
-    Actions.manageTask({
+  /*  Actions.manageTask({
       realm: this.props.realm,
       projectID: this.state.project.id,
-    });
+    });*/
+    console.log(this.state.completeButtonActive)
   }
 
   dueDatesToRender() {

@@ -33,11 +33,11 @@ class TaskList extends Component {
         completeButtonActive = true;
         showCompleted = false;
       } else {
-        completeButtonActive = false;
+        completeButtonActive = true;
         showCompleted = true;
       }
     } else {
-      completeButtonActive = false;
+      completeButtonActive = true;
       showCompleted = true;
     }
 
@@ -60,8 +60,6 @@ class TaskList extends Component {
       });
       let completed = 0;
       let active = 0;
-      let completeButtonActive;
-      let showCompleted;
 
       tasks.forEach((task, i) => {
         if (!task.deleted) {
@@ -73,25 +71,10 @@ class TaskList extends Component {
         }
       });
 
-      if (active + completed > 15) {
-        if (active > 6) {
-          completeButtonActive = true;
-          showCompleted = false;
-        } else {
-          completeButtonActive = false;
-          showCompleted = true;
-        }
-      } else {
-        completeButtonActive = false;
-        showCompleted = true;
-      }
-
       this.setState({
         tasks,
-        completeButtonActive,
-        showCompleted,
-        active,
-        completed
+        completed,
+        active
       });
       this.dueDatesToRender();
     });

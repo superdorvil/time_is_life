@@ -50,7 +50,7 @@ class ProjectList extends Component {
         completeButtonActive = true;
         showCompleted = false;
       } else {
-        completeButtonActive = false;
+        completeButtonActive = true;
         showCompleted = true;
       }
     } else {
@@ -79,31 +79,6 @@ class ProjectList extends Component {
   componentDidMount() {
     this.state.projects.addListener(() => {
       const projects = projectDB.getProjects({realm: this.props.realm});
-      let completed = 0;
-      let active = 0;
-      let completeButtonActive;
-      let showCompleted;
-
-      projects.forEach((project, i) => {
-        if (project.completed) {
-          completed++;
-        } else {
-          active++;
-        }
-      });
-
-      if (active + completed > 7) {
-        if (active > 3) {
-          completeButtonActive = true;
-          showCompleted = false;
-        } else {
-          completeButtonActive = false;
-          showCompleted = true;
-        }
-      } else {
-        completeButtonActive = false;
-        showCompleted = true;
-      }
 
       this.setState({
         projects,
@@ -112,8 +87,6 @@ class ProjectList extends Component {
           sundayIndex: this.state.sundayIndex,
           weekIndex: this.state.currentWeekIndex,
         }),
-        completeButtonActive,
-        showCompleted,
       });
     });
   }
