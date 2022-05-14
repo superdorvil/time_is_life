@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import {View} from 'react-native';
+import {View, Text} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import {ActionContainer, Task} from '_components';
 import projectDB from '_data';
 import {ICONS} from '_constants';
 import {HoursUtils, DateUtils} from '_utils';
+import {COLORS} from '_resources';
 
 class TaskList extends Component {
   constructor(props) {
@@ -45,6 +46,8 @@ class TaskList extends Component {
       dueDatesToRender: [],
       completeButtonActive,
       showCompleted,
+      active,
+      completed
     };
 
     this.showCompleted = this.showCompleted.bind(this);
@@ -86,7 +89,9 @@ class TaskList extends Component {
       this.setState({
         tasks,
         completeButtonActive,
-        showCompleted
+        showCompleted,
+        active,
+        completed
       });
       this.dueDatesToRender();
     });
@@ -181,11 +186,18 @@ class TaskList extends Component {
 
     return (
       <View style={containerStyle()}>
+        <View style={taskStatusStyle()}>
+          <View style={innerStatusStyle()}>
+            <Text>Active Task: </Text>
+            <Text style={statusStyle()}>{this.state.active}</Text>
+          </View>
+          <Text>Completed Task: {this.state.completed}</Text>
+        </View>
         <ActionContainer
-        extraData={{
-          realm: this.props.realm,
-          dueDatesToRender: this.state.dueDatesToRender,
-        }}
+          extraData={{
+            realm: this.props.realm,
+            dueDatesToRender: this.state.dueDatesToRender,
+          }}
           weeklyProgressActive={false}
           weeklyProgressData={false}
           actionScreenActive={true}
@@ -213,7 +225,32 @@ class TaskList extends Component {
 }
 
 const containerStyle = () => {
-  return {flex: 1};
+  return {
+    flex: 1,
+    backgroundColor: COLORS.secondary[global.colorScheme],
+  };
+};
+
+const taskStatusStyle = () => {
+  return {
+    alignSelf: 'flex-end',
+    backgroundColor: COLORS.secondary[global.colorScheme],
+    marginRight: 16,
+    marginTop: 16,
+  };
+};
+
+const statusStyle = () => {
+  return {
+    flex: 1,
+    alignItems: 'flex-end',
+  };
+};
+
+const innerStatusStyle = () => {
+  return {
+    flexDirection: 'row',
+  };
 };
 
 export default TaskList;
