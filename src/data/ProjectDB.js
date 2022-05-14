@@ -796,6 +796,22 @@ class ProjectDB {
     });
   }
 
+  updateTaskRepeatType({realm, taskID, repeatType}) {
+    const task = realm.objectForPrimaryKey(SCHEMAS.task, taskID);
+
+    realm.write(() => {
+      task.repeatType = repeatType;
+    });
+  }
+
+  updateTaskRepeatValue({realm, taskID, repeatValue}) {
+    const task = realm.objectForPrimaryKey(SCHEMAS.task, taskID);
+
+    realm.write(() => {
+      task.repeatValue = repeatValue;
+    });
+  }
+
   setSecondsWorkedTask({realm, secondsWorkedID, taskID}) {
     const secondsWorked = this.getSecondsWorked({realm, secondsWorkedID});
 

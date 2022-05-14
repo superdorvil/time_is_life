@@ -13,7 +13,7 @@ import {
 } from '_components';
 import projectDB from '_data';
 import {COLORS} from '_resources';
-import {DateUtils} from '_utils';
+import {DateUtils, InputUtils} from '_utils';
 import {ICONS, UTILS} from '_constants';
 
 class Task extends Component {
@@ -48,7 +48,7 @@ class Task extends Component {
   }
 
   updateRepeatType(repeatType) {
-    projectDB.updateRepeatType({
+    projectDB.updateTaskRepeatType({
       realm: this.props.realm,
       taskID: this.props.taskID,
       repeatType
@@ -56,10 +56,14 @@ class Task extends Component {
   }
 
   updateRepeatValue(repeatValue) {
-    projectDB.updateRepeatType({
+    projectDB.updateTaskRepeatValue({
       realm: this.props.realm,
       taskID: this.props.taskID,
-      repeatValue
+      repeatValue: InputUtils.numberRangeInput({
+        min: 1,
+        max: 3650,
+        value: repeatValue
+      })
     });
   }
 
