@@ -176,6 +176,7 @@ class ProjectDB {
       .objects(SCHEMAS.project)
       .filtered('deleted == $0', false)
       .sorted('position', true)
+      .sorted('thisWeeksSecondsWorked', true)
       .sorted('thisWeeksSecondsGoal', true)
       .sorted('completed', false)
       .sorted('timerActive', true);
