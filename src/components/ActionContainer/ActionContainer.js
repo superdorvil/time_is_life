@@ -43,6 +43,7 @@ class ActionContainer extends Component {
           topRightButtonPressed={
             this.props.actionScreenData.topRightButtonPressed
           }
+          topRightItem={this.props.actionScreenData.topRightItem}
         />
         <View style={dividerStyle()} />
         <BottomContainer

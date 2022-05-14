@@ -182,17 +182,16 @@ class TaskList extends Component {
       centerIconName: ICONS.checkmark,
       actionDescription: 'Your Task',
       topRightButtonActive: false,
+      topRightItem: (
+        <View style={taskStatusStyle()}>
+          <Text>Active Task: {this.state.active}</Text>
+          <Text>Completed Task: {this.state.completed}</Text>
+        </View>
+      ),
     };
 
     return (
       <View style={containerStyle()}>
-        <View style={taskStatusStyle()}>
-          <View style={innerStatusStyle()}>
-            <Text>Active Task: </Text>
-            <Text style={statusStyle()}>{this.state.active}</Text>
-          </View>
-          <Text>Completed Task: {this.state.completed}</Text>
-        </View>
         <ActionContainer
           extraData={{
             realm: this.props.realm,
@@ -228,15 +227,13 @@ const containerStyle = () => {
   return {
     flex: 1,
     backgroundColor: COLORS.secondary[global.colorScheme],
+    paddingTop: 24,
   };
 };
 
 const taskStatusStyle = () => {
   return {
-    alignSelf: 'flex-end',
     backgroundColor: COLORS.secondary[global.colorScheme],
-    marginRight: 16,
-    marginTop: 16,
   };
 };
 

@@ -5,6 +5,7 @@ import CenterIcon from './CenterIcon';
 import {COLORS} from '_resources';
 
 const ActionScreen = ({
+  topRightItem,
   backArrowActive,
   backArrowPressed,
   centerIconName,
@@ -22,6 +23,9 @@ const ActionScreen = ({
         style={backArrowContainerStyle()}>
         <BackArrow backArrowPressed={backArrowPressed} />
       </ViewVisibleWrapper>
+      <View style={topRightStyle()}>
+        {topRightItem}
+      </View>
       <View style={topRightButtonStyle()}>
         <TopRightButton
           topRightButtonActive={topRightButtonActive}
@@ -88,6 +92,13 @@ const topRightButtonStyle = () => {
     position: 'absolute',
     top: 0,
     right: 0,
+  };
+};
+const topRightStyle = () => {
+  return {
+    top: 0,
+    right: 0,
+    position: 'absolute',
   };
 };
 

@@ -211,14 +211,16 @@ class ProjectTask extends Component {
       centerIconName: ICONS.checkmark,
       actionDescription: this.state.project.description,
       topRightButtonActive: false,
-    };
-
-    return (
-      <View style={containerStyle()}>
+      topRightItem: (
         <View style={taskStatusStyle()}>
           <Text>Active Task: {this.state.active}</Text>
           <Text>Completed Task: {this.state.completed}</Text>
         </View>
+      ),
+    };
+
+    return (
+      <View style={containerStyle()}>
         <ActionContainer
           extraData={{
             realm: this.props.realm,
