@@ -678,6 +678,14 @@ class ProjectDB {
     });
   }
 
+  markTaskImportant({realm, taskID}) {
+    const task = realm.objectForPrimaryKey(SCHEMAS.task, taskID);
+
+    realm.write(() => {
+      task.important = !task.important;
+    });
+  }
+
   completeTask({realm, taskID}) {
     const task = realm.objectForPrimaryKey(SCHEMAS.task, taskID);
     let repeatDate;

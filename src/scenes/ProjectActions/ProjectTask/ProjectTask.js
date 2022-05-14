@@ -194,6 +194,8 @@ class ProjectTask extends Component {
         dueDateIndex={listData.dueDateIndex}
         renderDueDate={renderDueDate}
         subtasks={listData.subtasks}
+        repeatType={listData.repeatType}
+        repeatValue={listData.repeatValue}
       />
     );
   }

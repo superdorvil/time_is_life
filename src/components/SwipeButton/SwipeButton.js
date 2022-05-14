@@ -22,8 +22,6 @@ const containerStyle = () => {
     borderWidth: 1,
     borderColor: COLORS.primary[global.colorScheme],
     borderRadius: 8,
-    marginTop: 8,
-    marginBottom: 8,
     marginStart: 2,
     marginEnd: 2,
   };

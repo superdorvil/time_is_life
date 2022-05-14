@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Animated, TouchableOpacity, Text, View, FlatList} from 'react-native';
 import {Actions} from 'react-native-router-flux';
-import {Swipeable} from 'react-native-gesture-handler';
 import {
   ViewVisibleWrapper,
   DateSelector,
@@ -10,6 +9,7 @@ import {
   Subtask,
   SubtaskModal,
   SwipeButton,
+  RepeatModal
 } from '_components';
 import projectDB from '_data';
 import {COLORS} from '_resources';
@@ -23,40 +23,51 @@ class Task extends Component {
     this.state = {
       dateModalVisible: false,
       dueDate: new Date(),
-      showSubtask: false,
-      swipeOpen: false,
+      buttonsVisible: false,
       subtaskModalVisible: false,
       subtaskDescription: '',
+      repeatModalVisible: false,
     };
 
+    this.openButtons = this.openButtons.bind(this);
     this.completeTask = this.completeTask.bind(this);
-    this.openSubtask = this.openSubtask.bind(this);
     this.editTask = this.editTask.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.openDueDateModal = this.openDueDateModal.bind(this);
     this.updateTaskDueDate = this.updateTaskDueDate.bind(this);
-    this.showSubtask = this.showSubtask.bind(this);
     this.completeSubtask = this.completeSubtask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
     this.addSubtask = this.addSubtask.bind(this);
     this.updateSubtaskDescription = this.updateSubtaskDescription.bind(this);
+    this.markImportant = this.markImportant.bind(this);
+    this.openSubtaskModal = this.openSubtaskModal.bind(this);
+    this.topTask = this.topTask.bind(this);
+    this.openRepeatModal = this.openRepeatModal.bind(this);
+    this.updateRepeatValue = this.updateRepeatValue.bind(this);
+    this.updateRepeatType = this.updateRepeatType.bind(this);
+  }
+
+  updateRepeatType(repeatType) {
+    projectDB.updateRepeatType({
+      realm: this.props.realm,
+      taskID: this.props.taskID,
+      repeatType
+    });
+  }
+
+  updateRepeatValue(repeatValue) {
+    projectDB.updateRepeatType({
+      realm: this.props.realm,
+      taskID: this.props.taskID,
+      repeatValue
+    });
   }
 
   completeTask() {
-    if (this.props.subtasks.length > 0) {
-      this.setState({showSubtask: !this.state.showSubtask});
-    } else {
-      projectDB.completeTask({
-        realm: this.props.realm,
-        taskID: this.props.taskID,
-      });
-    }
-  }
-
-  openSubtask() {
-    if (this.props.subtasks.length > 0) {
-      this.setState({showSubtask: !this.state.showSubtask});
-    }
+    projectDB.completeTask({
+      realm: this.props.realm,
+      taskID: this.props.taskID,
+    });
   }
 
   editTask() {
@@ -67,12 +78,19 @@ class Task extends Component {
     });
   }
 
-  showSubtask() {
-    this.setState({showSubtask: !this.state.showSubtask});
-  }
-
   openSubtaskModal() {
     this.setState({subtaskModalVisible: true});
+  }
+
+  openRepeatModal() {
+    this.setState({repeatModalVisible: true});
+  }
+
+  markImportant() {
+    projectDB.markTaskImportant({
+      realm: this.props.realm,
+      taskID: this.props.taskID,
+    });
   }
 
   openDueDateModal() {
@@ -97,15 +115,12 @@ class Task extends Component {
       dateModalVisible: false,
       subtaskModalVisible: false,
       subtaskDescription: '',
+      repeatModalVisible: false,
     });
   }
 
-  swipeOpen() {
-    this.setState({swipeOpen: true});
-  }
-
-  swipeClose() {
-    this.setState({swipeOpen: false});
+  openButtons() {
+    this.setState({buttonsVisible: !this.state.buttonsVisible});
   }
 
   topTask() {
@@ -313,62 +328,6 @@ class Task extends Component {
     );
   }
 
-  renderEditTaskSwipeButtons(
-    progress: Animated.AnimatedInterpolation,
-    dragX: Animated.AnimatedInterpolation,
-    completeTask,
-    topTask,
-    manageTask,
-    openDueDateModal,
-    addSubtask,
-    deleteTask
-  ) {
-    const opacity = dragX.interpolate({
-      inputRange: [-150, 0],
-      outputRange: [1, 0],
-      extrapolate: 'clamp',
-    });
-
-    return (
-      <View style={swipeContainerStyle()}>
-        <View style={swipeInnerContainer()}>
-          <Animated.View style={[swipeButtonStyle(), {opacity}]}>
-            <SwipeButton
-              displayName="Complete"
-              iconName={ICONS.checkmark}
-              onPress={completeTask}
-            />
-            <SwipeButton
-              displayName="Top"
-              iconName={ICONS.up_arrow}
-              onPress={topTask}
-            />
-            <SwipeButton
-              displayName="Edit"
-              iconName={ICONS.edit}
-              onPress={manageTask}
-            />
-            <SwipeButton
-              displayName="Date"
-              iconName={ICONS.calendar}
-              onPress={openDueDateModal}
-            />
-            <SwipeButton
-              displayName="Subtask"
-              iconName={ICONS.checkmark}
-              onPress={addSubtask}
-            />
-            <SwipeButton
-              displayName="Delete"
-              iconName={ICONS.trash}
-              onPress={deleteTask}
-            />
-          </Animated.View>
-        </View>
-      </View>
-    );
-  }
-
   render() {
     const dueDateToText = this.convertDueDateToText(this.props.dueDateIndex);
     let project;
@@ -381,57 +340,86 @@ class Task extends Component {
 
     return (
         <View>
-          <View style={containerStyle()}>
-            <ViewVisibleWrapper
-              style={dueDateContainerStyle()}
-              active={
-                !this.props.completed &&
-                this.props.renderDueDate &&
-                dueDateToText
-              }>
-              <Text style={dueDateStyle()}>
-                {dueDateToText}
+          <ViewVisibleWrapper
+            style={dueDateContainerStyle()}
+            active={
+              !this.props.completed &&
+              this.props.renderDueDate &&
+              dueDateToText
+            }>
+            <Text style={dueDateStyle()}>
+              {dueDateToText}
+            </Text>
+          </ViewVisibleWrapper>
+          <ViewVisibleWrapper
+            style={unassignedDueDatesDivider()}
+            active={
+              !this.props.completed &&
+              this.props.renderDueDate &&
+              !dueDateToText &&
+              this.props.index !== 0
+            }
+          />
+          <View style={containerStyle(this.state.buttonsVisible)}>
+            <ViewVisibleWrapper active={this.state.buttonsVisible} style={swipeButtonStyle()}>
+              <SwipeButton
+                displayName="Complete"
+                iconName={ICONS.checkmark}
+                onPress={this.completeTask}
+              />
+              <SwipeButton
+                displayName="Top"
+                iconName={ICONS.up_arrow}
+                onPress={this.topTask}
+              />
+              <SwipeButton
+                displayName="Subtask"
+                iconName={ICONS.checkmark}
+                onPress={this.openSubtaskModal}
+              />
+              <SwipeButton
+                displayName="Delete"
+                iconName={ICONS.trash}
+                onPress={this.deleteTask}
+              />
+            </ViewVisibleWrapper>
+            <ViewVisibleWrapper active={this.state.buttonsVisible} style={swipeButtonStyle(8)}>
+              <SwipeButton
+                displayName="Edit"
+                iconName={ICONS.edit}
+                onPress={this.editTask}
+              />
+              <SwipeButton
+                displayName="Date"
+                iconName={ICONS.calendar}
+                onPress={this.openDueDateModal}
+              />
+              <SwipeButton
+                displayName="Important"
+                iconName={ICONS.important}
+                onPress={this.markImportant}
+              />
+              <SwipeButton
+                displayName="Repeat"
+                iconName={ICONS.repeat}
+                onPress={this.openRepeatModal}
+              />
+            </ViewVisibleWrapper>
+            <ViewVisibleWrapper active={project}>
+              <Text style={projectStyle()}>Project: {project}</Text>
+            </ViewVisibleWrapper>
+            <ViewVisibleWrapper active={this.props.repeatType !== UTILS.repeatType.none}>
+              <Text style={projectStyle()}>
+                {
+                  this.props.repeatType === UTILS.repeatType.dfn ?
+                    'Repeat ' + this.props.repeatValue + ' days from now' :
+                    this.props.repeatType
+                }
               </Text>
             </ViewVisibleWrapper>
-            <ViewVisibleWrapper
-              style={unassignedDueDatesDivider()}
-              active={
-                !this.props.completed &&
-                this.props.renderDueDate &&
-                !dueDateToText &&
-                this.props.index !== 0
-              }
-            />
-            <Swipeable
-              key={this.props.taskID}
-              renderRightActions={(
-                progress,
-                dragX,
-                completeTask,
-                topTask,
-                manageTask,
-                openDueDateModal,
-                openSubtaskModal,
-                deleteTask,
-              ) => this.renderEditTaskSwipeButtons(
-                progress,
-                dragX,
-                () => this.completeTask(),
-                () => this.topTask(),
-                () => this.editTask(),
-                () => this.openDueDateModal(),
-                () => this.openSubtaskModal(),
-                () => this.deleteTask(),
-              )}
-              onSwipeableOpen={() => this.swipeOpen()}
-              onSwipeableClose={() => this.swipeClose()}>
-              <ViewVisibleWrapper active={project && !this.state.swipeOpen}>
-                <Text style={projectStyle()}>Project: {project}</Text>
-              </ViewVisibleWrapper>
-              <TouchableOpacity
-                style={innerContainerStyle(this.state.swipeOpen, this.state.showSubtask)}
-                onPress={this.openSubtask}
-                /*onLongPress={this.completeTask}*/>
+            <TouchableOpacity
+              style={innerContainerStyle()}
+              onPress={this.openButtons}>
               <Completion completed={this.props.completed} />
               <View style={descriptionContainerStyle()}>
                 <Text style={descriptionStyle(this.props.completed, this.props.important)}>{this.props.description}</Text>
@@ -443,26 +431,25 @@ class Task extends Component {
                 active={this.props.subtasks.length > 0}
                 style={subtaskMarkerStyle()}
               />
-              </TouchableOpacity>
-            </Swipeable>
+            </TouchableOpacity>
+            <ViewVisibleWrapper
+              active={this.state.buttonsVisible}
+              style={subtaskContainerStyle()}>
+              <FlatList
+                data={this.props.subtasks}
+                renderItem={({item, index}) => this.renderSubtask(
+                  item,
+                  index,
+                  () => this.completeSubtask(index),
+                  () => this.deleteSubtask(index),
+                  () => this.topSubtask(index),
+                )}
+                keyExtractor={(item, index) => index.toString()}
+                ItemSeparatorComponent={() => this.renderDivider()}
+                contentContainerStyle={listPaddingStyle()}
+              />
+            </ViewVisibleWrapper>
           </View>
-          <ViewVisibleWrapper
-            active={this.state.showSubtask}
-            style={subtaskContainerStyle()}>
-            <FlatList
-              data={this.props.subtasks}
-              renderItem={({item, index}) => this.renderSubtask(
-                item,
-                index,
-                () => this.completeSubtask(index),
-                () => this.deleteSubtask(index),
-                () => this.topSubtask(index),
-              )}
-              keyExtractor={(item, index) => index.toString()}
-              ItemSeparatorComponent={() => this.renderDivider()}
-              contentContainerStyle={listPaddingStyle()}
-            />
-          </ViewVisibleWrapper>
           <DateSelector
             dateString={DateUtils.convertDateToString({
               date: this.state.dueDate,
@@ -482,24 +469,49 @@ class Task extends Component {
             updateDescription={this.updateSubtaskDescription}
             addSubtask={this.addSubtask}
           />
+          <RepeatModal
+            visible={this.state.repeatModalVisible}
+            closeModal={this.closeModal}
+            selected={this.props.repeatType}
+            repeatValue={this.props.repeatValue}
+            updateRepeatValue={this.updateRepeatValue}
+            sundayPressed={() => this.updateRepeatType(UTILS.repeatType.sun)}
+            mondayPressed={() => this.updateRepeatType(UTILS.repeatType.mon)}
+            tuesdayPressed={() => this.updateRepeatType(UTILS.repeatType.tue)}
+            wednesdayPressed={() => this.updateRepeatType(UTILS.repeatType.wed)}
+            thursdayPressed={() => this.updateRepeatType(UTILS.repeatType.thu)}
+            fridayPressed={() => this.updateRepeatType(UTILS.repeatType.fri)}
+            saturdayPressed={() => this.updateRepeatType(UTILS.repeatType.sat)}
+            fomPressed={() => this.updateRepeatType(UTILS.repeatType.fom)}
+            lomPressed={() => this.updateRepeatType(UTILS.repeatType.lom)}
+            dfnPressed={() => this.updateRepeatType(UTILS.repeatType.dfn)}
+            yearPressed={() => this.updateRepeatType(UTILS.repeatType.year)}
+          />
         </View>
     );
   }
 }
 
-const containerStyle = () => {
+const containerStyle = (buttonsOpen) => {
   return {
     flex: 1,
+    borderWidth: buttonsOpen ? 1 : 0,
+    borderRadius: buttonsOpen ? 8 : 0,
+    padding: 0,
+    paddingTop: buttonsOpen ? 8 : 0,
+    borderColor: COLORS.primary[global.colorScheme],
+    paddingLeft: 4,
+    paddingRight: 4,
   };
 };
 
-const innerContainerStyle = (swipeOpen, subtaskVisible) => {
+const innerContainerStyle = () => {
   return {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingTop: swipeOpen ? 24 : 16,
-    paddingBottom: subtaskVisible ? 8 : 16,
+    paddingTop: 16,
+    paddingBottom: 16,
   };
 }
 
@@ -607,10 +619,11 @@ const swipeContainerStyle = () => {
   };
 };
 
-const swipeButtonStyle = () => {
+const swipeButtonStyle = (marginTop) => {
   return {
     flex: 1,
     flexDirection: 'row',
+    marginTop,
   };
 };
 
