@@ -444,6 +444,7 @@ class ProjectDB {
 
     realm.write(() => {
       project.description = description;
+      project.position = this.getTopPosition(realm.objects(SCHEMAS.project));
     });
   }
 
@@ -452,6 +453,7 @@ class ProjectDB {
 
     realm.write(() => {
       project.completed = !project.completed;
+      project.position = this.getTopPosition(realm.objects(SCHEMAS.project));
     });
   }
 
@@ -481,6 +483,7 @@ class ProjectDB {
       task.repeatValue = repeatValue;
       task.important = important;
       task.passive = passive;
+      task.position = this.getTopPosition(realm.objects(SCHEMAS.task));
     });
   }
 
@@ -840,6 +843,7 @@ class ProjectDB {
 
     realm.write(() => {
       project.deleted = true;
+      project.position = this.getTopPosition(realm.objects(SCHEMAS.project));
     });
   }
 
@@ -849,6 +853,7 @@ class ProjectDB {
 
     realm.write(() => {
       project.deleted = false;
+      project.position = this.getTopPosition(realm.objects(SCHEMAS.project));
     });
   }
 
@@ -857,6 +862,7 @@ class ProjectDB {
 
     realm.write(() => {
       task.deleted = false;
+      task.position = this.getTopPosition(realm.objects(SCHEMAS.task));
     });
   }
 
@@ -866,6 +872,7 @@ class ProjectDB {
 
     realm.write(() => {
       task.deleted = true;
+      task.position = this.getTopPosition(realm.objects(SCHEMAS.task));
     });
   }
 
