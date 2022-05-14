@@ -58,6 +58,7 @@ class ManageTask extends Component {
         subtaskModalVisible: false,
         subtaskDescription: '',
         stateHasChanged: false,
+        passive: task.passive
       };
     } else {
       this.state = {
@@ -80,6 +81,7 @@ class ManageTask extends Component {
         subtaskModalVisible: false,
         subtaskDescription: '',
         stateHasChanged: false,
+        passive: false,
       };
     }
 
@@ -88,6 +90,7 @@ class ManageTask extends Component {
     this.updateDescription = this.updateDescription.bind(this);
     this.completeTask = this.completeTask.bind(this);
     this.markImportant = this.markImportant.bind(this);
+    this.markPassive = this.markPassive.bind(this);
     this.updateTaskDueDate = this.updateTaskDueDate.bind(this);
     this.updateRepeatType = this.updateRepeatType.bind(this);
     this.editTask = this.editTask.bind(this);
@@ -201,6 +204,10 @@ class ManageTask extends Component {
     this.setState({important: !this.state.important, stateHasChanged: true});
   }
 
+  markPassive() {
+    this.setState({passive: !this.state.passive, stateHasChanged: true});
+  }
+
   updateTaskDueDate(dateObject) {
     const date = new Date(
       dateObject.year,
@@ -241,6 +248,7 @@ class ManageTask extends Component {
         repeatType: this.state.repeatType,
         repeatValue: this.state.repeatValue,
         important: this.state.important,
+        passive: this.state.passive,
       });
 
       Actions.pop();
@@ -334,16 +342,6 @@ class ManageTask extends Component {
                   editPressed={this.openDueDateModal}
                 />
               </View>
-              <View style={spacingStyle()} />
-              <View style={buttonContainerStyle()}>
-                <EditItemButton
-                  header="Mark Important"
-                  description={this.state.important ? 'Important' : 'Normal'}
-                  icon={ICONS.important}
-                  editPressed={this.markImportant}
-                  iconColorInactive={!this.state.important}
-                />
-              </View>
             </View>
             <View style={innerContainerStyle()}>
               <View style={buttonContainerStyle()}>
@@ -355,6 +353,27 @@ class ManageTask extends Component {
                   }
                   icon={ICONS.repeat}
                   editPressed={this.openRepeatModal}
+                />
+              </View>
+            </View>
+            <View style={innerContainerStyle()}>
+              <View style={buttonContainerStyle()}>
+                <EditItemButton
+                  header="Mark Passive"
+                  description={this.state.passive ? 'Passive' : 'Active'}
+                  icon={ICONS.important}
+                  editPressed={this.markPassive}
+                  iconColorInactive={!this.state.passive}
+                />
+              </View>
+              <View style={spacingStyle()} />
+              <View style={buttonContainerStyle()}>
+                <EditItemButton
+                  header="Mark Important"
+                  description={this.state.important ? 'Important' : 'Normal'}
+                  icon={ICONS.important}
+                  editPressed={this.markImportant}
+                  iconColorInactive={!this.state.important}
                 />
               </View>
             </View>

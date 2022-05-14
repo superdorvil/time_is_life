@@ -18,6 +18,7 @@ const TaskSchema = {
     repeatType: {type: 'string', default: 'none'},
     repeatValue: {type: 'int', default: 0},
     important: {type: 'bool', default: false},
+    passive: {type: 'bool', default: false}
   },
 };
 

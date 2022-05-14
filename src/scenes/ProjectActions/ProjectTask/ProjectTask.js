@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text} from 'react-native';
 import {Actions} from 'react-native-router-flux';
-import {ActionContainer, Task} from '_components';
+import {ActionContainer, Task, ViewVisibleWrapper} from '_components';
 import projectDB from '_data';
 import {ICONS} from '_constants';
 import {HoursUtils} from '_utils';
@@ -20,6 +20,7 @@ class ProjectTask extends Component {
     });
     let completed = 0;
     let active = 0;
+    let passive = 0;
     let completeButtonActive;
     let showCompleted;
 
@@ -30,11 +31,14 @@ class ProjectTask extends Component {
         } else {
           active++;
         }
+
+        if (task.passive) {
+          passive++;
+        }
       }
     });
 
     if (active + completed > 15) {
-      console.log('hey');
       if (active > 6) {
         completeButtonActive = true;
         showCompleted = false;
@@ -54,6 +58,7 @@ class ProjectTask extends Component {
       completeButtonActive,
       showCompleted,
       active,
+      passive,
       completed
     };
 
@@ -77,6 +82,7 @@ class ProjectTask extends Component {
       });
       let completed = 0;
       let active = 0;
+      let passive = 0;
 
       tasks.forEach((task, i) => {
         if (!task.deleted) {
@@ -85,13 +91,18 @@ class ProjectTask extends Component {
           } else {
             active++;
           }
+
+          if (task.passive) {
+            passive++;
+          }
         }
       });
 
       this.setState({
         tasks,
         completed,
-        active
+        active,
+        passive,
       });
       this.dueDatesToRender();
     });
@@ -198,6 +209,9 @@ class ProjectTask extends Component {
       topRightItem: (
         <View style={taskStatusStyle()}>
           <Text>Active Task: {this.state.active}</Text>
+          <ViewVisibleWrapper active={this.state.passive > 0}>
+            <Text>Passive Task: {this.state.passive}</Text>
+          </ViewVisibleWrapper>
           <Text>Completed Task: {this.state.completed}</Text>
         </View>
       ),

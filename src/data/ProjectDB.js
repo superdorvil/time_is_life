@@ -466,6 +466,7 @@ class ProjectDB {
     repeatType,
     repeatValue,
     important,
+    passive
   }) {
     const task = realm.objectForPrimaryKey(SCHEMAS.task, taskID);
 
@@ -479,6 +480,7 @@ class ProjectDB {
       task.repeatType = repeatType;
       task.repeatValue = repeatValue;
       task.important = important;
+      task.passive = passive;
     });
   }
 

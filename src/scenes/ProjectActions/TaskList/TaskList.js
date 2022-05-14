@@ -15,6 +15,7 @@ class TaskList extends Component {
     });
     let completed = 0;
     let active = 0;
+    let passive = 0;
     let completeButtonActive;
     let showCompleted;
 
@@ -24,6 +25,10 @@ class TaskList extends Component {
           completed++;
         } else {
           active++;
+        }
+
+        if (task.passive) {
+          passive++;
         }
       }
     });
@@ -47,6 +52,7 @@ class TaskList extends Component {
       completeButtonActive,
       showCompleted,
       active,
+      passive,
       completed
     };
 
@@ -60,6 +66,7 @@ class TaskList extends Component {
       });
       let completed = 0;
       let active = 0;
+      let passive = 0;
 
       tasks.forEach((task, i) => {
         if (!task.deleted) {
@@ -68,13 +75,18 @@ class TaskList extends Component {
           } else {
             active++;
           }
+
+          if (task.passive) {
+            passive++;
+          }
         }
       });
 
       this.setState({
         tasks,
         completed,
-        active
+        active,
+        passive
       });
       this.dueDatesToRender();
     });
@@ -168,6 +180,9 @@ class TaskList extends Component {
       topRightItem: (
         <View style={taskStatusStyle()}>
           <Text>Active Task: {this.state.active}</Text>
+          <ViewVisibleWrapper active={this.state.passive > 0}>
+            <Text>Passive Task: {this.state.passive}</Text>
+          </ViewVisibleWrapper>
           <Text>Completed Task: {this.state.completed}</Text>
         </View>
       ),

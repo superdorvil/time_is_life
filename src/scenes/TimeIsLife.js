@@ -32,7 +32,7 @@ class TimeIsLife extends Component {
         WeeklyGoalSchema,
         SubtaskSchema,
       ],
-      schemaVersion: 8,
+      schemaVersion: 10,
       migration: (oldRealm, newRealm) => {
         projectDB.runMigrations({oldRealm, newRealm});
       },
@@ -63,9 +63,10 @@ class TimeIsLife extends Component {
       this.state.settings.removeAllListeners();
     }
 
-    if (realm !== null && !realm.isClosed) {
-      realm.close();
-    }
+    //if (realm !== null && !realm.isClosed) {
+      //realm.close();
+      // Only close when you want a new schema
+    //}
 
     // Nulls State removing memory leak error state update on unmounted comp
     this.setState = (state, callback) => {
