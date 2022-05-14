@@ -118,11 +118,10 @@ class ProjectTask extends Component {
   }
 
   addPressed() {
-  /*  Actions.manageTask({
+    Actions.manageTask({
       realm: this.props.realm,
       projectID: this.state.project.id,
-    });*/
-    console.log(this.state.completeButtonActive)
+    });
   }
 
   dueDatesToRender() {
