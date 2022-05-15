@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text} from 'react-native';
 import {Actions} from 'react-native-router-flux';
-import {ActionContainer, Task} from '_components';
+import {ActionContainer, Task, ViewVisibleWrapper} from '_components';
 import projectDB from '_data';
 import {ICONS} from '_constants';
 import {HoursUtils, DateUtils} from '_utils';
