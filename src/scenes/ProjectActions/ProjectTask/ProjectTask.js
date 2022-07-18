@@ -209,9 +209,6 @@ class ProjectTask extends Component {
       topRightItem: (
         <View style={taskStatusStyle()}>
           <Text>Active Task: {this.state.active}</Text>
-          <ViewVisibleWrapper active={this.state.passive > 0}>
-            <Text>Passive Task: {this.state.passive}</Text>
-          </ViewVisibleWrapper>
           <Text>Completed Task: {this.state.completed}</Text>
         </View>
       ),
